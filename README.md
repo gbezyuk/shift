@@ -11,9 +11,9 @@ For python virtual env use
 $ ./virtualenv_setup.sh
 ```
 
-For builout configuration use
+For buildout configuration use
 ```bash
-$ ./builout_setup.sh
+$ ./buildout_setup.sh
 ```
 
 Packages included by default
