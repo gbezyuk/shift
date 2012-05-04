@@ -11,3 +11,6 @@ pip install django-grappelli
 pip install django-filebrowser
 pip install django-rosetta
 pip install PIL
+pip install django-mptt
+pip install feincms
+pip install django-pagination
