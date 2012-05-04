@@ -1,0 +1,36 @@
+- extends 'html5_empty.haml'
+- load i18n
+
+- block sitewide_styles
+    %link{'rel': 'stylesheet', 'href':'{{ MEDIA_URL }}bootstrap/css/bootstrap.min.css', 'type': 'text/css'}
+    %link{'rel': 'stylesheet', 'href':'{{ MEDIA_URL }}css/bootstrap-tuning.css', 'type': 'text/css'}
+
+- block sitewide_scripts
+    %script{'type': 'text/javascript', 'src': '{{ MEDIA_URL }}js/jquery/jquery-1.7.2.min.js'}
+    %script{'type': 'text/javascript', 'src': '{{ MEDIA_URL }}bootstrap/js/bootstrap.min.js'}
+
+- block body
+    .navbar.navbar-fixed-top
+        .navbar-inner
+            .container
+                %a.brand{'href': '/'}
+                    Django App Skeleton, Twitter Bootstrap version
+                .nav-collapse
+                    %ul.nav
+                        %li
+                            %a{'href': '{% url home %}'}
+                                {% trans "Home page" %}
+    .container.main_container
+        - block breadcrumbs
+        - if messages
+            - for message in messages
+                %div{'class': 'alert alert-{{ message.tags }}'}
+                    = message
+        %h1.page_caption
+            - block page_caption
+        - block content
+
+        %footer.footer
+            %p.pull-right
+                %a{'href': "#"}
+                    {% trans "Back to top" %}
