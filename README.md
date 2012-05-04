@@ -5,11 +5,14 @@ This is merely my daily [`django`](https://djangoproject.com/ "Django Project si
 Both virtualenv and buildout approaches available
 -------------------------------------------------
 You can use both *buildout* and *virtualenv* approach with this skeleton.
+
+For python virtual env use
 ```bash
-$ # for python virtual env use
 $ ./virtualenv_setup.sh
-$
-$ # for builout configuration use
+```
+
+For builout configuration use
+```bash
 $ ./builout_setup.sh
 ```
 
