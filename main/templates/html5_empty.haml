@@ -1,0 +1,32 @@
+!!! 5
+
+%html{'lang':'{% block site_language %}ru{% endblock %}'}
+
+	- block head
+		%head
+			- block meta
+				%meta{'charset':'{% block meta_charset %}utf-8{% endblock %}'}
+				%meta{'name':'viewport', content:'{% block meta_viewport %}width=device-width, initial-scale=1.0{% endblock %}'}
+				%meta{'name':'author', content:'{% block meta_author %}http://fenix.vk.com{% endblock %}'}
+				%meta{'name':'description', content:'{% block meta_description %}{% endblock %}'}
+				%meta{'name':'keywords', content:'{% block meta_keywords %}{% endblock %}'}
+
+			%title
+				- block title
+
+			- block favicon
+
+			- block styles
+				- block sitewide_styles
+				- block page_styles
+				- block additional_styles
+				- block user_styles
+
+			- block scripts
+				- block sitewide_scripts
+				- block additional_scripts
+				- block page_scripts
+				- block user_scripts
+				- block counters
+
+	- block body
