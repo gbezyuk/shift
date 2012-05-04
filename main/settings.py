@@ -1,7 +1,6 @@
 import os
 
-PROJECT_ROOT_PATH = os.path.abspath('.')
-#BASE_PATH = os.path.dirname(os.path.dirname(__file__))
+PROJECT_ROOT_PATH = os.path.dirname(os.path.dirname(__file__)) + '/'
 MEDIA_ROOT = PROJECT_ROOT_PATH + 'media/'
 STATIC_ROOT = PROJECT_ROOT_PATH + 'static/'
 
