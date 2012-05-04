@@ -25,3 +25,7 @@ Packages included by default
 * `django_jenkins` for jenkins CI server integration
 * `djaml` for HAML template syntax
 
+Layout versions
+---------------
+*twitter_bootstrap* branch uses the [Twitter Bootstrap](http://twitter.github.com/bootstrap/) theme.
+[JQuery](jquery.com) and [HtmlShim](code.google.com/p/html5shim/) scripts are also used.
