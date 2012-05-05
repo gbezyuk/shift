@@ -2,6 +2,10 @@ virtualenv env
 source env/bin/activate # --upgrade
 pip install django # --upgrade
 
+pip install django-model-utils # --upgrade
+
+pip install django-modeltranslation # --upgrade
+
 pip install djaml # --upgrade
 pip install hamlpy # --upgrade
 pip install pygments # --upgrade

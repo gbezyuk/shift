@@ -1,19 +1,37 @@
+# -*- coding: utf-8 -*-
 import os
 
+# paths
 PROJECT_ROOT_PATH = os.path.dirname(os.path.dirname(__file__)) + '/'
 MEDIA_ROOT = PROJECT_ROOT_PATH + 'media/'
 STATIC_ROOT = PROJECT_ROOT_PATH + 'static/'
 
-ROOT_URLCONF = 'main.urls'
-
+# i18n
 TIME_ZONE = 'Europe/Moscow'
 LANGUAGE_CODE = 'ru-ru'
 USE_I18N = True
 USE_L10N = True
+
+# modeltranslation settings
+LANGUAGES = (
+    ('en', 'English'),
+    ('ru', 'Русский'),
+    ('de', 'Deutch'),
+    ('es', 'Español'),
+    ('fr', 'Français'),
+    )
+LANGUAGE_CODE = 'en'
+MODEL_I18N_CONF = 'i18n_conf'
+MODELTRANSLATION_DEFAULT_LANGUAGE = LANGUAGE_CODE
+MODELTRANSLATION_TRANSLATION_REGISTRY = 'doppler.translation' #dunno what is it
+
 SITE_ID = 1
+
+ROOT_URLCONF = 'main.urls'
 
 SECRET_KEY = '0q^^#b-w#ae@i%h$da%chx@3ldu52c5%6v)_fiaorkl+4#r%=1'
 
+# static and media urls
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'grappelli/'
@@ -34,10 +52,13 @@ INSTALLED_APPS = (
     'djaml',
     'django_coverage',
     'django_jenkins',
+    'modeltranslation',
     'main',
+    'doppler',
     'doppler.shift.catalog',
 )
 
+# django_jenkins apps list
 PROJECT_APPS = (
 )
 
@@ -88,19 +109,20 @@ LOGGING = {
     }
 }
 
-ACCOUNT_ACTIVATION_DAYS = 2
-EMAIL_HOST = 'localhost'
-DEFAULT_FROM_EMAIL = 'gbezyuk@gmail.com'
-LOGIN_REDIRECT_URL = '/'
-#LOGIN_URL = '/accounts/auth/login/'
+# registration and authorization settings
+#ACCOUNT_ACTIVATION_DAYS = 2
+#EMAIL_HOST = 'localhost'
+#DEFAULT_FROM_EMAIL = 'gbezyuk@gmail.com'
+#LOGIN_REDIRECT_URL = '/'
+##LOGIN_URL = '/accounts/auth/login/'
 
-
+# grappelli settings
 GRAPPELLI_ADMIN_TITLE = "Admin site area"
 #GRAPPELLI_INDEX_DASHBOARD = 'tulius.grappelli_dashboard.CustomIndexDashboard'
 
+# filebrowser settings
 FILEBROWSER_DIRECTORY = 'uploads/'
 FILEBROWSER_VERSIONS_BASEDIR = 'uploads_versions/'
-
 FILEBROWSER_VERSIONS = {
 	'40x40': {
 		'verbose_name':     u'40x40',
@@ -127,14 +149,7 @@ FILEBROWSER_VERSIONS = {
 		'opts':             '',
 	},
 }
-
-FILEBROWSER_ADMIN_VERSIONS = [
-	'40x40',
-	'80x80',
-	'200x200',
-	'800x800',
-]
-
+FILEBROWSER_ADMIN_VERSIONS = ['40x40', '80x80', '200x200', '800x800',]
 FILEBROWSER_ADMIN_THUMBNAIL = '80x80'
 FILEBROWSER_STRICT_PIL = True
 FILEBROWSER_SEARCH_TRAVERSE = True
