@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+from django.utils.translation import ugettext_lazy as _
 
 # paths
 PROJECT_ROOT_PATH = os.path.dirname(os.path.dirname(__file__)) + '/'
@@ -8,19 +9,18 @@ STATIC_ROOT = PROJECT_ROOT_PATH + 'static/'
 
 # i18n
 TIME_ZONE = 'Europe/Moscow'
-LANGUAGE_CODE = 'ru-ru'
 USE_I18N = True
 USE_L10N = True
 
 # modeltranslation settings
 LANGUAGES = (
-    ('en', 'English'),
-    ('ru', 'Русский'),
-    ('de', 'Deutch'),
-    ('es', 'Español'),
-    ('fr', 'Français'),
+    ('en', _('English')),
+    ('ru', _('Russian')),
+#    ('de', _('Deutch')),
+#    ('es', _('Español')),
+#    ('fr', _('Français')),
     )
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'ru'
 MODEL_I18N_CONF = 'i18n_conf'
 MODELTRANSLATION_DEFAULT_LANGUAGE = LANGUAGE_CODE
 MODELTRANSLATION_TRANSLATION_REGISTRY = 'doppler.translation' #dunno what is it

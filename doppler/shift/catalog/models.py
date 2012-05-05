@@ -32,7 +32,7 @@ class Category(MPTTModel):
     class Meta:
         verbose_name = _('category')
         verbose_name_plural = _('categories')
-        ordering = ['tree_id', 'lft'] # ordering like that is a django-mptt requirement, as far as I know @gb
+        ordering = ['tree_id', 'lft'] # feincms TreeEditor needs this ordering definition
     name = models.CharField(max_length=255, verbose_name=_('name'))
     description = models.TextField(null=True, blank=True, verbose_name=_('description'))
     enabled = models.BooleanField(default=True, verbose_name=_('enabled'))
