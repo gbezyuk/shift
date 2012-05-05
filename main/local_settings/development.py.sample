@@ -1,0 +1,11 @@
+from ..settings import *
+
+DEBUG = True
+TEMPLATE_DEBUG = True
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': PROJECT_ROOT_PATH + 'dev.sqlite3',
+    }
+}

@@ -1,7 +1,7 @@
 *.log
 *.pot
 *.pyc
-main/local_settings
+main/local_settings/*.py
 env
 mail_dump
 reports

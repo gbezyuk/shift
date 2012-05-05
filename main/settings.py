@@ -35,6 +35,7 @@ INSTALLED_APPS = (
     'django_coverage',
     'django_jenkins',
     'main',
+    'doppler.shift.catalog',
 )
 
 PROJECT_APPS = (

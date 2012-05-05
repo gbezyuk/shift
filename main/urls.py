@@ -13,8 +13,9 @@ urlpatterns = patterns('',
     url(r'^admin/filebrowser/', include(site.urls)),
     url(r'^admin/rosetta/', include('rosetta.urls')),
     url(r'^grappelli/', include('grappelli.urls')),
-	url(r'^admin/', include(admin.site.urls)),
-	url(r'^$', HomeView.as_view(), name='home'),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', HomeView.as_view(), name='home'),
+    url(r'^', include('doppler.shift.urls')),
 )
 
 if settings.DEBUG:
