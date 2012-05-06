@@ -1,4 +1,5 @@
 - extends 'doppler/shift/catalog/base.haml'
 
 - block content
-    catalog index
+    - for category in root_categories
+        = category.name

@@ -7,6 +7,7 @@ Part: View-related Tests
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from .models import Category
+from .factories import CategoryFactory
 
 class CatalogTestCase(TestCase):
     """
@@ -14,11 +15,10 @@ class CatalogTestCase(TestCase):
     """
 
     def setUp(self):
-        #TODO: factory_boy-based categories. Root categories at first.
-        pass
-
-    def get_root_categories(self):
-        return Category.root_visible.all()
+        self.root_category_enabled = CategoryFactory()
+        self.child_category_enabled = CategoryFactory(parent=self.root_category_enabled)
+        self.root_category_disabled= CategoryFactory(enabled=False)
+        self.child_category_disabled = CategoryFactory(parent=self.root_category_disabled, enabled=False)
 
     def test_index_page(self):
         """
@@ -27,5 +27,5 @@ class CatalogTestCase(TestCase):
         resp = self.client.get(reverse('doppler_shift_catalog_index'))
         self.assertEqual(resp.status_code, 200)
         self.assertTrue('root_categories' in resp.context)
-        self.assertEqual([category.pk for category in resp.context['root_categories']],
-            [category.pk for category in self.get_root_categories()])
+        self.assertEquals([category.pk for category in resp.context['root_categories']],
+            [category.pk for category in Category.enabled_root.all()])
