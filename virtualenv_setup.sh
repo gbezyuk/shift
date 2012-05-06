@@ -26,5 +26,7 @@ pip install django-pagination # --upgrade
 pip install factory_boy # --upgrade
 pip install webtest # --upgrade
 pip install django_webtest # --upgrade
+pip install pylint # --upgrade
 pip install django_jenkins # --upgrade
+pip install coverage # --upgrade
 pip install django_coverage # --upgrade

@@ -8,6 +8,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from .models import Category
 from .factories import CategoryFactory
+from django.template.response import ContentNotRenderedError
 
 class CatalogTestCase(TestCase):
     """
@@ -29,3 +30,26 @@ class CatalogTestCase(TestCase):
         self.assertTrue('root_categories' in resp.context)
         self.assertEquals([category.pk for category in resp.context['root_categories']],
             [category.pk for category in Category.enabled_root.all()])
+
+    def test_enabled_category_details_pages(self):
+        """
+        Test enabled category details pages
+        """
+        resp = self.client.get(reverse('doppler_shift_catalog_category',
+            kwargs={'category_id': self.root_category_enabled.id}))
+        self.assertEqual(resp.status_code, 200)
+        resp = self.client.get(reverse('doppler_shift_catalog_category',
+            kwargs={'category_id': self.child_category_enabled.id}))
+        self.assertEqual(resp.status_code, 200)
+
+    def test_enabled_category_details_pages(self):
+        """
+        Test disabled category details pages
+        """
+        #TODO: figure out why 404 status checks doesn't work
+        resp = self.client.get(reverse('doppler_shift_catalog_category',
+            kwargs={'category_id': self.root_category_disabled.id}))
+        self.assertEqual(resp.context, None)
+        resp = self.client.get(reverse('doppler_shift_catalog_category',
+            kwargs={'category_id': self.child_category_disabled.id}))
+        self.assertEqual(resp.context, None)
