@@ -8,23 +8,29 @@ recipe = djangorecipe
 settings = development
 versions = versions
 eggs =
-	south
-	django-grappelli
-	django-filebrowser
-	django-rosetta
-	ipython
-	django-mptt
-	feincms
+        django-model-utils
+        django-modeltranslation
+        PIL
+        south
+        django-grappelli
+        django-filebrowser
+        django-rosetta
+        ipython
+        django-mptt
+        feincms
 
-	pygments
-    hamlpy
-	djaml
+        pygments
+        hamlpy
+        djaml
 
-	webtest
-	django-webtest
-	django-coverage
-    django_any
-    django_jenkins
+        webtest
+        django-webtest
+        django-coverage
+        factory_boy
+        pylint
+        django_any
+        django_jenkins
+        coverage
 
 project = main
 
