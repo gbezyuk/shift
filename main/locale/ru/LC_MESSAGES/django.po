@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-07 16:36+0400\n"
-"PO-Revision-Date: 2012-05-07 16:36\n"
+"POT-Creation-Date: 2012-05-07 17:09+0400\n"
+"PO-Revision-Date: 2012-05-07 17:11\n"
 "Last-Translator:   <root@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: settings.py:17
 msgid "English"
-msgstr "Английски"
+msgstr "Английский"
 
 #: settings.py:18
 msgid "Russian"
@@ -33,7 +33,7 @@ msgstr "Магазин Western"
 
 #: templates/base.haml:22
 msgid "Home page"
-msgstr "Домашняя страница"
+msgstr "Главная страница"
 
 #: templates/base.haml:25
 msgid "To admin"
@@ -45,18 +45,20 @@ msgstr "Вернуться к началу страницы"
 
 #: templates/home.haml:7
 msgid "To access admin interface click the link above and use "
-msgstr "Для доступа к админке кликните на ссылку в шапке сайта и используйте"
+msgstr ""
+"Для доступа к административному интерфейсу кликните по ссылке выше и "
+"используйте"
 
 #: templates/home.haml:7
 msgid "login/password pair"
-msgstr "как логин/пароль"
+msgstr "в качестве логина/пароля"
 
 #: templates/home.haml:8
 msgid "Theming is default yet."
-msgstr "Оформление сайта пока стандартное."
+msgstr "Тема формления сайта пока стандартная"
 
 #: templates/home.haml:9
 msgid "Text bellow is merely page filling, don't keep in mind"
 msgstr ""
-"Текст ниже - просто \"рыба\", заливка для проверки отображения шрифтов. Не "
-"берите в голову."
+"Нижеследующий текст - всего лишь \"рыба\", заливка страницы для тестирования"
+" отображения текста в различных режимах. Не берите в голову."

@@ -43,8 +43,8 @@ class Image(models.Model):
         #TODO: cover with tests
         if object.images.filter(enabled=True, priority=True).exists():
             return object.images.filter(enabled=True, priority=True).order_by('?')[0]
-        elif object.images.all().exists():
-            return object.images.all(enabled=True).order_by('?')[0]
+        elif object.images.filter(enabled=True).exists():
+            return object.images.filter(enabled=True).order_by('?')[0]
         return None
 
 class Category(MPTTModel):
