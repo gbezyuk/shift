@@ -4,12 +4,15 @@ Product: Shift e-commerce engine
 Module: Catalog
 Part: Models implementation
 """
+from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models.aggregates import Min
 from django.utils.translation import ugettext_lazy as _
 from mptt.models import MPTTModel
 from .managers import EnabledTreeManager, EnabledRootManager
 from django.conf import settings
+from filebrowser.fields import FileBrowseField
 
 try:
     MULTIPLE_CATEGORIES = settings.DOPPLER_SHIFT_CATALOG_PRODUCT_MULTIPLE_CATEGORIES
@@ -19,6 +22,30 @@ try:
     MULTIPLE_PRICES = settings.DOPPLER_SHIFT_CATALOG_PRODUCT_MULTIPLE_PRICES
 except AttributeError:
     MULTIPLE_PRICES = False
+
+class Image(models.Model):
+    title = models.CharField(max_length=500, unique=False, blank=True, null=True, verbose_name=_('title'))
+    enabled = models.BooleanField(default=True, verbose_name=_('enabled'))
+    priority = models.BooleanField(default=False, verbose_name=_('priority'))
+    image = FileBrowseField(max_length=500, extensions=[".jpeg", ".jpg",".png", ".gif"], blank=False, null=False, verbose_name=_('image'))
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    content_object = generic.GenericForeignKey('content_type', 'object_id')
+
+    class Meta:
+        verbose_name = _('image')
+        verbose_name_plural = _('images')
+        ordering = ['title']
+
+    @classmethod
+    def get_main_image_for_object(cls, object):
+        #TODO: rewrite with better generic fields usage
+        #TODO: cover with tests
+        if object.images.filter(enabled=True, priority=True).exists():
+            return object.images.filter(enabled=True, priority=True).order_by('?')[0]
+        elif object.images.all().exists():
+            return object.images.all(enabled=True).order_by('?')[0]
+        return None
 
 class Category(MPTTModel):
     """
@@ -33,6 +60,10 @@ class Category(MPTTModel):
     description = models.TextField(null=True, blank=True, verbose_name=_('description'))
     enabled = models.BooleanField(default=True, verbose_name=_('enabled'))
     parent = models.ForeignKey('self', null=True, blank=True, related_name='children', verbose_name=_('parent'))
+    images = generic.GenericRelation(Image, verbose_name=_('images'), blank=True, null=True)
+    @property
+    def main_image(self):
+        return Image.get_main_image_for_object(self)
     created = models.DateTimeField(auto_now_add = True, verbose_name = _('created'))
     modified = models.DateTimeField(auto_now = True, verbose_name = _('modified'))
 
@@ -54,6 +85,10 @@ class Product(models.Model):
     name = models.CharField(max_length=255, verbose_name=_('name'))
     description = models.TextField(null=True, blank=True, verbose_name=_('description'))
     enabled = models.BooleanField(default=True, verbose_name=_('enabled'))
+    images = generic.GenericRelation(Image, verbose_name=_('images'), blank=True, null=True)
+    @property
+    def main_image(self):
+        return Image.get_main_image_for_object(self)
     created = models.DateTimeField(auto_now_add = True, verbose_name = _('created'))
     modified = models.DateTimeField(auto_now = True, verbose_name = _('modified'))
 

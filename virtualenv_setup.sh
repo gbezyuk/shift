@@ -1,6 +1,6 @@
-virtualenv env
+virtualenv env --system-site-packages
 source env/bin/activate # --upgrade
-pip install django # --upgrade
+pip install django==1.4 # --upgrade
 
 pip install django-model-utils # --upgrade
 
