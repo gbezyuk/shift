@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-07 16:30+0400\n"
-"PO-Revision-Date: 2012-05-07 16:31\n"
+"POT-Creation-Date: 2012-05-07 16:36+0400\n"
+"PO-Revision-Date: 2012-05-07 16:36\n"
 "Last-Translator:   <root@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,10 @@ msgstr "Английски"
 msgid "Russian"
 msgstr "Русский"
 
+#: templates/base.haml:17 templates/home.haml:6
+msgid "Western Shop"
+msgstr "Магазин Western"
+
 #: templates/base.haml:22
 msgid "Home page"
 msgstr "Домашняя страница"
@@ -39,19 +43,19 @@ msgstr "В админку"
 msgid "Back to top"
 msgstr "Вернуться к началу страницы"
 
-#: templates/home.haml:5
+#: templates/home.haml:7
 msgid "To access admin interface click the link above and use "
 msgstr "Для доступа к админке кликните на ссылку в шапке сайта и используйте"
 
-#: templates/home.haml:5
+#: templates/home.haml:7
 msgid "login/password pair"
 msgstr "как логин/пароль"
 
-#: templates/home.haml:6
+#: templates/home.haml:8
 msgid "Theming is default yet."
 msgstr "Оформление сайта пока стандартное."
 
-#: templates/home.haml:7
+#: templates/home.haml:9
 msgid "Text bellow is merely page filling, don't keep in mind"
 msgstr ""
 "Текст ниже - просто \"рыба\", заливка для проверки отображения шрифтов. Не "
