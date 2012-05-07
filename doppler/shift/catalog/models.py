@@ -94,4 +94,7 @@ if MULTIPLE_PRICES:
 
         @classmethod
         def get_minimal_enabled_price_for_product(cls, product):
+            """
+            Returns minimal enabled price value on set of prices related to provided product
+            """
             return product.prices.filter(enabled=True).aggregate(Min('value'))['value__min']

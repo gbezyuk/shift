@@ -6,7 +6,6 @@ Part: Model-related Tests
 """
 from django.core.urlresolvers import reverse
 from django.test import TestCase
-from django_any import any_model
 from .factories import CategoryFactory, ProductFactory
 from ..models import Category, Product, Price, MULTIPLE_PRICES
 
