@@ -30,3 +30,4 @@ pip install pylint # --upgrade
 pip install django_jenkins # --upgrade
 pip install coverage # --upgrade
 pip install django_coverage # --upgrade
+pip install django_any # --upgrade
