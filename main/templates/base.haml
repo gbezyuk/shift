@@ -14,12 +14,15 @@
         .navbar-inner
             .container
                 %a.brand{'href': '/'}
-                    Django App Skeleton, Twitter Bootstrap version
+                    WildPlanet.Ru - {% trans "Wild Planet" %}
                 .nav-collapse
                     %ul.nav
                         %li
                             %a{'href': '{% url home %}'}
                                 {% trans "Home page" %}
+                        %li
+                            %a{'href': '/admin/'}
+                                {% trans "To admin" %}
     .container.main_container
         - block breadcrumbs
         - if messages
