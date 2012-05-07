@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-05 22:40+0400\n"
-"PO-Revision-Date: 2012-05-05 22:42\n"
+"POT-Creation-Date: 2012-05-07 13:29+0400\n"
+"PO-Revision-Date: 2012-05-07 13:29\n"
 "Last-Translator:   <root@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,42 +19,83 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 "X-Translated-Using: django-rosetta 0.6.6\n"
 
-#: shift/catalog/models.py:16
-msgid "product"
-msgstr "товар"
+#: shift/catalog/admin.py:31 shift/catalog/models.py:74
+#: shift/catalog/models.py:86
+msgid "price"
+msgstr "цена"
 
-#: shift/catalog/models.py:17
-msgid "products"
-msgstr "товары"
+#: shift/catalog/admin.py:36
+msgid "lot"
+msgstr "артикул"
 
-#: shift/catalog/models.py:19 shift/catalog/models.py:36
-msgid "name"
-msgstr "наименование"
-
-#: shift/catalog/models.py:20 shift/catalog/models.py:37
-msgid "description"
-msgstr "описание"
-
-#: shift/catalog/models.py:21 shift/catalog/models.py:38
+#: shift/catalog/admin.py:40 shift/catalog/models.py:34
+#: shift/catalog/models.py:56 shift/catalog/models.py:91
 msgid "enabled"
 msgstr "включено"
 
-#: shift/catalog/models.py:22 shift/catalog/models.py:40
-msgid "created"
-msgstr "создано"
-
-#: shift/catalog/models.py:23 shift/catalog/models.py:41
-msgid "modified"
-msgstr "изменено"
-
-#: shift/catalog/models.py:33
+#: shift/catalog/models.py:28 shift/catalog/models.py:66
 msgid "category"
 msgstr "категория"
 
-#: shift/catalog/models.py:34
+#: shift/catalog/models.py:29 shift/catalog/models.py:63
 msgid "categories"
 msgstr "категории"
 
-#: shift/catalog/models.py:39
+#: shift/catalog/models.py:32 shift/catalog/models.py:54
+msgid "name"
+msgstr "наименование"
+
+#: shift/catalog/models.py:33 shift/catalog/models.py:55
+msgid "description"
+msgstr "описание"
+
+#: shift/catalog/models.py:35
 msgid "parent"
 msgstr "родитель"
+
+#: shift/catalog/models.py:36 shift/catalog/models.py:57
+msgid "created"
+msgstr "создано"
+
+#: shift/catalog/models.py:37 shift/catalog/models.py:58
+msgid "modified"
+msgstr "изменено"
+
+#: shift/catalog/models.py:50 shift/catalog/models.py:90
+msgid "product"
+msgstr "товар"
+
+#: shift/catalog/models.py:51
+msgid "products"
+msgstr "товары"
+
+#: shift/catalog/models.py:87
+msgid "prices"
+msgstr "цены"
+
+#: shift/catalog/models.py:92
+msgid "value"
+msgstr "величина"
+
+#: shift/catalog/models.py:93
+msgid "note"
+msgstr "пометка"
+
+#: templates/admin/feincms/catalog/category/tree_editor.html:32
+msgid "Shortcuts"
+msgstr "Ярлыки"
+
+#: templates/admin/feincms/catalog/category/tree_editor.html:34
+msgid "Collapse tree"
+msgstr "Свернуть дерево"
+
+#: templates/admin/feincms/catalog/category/tree_editor.html:35
+msgid "Expand tree"
+msgstr "Развернуть дерево"
+
+#: templates/admin/feincms/catalog/category/tree_editor.html:38
+msgid "Filter"
+msgstr "Фильтр"
+
+#~ msgid "id"
+#~ msgstr "артикул"
