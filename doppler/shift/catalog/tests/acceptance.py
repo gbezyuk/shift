@@ -46,3 +46,32 @@ class IndexPageTest(WebTest):
             reverse('doppler_shift_catalog_category', kwargs={'category_id': self.root_category_disabled.id}))
         self.assertRaises(ContentNotRenderedError, self.app.get,
             reverse('doppler_shift_catalog_category', kwargs={'category_id': self.child_category_disabled.id}))
+
+class CategoryPageTest(WebTest):
+    """
+    Catalog category page acceptance test
+    """
+    def setUp(self):
+        self.root_category_enabled = CategoryFactory()
+        self.child_category_enabled = CategoryFactory(parent=self.root_category_enabled)
+        self.root_category_disabled= CategoryFactory(enabled=False)
+        self.child_category_disabled = CategoryFactory(parent=self.root_category_disabled, enabled=False)
+
+    def test_root_category_view(self):
+        """
+        Test root category page opens with Http 200 OK status and contain proper insides
+        """
+        page = self.app.get(reverse('doppler_shift_catalog_category', kwargs={'category_id': self.root_category_enabled.pk}))
+        self.assertEqual(page.status, '200 OK')
+        self.assertIn(self.root_category_enabled.name, page)
+        self.assertIn(self.child_category_enabled.name, page)
+        self.assertIn(self.child_category_enabled.get_absolute_url(), page)
+
+    def test_child_category_view(self):
+        """
+        Test child category page opens with Http 200 OK status and contain proper insides
+        """
+        page = self.app.get(reverse('doppler_shift_catalog_category', kwargs={'category_id': self.child_category_enabled.pk}))
+        self.assertEqual(page.status, '200 OK')
+        self.assertIn(self.child_category_enabled.name, page)
+

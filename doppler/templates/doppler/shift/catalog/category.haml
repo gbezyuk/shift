@@ -1,4 +1,13 @@
 - extends 'doppler/shift/catalog/base.haml'
+- load i18n
 
 - block content
     = category.name
+    - if subcategories
+        - with categories=subcategories
+            - include 'doppler/shift/catalog/snippets/category_list.haml'
+    - if products
+        - include 'doppler/shift/catalog/snippets/product_list.haml'
+    - if not products and not subcategories
+        %p.alert.alert-info
+            {% trans "This category is empty" %}

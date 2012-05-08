@@ -22,7 +22,13 @@ def category(request, category_id, template_name='doppler/shift/catalog/category
     Catalog category details page view. Contains category details and its subcategories and products.
     """
     category = get_object_or_404(Category, pk=category_id, enabled=True)
+    products = category.enabled_products
+    subcategories = category.children.filter(enabled=True)
     return render_to_response(
         template_name,
-            {'category': category},
+        {
+            'category': category,
+            'products': products,
+            'subcategories': subcategories,
+        },
         context_instance=RequestContext(request))

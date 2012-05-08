@@ -40,7 +40,6 @@ class Image(models.Model):
     @classmethod
     def get_main_image_for_object(cls, object):
         #TODO: rewrite with better generic fields usage
-        #TODO: cover with tests
         if object.images.filter(enabled=True, priority=True).exists():
             return object.images.filter(enabled=True, priority=True).order_by('?')[0]
         elif object.images.filter(enabled=True).exists():
@@ -70,8 +69,16 @@ class Category(MPTTModel):
     enabled_tree = EnabledTreeManager()
     enabled_root = EnabledRootManager()
 
+    @property
+    def enabled_products(self):
+        return self.products.filter(enabled=True)
+
     def __unicode__(self):
         return self.name
+
+    @models.permalink
+    def get_absolute_url(self):
+        return 'doppler_shift_catalog_category', (), {'category_id': self.pk}
 
 class Product(models.Model):
     """

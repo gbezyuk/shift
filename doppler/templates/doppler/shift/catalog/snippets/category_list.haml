@@ -1,0 +1,5 @@
+%ul.categories.thumbnails
+    - for category in categories
+        %li.thumbnail
+            %a{'href': '{{ category.get_absolute_url }}'}
+                = category.name
