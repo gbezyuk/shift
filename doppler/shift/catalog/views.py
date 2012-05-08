@@ -6,7 +6,7 @@ Part: Views implementation
 """
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
-from .models import Category
+from .models import Category, Product
 
 def index(request, template_name='doppler/shift/catalog/index.haml'):
     """
@@ -31,4 +31,18 @@ def category(request, category_id, template_name='doppler/shift/catalog/category
             'products': products,
             'subcategories': subcategories,
         },
+        context_instance=RequestContext(request))
+
+def product(request, product_id, template_name='doppler/shift/catalog/product.haml'):
+    """
+    Catalog product details page view. Contains product details
+    """
+    product = get_object_or_404(Product, pk=product_id, category__isnull=False, category__enabled=True, enabled=True)
+    category = product.category
+    return render_to_response(
+        template_name,
+            {
+            'category': category,
+            'product': product,
+            },
         context_instance=RequestContext(request))

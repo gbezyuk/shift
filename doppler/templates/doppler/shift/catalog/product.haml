@@ -1,0 +1,9 @@
+- extends 'doppler/shift/catalog/base.haml'
+- load i18n
+
+- block content
+    .hero-unit
+        %h1
+            = product.name
+        - if product.description
+            = product.description|safe

@@ -118,6 +118,10 @@ class Product(models.Model):
     def __unicode__(self):
         return self.name
 
+    @models.permalink
+    def get_absolute_url(self):
+        return 'doppler_shift_catalog_product', (), {'product_id': self.pk}
+
 # pricing strategy may differ depending on current store
 if MULTIPLE_PRICES:
     class Price(models.Model):

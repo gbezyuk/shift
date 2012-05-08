@@ -69,3 +69,24 @@ class CatalogTestCase(TestCase):
         resp = self.client.get(reverse('doppler_shift_catalog_category',
             kwargs={'category_id': self.child_category_disabled.id}))
         self.assertEqual(resp.context, None)
+
+    def test_product_details_page(self):
+        """
+        Test product details page
+        """
+        resp = self.client.get(reverse('doppler_shift_catalog_product',
+            kwargs={'product_id': self.root_category_product.id}))
+        self.assertEqual(resp.status_code, 200)
+        self.assertTrue('category' in resp.context)
+        self.assertEqual(resp.context['category'].pk, self.root_category_product.category.pk)
+        self.assertTrue('product' in resp.context)
+        self.assertEqual(resp.context['product'].pk, self.root_category_product.pk)
+
+#    def test_root_category_breadcrumbs(self):
+#        pass
+#
+#    def test_child_category_breadcrumbs(self):
+#        pass
+#
+#    def test_product_breadcrumbs(self):
+#        pass

@@ -2,7 +2,11 @@
 - load i18n
 
 - block content
-    = category.name
+    .hero-unit
+        %h1
+            = category.name
+        - if category.description
+            = category.description|safe
     - if subcategories
         - with categories=subcategories
             - include 'doppler/shift/catalog/snippets/category_list.haml'

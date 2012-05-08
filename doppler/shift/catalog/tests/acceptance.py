@@ -6,6 +6,7 @@ Part: Acceptance integrational tests
 """
 from django.core.urlresolvers import reverse
 from django_webtest import WebTest
+from doppler.shift.catalog.tests.factories import ProductFactory
 from ..models import Category
 from .factories import CategoryFactory
 from django.template.response import ContentNotRenderedError
@@ -65,13 +66,17 @@ class CategoryPageTest(WebTest):
         self.assertEqual(page.status, '200 OK')
         self.assertIn(self.root_category_enabled.name, page)
         self.assertIn(self.child_category_enabled.name, page)
+        self.assertIn(self.child_category_enabled.description, page)
         self.assertIn(self.child_category_enabled.get_absolute_url(), page)
 
     def test_child_category_view(self):
         """
         Test child category page opens with Http 200 OK status and contain proper insides
         """
+        product = ProductFactory(category=self.child_category_enabled)
         page = self.app.get(reverse('doppler_shift_catalog_category', kwargs={'category_id': self.child_category_enabled.pk}))
         self.assertEqual(page.status, '200 OK')
         self.assertIn(self.child_category_enabled.name, page)
-
+        self.assertIn(self.child_category_enabled.description, page)
+        self.assertIn(product.name, page)
+        self.assertIn(product.get_absolute_url(), page)
