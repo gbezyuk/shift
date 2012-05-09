@@ -14,12 +14,11 @@
         .navbar-inner
             .container
                 %a.brand{'href': '/'}
-                    Django App Skeleton, Twitter Bootstrap version
+                    {% trans "Doppler Shift" %}
                 .nav-collapse
                     %ul.nav
-                        %li
-                            %a{'href': '{% url home %}'}
-                                {% trans "Home page" %}
+                        - include 'home_link.haml'
+                        - include 'doppler/shift/catalog/snippets/breadcrumbs/catalog.haml'
     .container.main_container
         - block breadcrumbs
         - if messages
