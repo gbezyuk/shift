@@ -80,3 +80,15 @@ class CategoryPageTest(WebTest):
         self.assertIn(self.child_category_enabled.description, page)
         self.assertIn(product.name, page)
         self.assertIn(product.get_absolute_url(), page)
+
+    def test_root_category_breadcrumbs(self):
+        page = self.app.get(reverse('doppler_shift_catalog_category', kwargs={'category_id': self.root_category_enabled.pk}))
+        for ancestor in self.root_category_enabled.get_ancestors(include_self=True):
+            self.assertIn(ancestor.name, page)
+            self.assertIn(ancestor.get_absolute_url(), page)
+
+    def test_child_category_breadcrumbs(self):
+        page = self.app.get(reverse('doppler_shift_catalog_category', kwargs={'category_id': self.child_category_enabled.pk}))
+        for ancestor in self.root_category_enabled.get_ancestors(include_self=True):
+            self.assertIn(ancestor.name, page)
+            self.assertIn(ancestor.get_absolute_url(), page)

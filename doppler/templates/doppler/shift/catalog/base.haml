@@ -1,1 +1,6 @@
 - extends 'base.haml'
+
+- block breadcrumbs
+    %ul.breadcrumb
+        - include 'home_link.haml'
+        - block inner_breadcrumbs

@@ -81,12 +81,3 @@ class CatalogTestCase(TestCase):
         self.assertEqual(resp.context['category'].pk, self.root_category_product.category.pk)
         self.assertTrue('product' in resp.context)
         self.assertEqual(resp.context['product'].pk, self.root_category_product.pk)
-
-#    def test_root_category_breadcrumbs(self):
-#        pass
-#
-#    def test_child_category_breadcrumbs(self):
-#        pass
-#
-#    def test_product_breadcrumbs(self):
-#        pass

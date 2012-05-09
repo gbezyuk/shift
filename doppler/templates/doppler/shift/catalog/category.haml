@@ -1,6 +1,10 @@
 - extends 'doppler/shift/catalog/base.haml'
 - load i18n
 
+- block inner_breadcrumbs
+    - include 'doppler/shift/catalog/snippets/breadcrumbs/catalog.haml'
+    - include 'doppler/shift/catalog/snippets/breadcrumbs/category.haml'
+
 - block content
     .hero-unit
         %h1

@@ -1,6 +1,9 @@
 - extends 'doppler/shift/catalog/base.haml'
 - load i18n
 
+- block inner_breadcrumbs
+    - include 'doppler/shift/catalog/snippets/breadcrumbs/catalog.haml'
+
 - block content
     - if root_categories
         - with categories=root_categories
