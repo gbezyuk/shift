@@ -2,4 +2,7 @@
     - for category in categories
         %li.thumbnail
             %a{'href': '{{ category.get_absolute_url }}'}
-                = category.name
+                - with image=category.main_image no_link=1 thumbnail_version="200x200"
+                    - include 'doppler/shift/catalog/snippets/image.haml'
+                %h3
+                    = category.name

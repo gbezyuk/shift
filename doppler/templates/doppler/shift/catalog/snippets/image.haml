@@ -1,0 +1,25 @@
+- if image and image.image
+    - with default_big_version="800x800"
+        - with default_thumbnail_version="200x200"
+            - if no_link
+                - if thumbnail_version
+                    - include 'doppler/snippets/render_image.haml'
+                - else
+                    - with thumbnail_version=default_thumbnail_version
+                        - include 'doppler/snippets/render_image.haml'
+            - else
+                - load fb_versions
+                - if big_version
+                    %a.thumbnail{'href': '{% version image.image.path big_version %}'}
+                        - if thumbnail_version
+                            - include 'doppler/snippets/render_image.haml'
+                        - else
+                            - with thumbnail_version=default_thumbnail_version
+                                - include 'doppler/snippets/render_image.haml'
+                - else
+                    %a.thumbnail{'href': '{% version image.image.path default_big_version %}'}
+                        - if thumbnail_version
+                            - include 'doppler/snippets/render_image.haml'
+                        - else
+                            - with thumbnail_version=default_thumbnail_version
+                            - include 'doppler/snippets/render_image.haml'
