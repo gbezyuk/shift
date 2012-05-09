@@ -10,6 +10,13 @@
     .hero-unit
         %h1
             = product.name
+        - if product.price
+            {% trans "Price" %}:
+            %strong
+                = product.price
+        - else
+            %em
+                {% trans "Not available now" %}
         - if product.description
             = product.description|safe
         - if product.enabled_images

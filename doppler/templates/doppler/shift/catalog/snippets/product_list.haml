@@ -1,3 +1,4 @@
+- load i18n
 %ul.products.thumbnails
     - for product in products
         %li.thumbnail
@@ -6,3 +7,10 @@
                     - include 'doppler/shift/catalog/snippets/image.haml'
                 %h3
                     = product.name
+                .pull-right
+                    - if product.price
+                        %strong
+                            = product.price
+                    - else
+                        %em
+                            {% trans "N/A" %}
