@@ -12,3 +12,8 @@
             = product.name
         - if product.description
             = product.description|safe
+        - if product.enabled_images
+            %ul.thumbnails
+                - for image in product.enabled_images
+                    %li.thumbnail
+                        - include 'doppler/shift/catalog/snippets/image.haml'

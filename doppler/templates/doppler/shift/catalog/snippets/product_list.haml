@@ -1,5 +1,8 @@
-%ul.thumbnails
-- for product in products
-    %li.thumbnail
-        %a{'href': '{{ product.get_absolute_url }}'}
-            = product.name
+%ul.products.thumbnails
+    - for product in products
+        %li.thumbnail
+            %a{'href': '{{ product.get_absolute_url }}'}
+                - with image=product.main_image no_link=1 thumbnail_version="200x200"
+                    - include 'doppler/shift/catalog/snippets/image.haml'
+                %h3
+                    = product.name

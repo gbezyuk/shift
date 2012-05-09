@@ -100,6 +100,16 @@ class ImagesTestCase(TestCase):
         self.assertEqual(self.sample_product.main_image, image)
         self.assertEqual(Image.get_main_image_for_object(self.sample_product), image)
 
+    def test_product_enabled_images(self):
+        """
+        Product model property 'enabled_images'  should return filtered enabled images only
+        """
+        ImageFactory(content_object=self.sample_product, enabled=False)
+        ImageFactory(content_object=self.sample_product, enabled=False)
+        i1 = ImageFactory(content_object=self.sample_product, enabled=True)
+        i2 = ImageFactory(content_object=self.sample_product, enabled=True)
+        self.assertEqual([i1.pk, i2.pk], [i.pk for i in self.sample_product.enabled_images])
+
     def test_mixed_case(self):
         """
         Product with multiple images should return enabled random priority image as main

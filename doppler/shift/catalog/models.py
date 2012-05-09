@@ -94,6 +94,9 @@ class Product(models.Model):
     enabled = models.BooleanField(default=True, verbose_name=_('enabled'))
     images = generic.GenericRelation(Image, verbose_name=_('images'), blank=True, null=True)
     @property
+    def enabled_images(self):
+        return self.images.filter(enabled=True)
+    @property
     def main_image(self):
         return Image.get_main_image_for_object(self)
     created = models.DateTimeField(auto_now_add = True, verbose_name = _('created'))
