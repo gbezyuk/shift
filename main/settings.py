@@ -91,6 +91,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	'django.core.context_processors.request',
 	'django.contrib.messages.context_processors.messages',
 	'django.contrib.auth.context_processors.auth',
+    'main.context_processors.login_url',
 )
 
 LOGGING = {
@@ -111,12 +112,11 @@ LOGGING = {
     }
 }
 
-# registration and authorization settings
-#ACCOUNT_ACTIVATION_DAYS = 2
-#EMAIL_HOST = 'localhost'
-#DEFAULT_FROM_EMAIL = 'gbezyuk@gmail.com'
-#LOGIN_REDIRECT_URL = '/'
-##LOGIN_URL = '/accounts/auth/login/'
+ACCOUNT_ACTIVATION_DAYS = 2
+EMAIL_HOST = 'localhost'
+DEFAULT_FROM_EMAIL = 'gbezyuk@gmail.com'
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/auth/login/'
 
 # grappelli settings
 GRAPPELLI_ADMIN_TITLE = "Admin site area"

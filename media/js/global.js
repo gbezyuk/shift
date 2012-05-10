@@ -1,4 +1,3 @@
-// lightbox for every image link
 $(function () {
 	$('.thumbnails').each(function () {
 		var $ul = $(this);
@@ -28,3 +27,7 @@ $(function () {
 //		event.stopPropagation();
 //	});
 //});
+
+$(function () {
+    $('#login-modal-toggler').attr('href', '#login-modal');
+});
