@@ -62,6 +62,7 @@ INSTALLED_APPS = (
 PROJECT_APPS = (
     'main',
     'doppler.shift.catalog',
+    'doppler.auth',
 )
 
 MIDDLEWARE_CLASSES = (
