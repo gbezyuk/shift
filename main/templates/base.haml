@@ -1,5 +1,7 @@
 - extends 'html5_empty.haml'
 - load i18n
+- load repeatblock
+- enablemacros
 
 - block sitewide_styles
     %link{'rel': 'stylesheet', 'href':'{{ MEDIA_URL }}bootstrap/css/bootstrap.min.css', 'type': 'text/css'}
@@ -19,20 +21,8 @@
                         Django App Skeleton, Twitter Bootstrap version
                     .nav-collapse
                         %ul.nav
-                            %li
-                                %a{'href': '{% url home %}'}
-                                    {% trans "Home page" %}
-                        %ul.nav.pull-right
-                            - if request.user.is_anonymous
-                                %li
-                                    %a#login-modal-toggler{'data-toggle': 'modal', 'href': '{{ LOGIN_URL }}'}
-                                        {% trans "login" %}
-                            - else
-                                %li.dropdown
-                                    {% trans "You are logged in as " %}
-                                    %i.icon-user
-                                    %strong
-                                        = request.user.username
+                            - include 'home_link.haml'
+                        - include 'accounts/header_widget.haml'
     - block main_container
         .container.main_container
             - block breadcrumbs
@@ -43,6 +33,8 @@
             %h1.page_caption
                 - block page_caption
             - block content
+
+            - repeat breadcrumbs
 
             %footer.footer
                 %p.pull-right

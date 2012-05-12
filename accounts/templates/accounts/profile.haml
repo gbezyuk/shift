@@ -1,0 +1,38 @@
+- extends 'base.haml'
+- load i18n
+- load repeatblock
+- enablemacros
+
+- block breadcrumbs
+    %ul.breadcrumb
+        %li
+            - include 'home_link.haml'
+        %li
+            %a{'href': '{% url profile %}'}
+                {% trans "Profile" %}
+
+- block content
+    - block form_actions
+        %form
+            %fieldset
+                .form-actions
+                    %a.btn.btn-primary{'href': '{% url edit_profile %}'}
+                        {% trans "Edit Profile" %}
+                    %a.btn.btn-primary{'href': '{% url change_avatar %}'}
+                        {% trans "Change avatar" %}
+    %ul.thumbnails
+        %li.thumbnail.avatar
+            - if request.user.profile.avatar
+                %a{'href': '{{ request.user.profile.avatar.url }}'}
+                    - load fb_versions
+                    %img.version200x200{'src': '{% version request.user.profile.avatar "200x200" %}'}
+            - else
+                %a{'href': '{% url change_avatar %}'}
+                    %img.version200x200{'src': '{{ DEFAULT_AVATAR_URL }}', 'title': '{% trans "Avatar not set" %}'}
+    %dl
+        - for field in profile_form
+            %dt
+                = field.label
+            %dd
+                = field.value
+    - repeat form_actions

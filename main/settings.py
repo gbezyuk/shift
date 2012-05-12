@@ -34,6 +34,8 @@ INSTALLED_APPS = (
     'djaml',
     'django_coverage',
     'django_jenkins',
+    'utils',
+    'accounts',
     'main',
 )
 
@@ -68,6 +70,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	'django.contrib.messages.context_processors.messages',
 	'django.contrib.auth.context_processors.auth',
     'main.context_processors.login_url',
+    'main.context_processors.default_avatar_url',
 )
 
 LOGGING = {
@@ -92,7 +95,7 @@ ACCOUNT_ACTIVATION_DAYS = 2
 EMAIL_HOST = 'localhost'
 DEFAULT_FROM_EMAIL = 'gbezyuk@gmail.com'
 LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/auth/login/'
+LOGIN_URL = '/accounts/auth/login/'
 
 
 GRAPPELLI_ADMIN_TITLE = "Admin site area"
@@ -141,3 +144,7 @@ FILEBROWSER_SEARCH_TRAVERSE = True
 FILEBROWSER_DEFAULT_PERMISSIONS = 0755
 FILEBROWSER_IMAGE_MAXBLOCK = 1024*1024*32
 FILEBROWSER_URL_TINYMCE = '/static/grappelli/tinymce/jscripts/tiny_mce/'
+
+DEFAULT_AVATAR_URL = MEDIA_URL + 'img/default-avatar.gif'
+AVATAR_STORAGE_PATH_REL = FILEBROWSER_DIRECTORY + 'avatars/'
+AVATAR_STORAGE_PATH = MEDIA_ROOT + AVATAR_STORAGE_PATH_REL
