@@ -40,7 +40,6 @@ class Image(models.Model):
     @classmethod
     def get_main_image_for_object(cls, object):
         #TODO: rewrite with better generic fields usage
-        #TODO: cover with tests
         if object.images.filter(enabled=True, priority=True).exists():
             return object.images.filter(enabled=True, priority=True).order_by('?')[0]
         elif object.images.filter(enabled=True).exists():
@@ -63,15 +62,30 @@ class Category(MPTTModel):
     images = generic.GenericRelation(Image, verbose_name=_('images'), blank=True, null=True)
     @property
     def main_image(self):
-        return Image.get_main_image_for_object(self)
+        self_main = Image.get_main_image_for_object(self)
+        if self_main:
+            return self_main
+        else:
+            for child in self.children.filter(enabled=True):
+                if child.main_image:
+                    return child.main_image
+        return None
     created = models.DateTimeField(auto_now_add = True, verbose_name = _('created'))
     modified = models.DateTimeField(auto_now = True, verbose_name = _('modified'))
 
     enabled_tree = EnabledTreeManager()
     enabled_root = EnabledRootManager()
 
+    @property
+    def enabled_products(self):
+        return self.products.filter(enabled=True)
+
     def __unicode__(self):
         return self.name
+
+    @models.permalink
+    def get_absolute_url(self):
+        return 'doppler_shift_catalog_category', (), {'category_id': self.pk}
 
 class Product(models.Model):
     """
@@ -86,6 +100,9 @@ class Product(models.Model):
     description = models.TextField(null=True, blank=True, verbose_name=_('description'))
     enabled = models.BooleanField(default=True, verbose_name=_('enabled'))
     images = generic.GenericRelation(Image, verbose_name=_('images'), blank=True, null=True)
+    @property
+    def enabled_images(self):
+        return self.images.filter(enabled=True)
     @property
     def main_image(self):
         return Image.get_main_image_for_object(self)
@@ -110,6 +127,10 @@ class Product(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    @models.permalink
+    def get_absolute_url(self):
+        return 'doppler_shift_catalog_product', (), {'product_id': self.pk}
 
 # pricing strategy may differ depending on current store
 if MULTIPLE_PRICES:

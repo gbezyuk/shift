@@ -1,0 +1,7 @@
+- for ancestor in category.get_ancestors
+    %li
+        %a{'href': '{{ ancestor.get_absolute_url }}'}
+            = ancestor.name
+%li
+    %a{'href': '{{ category.get_absolute_url }}'}
+        = category.name

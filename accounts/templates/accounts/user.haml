@@ -1,0 +1,41 @@
+- extends 'base.haml'
+- load i18n
+
+- block breadcrumbs
+    %ul.breadcrumb
+        - include 'home_link.haml'
+        %li
+            %a{'href': '{% url users %}'}
+                {% trans "Users" %}
+        %li
+            %a{'href': '{% url user user.pk %}'}
+                = user
+
+- block content
+    - ifequal request.user user_model
+        %form
+            %fieldset
+                .form-actions
+                    %a.btn.{'href': '{% url profile %}'}
+                        {% trans "This is you" %}
+                    %a.btn.btn-primary{'href': '{% url edit_profile %}'}
+                        {% trans "Edit Profile" %}
+                    %a.btn.btn-primary{'href': '{%  url change_avatar %}'}
+                        {% trans "Change avatar" %}
+
+    %ul.thumbnails
+    - with avatar=user_model.profile.avatar
+        - include 'accounts/snippets/user_profile_avatar.haml'
+    - with user=user_model
+        - include 'accounts/snippets/user_profile.haml'
+
+    - ifequal request.user user_model
+        %form
+            %fieldset
+                .form-actions
+                    %a.btn.btn-primary{'href': '{% url profile %}'}
+                        {% trans "This is you" %}
+                    %a.btn.btn-primary{'href': '{% url edit_profile %}'}
+                        {% trans "Edit Profile" %}
+                    %a.btn.btn-primary{'href': '{%  url change_avatar %}'}
+                        {% trans "Change avatar" %}

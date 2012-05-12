@@ -5,6 +5,7 @@ Module: Catalog
 Part: Model factories for tests
 """
 import factory
+from doppler.shift.catalog.models import Image
 from ..models import Category, Product, MULTIPLE_PRICES
 
 class CategoryFactory(factory.Factory):
@@ -26,7 +27,16 @@ class ProductFactory(factory.Factory):
     description = '<p>Simple <em>HTML-formatted</em> product description</p>'
     enabled = True
     if not MULTIPLE_PRICES:
-        price = 100.00
+        price = 100
+
+class ImageFactory(factory.Factory):
+    """
+    Image model factory
+    """
+    FACTORY_FOR = Image
+    title = 'sample image'
+    enabled = True
+    priority = False
 
 if MULTIPLE_PRICES:
     from ..models import Price
@@ -37,5 +47,5 @@ if MULTIPLE_PRICES:
         """
         FACTORY_FOR = Price
         note = 'sample price'
-        value = 100.00
+        value = 100
         enabled = True

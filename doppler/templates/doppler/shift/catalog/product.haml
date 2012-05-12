@@ -1,0 +1,26 @@
+- extends 'doppler/shift/catalog/base.haml'
+- load i18n
+
+- block inner_breadcrumbs
+    - include 'doppler/shift/catalog/snippets/breadcrumbs/catalog.haml'
+    - include 'doppler/shift/catalog/snippets/breadcrumbs/category.haml'
+    - include 'doppler/shift/catalog/snippets/breadcrumbs/product.haml'
+
+- block content
+    .hero-unit
+        %h1
+            = product.name
+        - if product.price
+            {% trans "Price" %}:
+            %strong
+                = product.price
+        - else
+            %em
+                {% trans "Not available now" %}
+        - if product.description
+            = product.description|safe
+        - if product.enabled_images
+            %ul.thumbnails
+                - for image in product.enabled_images
+                    %li.thumbnail
+                        - include 'doppler/shift/catalog/snippets/image.haml'
