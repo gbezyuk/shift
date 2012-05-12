@@ -29,3 +29,17 @@ Layout versions
 ---------------
 *twitter_bootstrap* branch uses the [Twitter Bootstrap](http://twitter.github.com/bootstrap/) theme.
 [JQuery](jquery.com) and [HtmlShim](code.google.com/p/html5shim/) scripts are also used.
+Master branch is currently basing on twitter_bootstrap branch. There are also bare skeleton branches.
+
+Features included
+-----------------
+- authorization
+    - frontend user basic authorization login via popup with redirection
+    - frontend user logout with redirection
+    - authorization implementation views, forms and templates
+- user profiles
+    - basic user profile model with django-filebrowser-compatible avatar field
+    - profile view
+    - edit profile view
+    - change avatar view and form
+- pluggable user list and user details views (disabled by default, see */accounts/urls.py*)
