@@ -10,6 +10,19 @@
                 {% trans "Users" %}
 
 - block content
-    - for user in users
-        = user
-        = user.profile
+    %table.table
+        %thead
+            %tr
+                %th
+                    {% trans "User" %}
+        %tbody
+            - if users
+                - for user in users
+                    %tr
+                        %td
+                            %a{'href': '{{ user.get_absolute_url }}'}
+                                = user
+            - else
+                %tr
+                    %th
+                        {% trans "no users available" %}

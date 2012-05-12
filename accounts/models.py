@@ -31,6 +31,13 @@ class UserProfile(models.Model):
         """
         return self.user.__unicode__()
 
+    @models.permalink
+    def get_absolute_url(self):
+        """
+        return user profile url
+        """
+        return 'user', (), {'user_id': self.user.id}
+
     def update_avatar(self, new_avatar):
         """
         Update profile avatar with provided file
@@ -44,4 +51,6 @@ class UserProfile(models.Model):
         self.avatar = "%s%d.%s" % (settings.AVATAR_STORAGE_PATH_REL, self.user.id, extension)
         self.save()
 
+#small handy hack
 User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
+User.get_absolute_url = property(lambda u: u.profile.get_absolute_url())
