@@ -1,5 +1,7 @@
 """
 Studio: Doppler
+Author: Grigoriy Beziuk
+Project: Django Application Skeleton
 Module: Basic user authorization
 Part: Views
 """
@@ -10,6 +12,9 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib import messages
 
 def login(request, template_name='accounts/auth/login.haml'):
+    """
+    Login view. Redirects to url specified in 'next' GET/POST parameter after successful login
+    """
     form = LoginForm(data=request.POST or None)
     if form.is_valid():
         username = form.cleaned_data['username']
@@ -32,6 +37,9 @@ def login(request, template_name='accounts/auth/login.haml'):
     return direct_to_template(request, template_name, locals())
 
 def logout(request):
+    """
+    Logout view. Redirects to url specified in 'next' POST/GET param after logout
+    """
     auth_logout(request)
     if 'next' in request.GET and request.GET['next']:
         return redirect_to(request, request.GET['next'], permanent=False)

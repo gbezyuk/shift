@@ -1,9 +1,11 @@
 """
 Studio: Doppler
+Author: Grigoriy Beziuk
+Project: Django Application Skeleton
 Module: Basic user authorization
 Part: Urls
 """
-from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls.defaults import patterns, url
 from .views import login, logout
 
 urlpatterns = patterns('',

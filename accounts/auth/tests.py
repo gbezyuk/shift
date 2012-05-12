@@ -1,5 +1,7 @@
 """
 Studio: Doppler
+Author: Grigoriy Beziuk
+Project: Django Application Skeleton
 Module: Basic user authorization
 Part: Tests
 """
