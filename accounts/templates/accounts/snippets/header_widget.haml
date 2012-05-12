@@ -1,0 +1,20 @@
+- load i18n
+%ul.nav.pull-right
+    - if request.user.is_anonymous
+        %li
+            %a#login-modal-toggler{'data-toggle': 'modal', 'href': '{{ LOGIN_URL }}'}
+                {% trans "login" %}
+    - else
+        %li.dropdown
+            %a#auth-dropdown-toggler.dropdown-toggle{'href': "{% url profile %}", 'data-toggle': "dropdown"}
+                {% trans "You are logged in as " %}
+                %i.icon-user
+                %strong
+                    = request.user.username
+            %ul.dropdown-menu
+                %li
+                    %a{'href': '{% url profile %}'}
+                        {% trans "Profile" %}
+                %li
+                    %a{'href': '{% url auth_logout %}'}
+                        {% trans "Logout" %}
