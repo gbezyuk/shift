@@ -5,8 +5,7 @@
 
 - block breadcrumbs
     %ul.breadcrumb
-        %li
-            - include 'home_link.haml'
+        - include 'home_link.haml'
         %li
             %a{'href': '{% url profile %}'}
                 {% trans "Profile" %}
