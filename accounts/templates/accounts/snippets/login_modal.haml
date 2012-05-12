@@ -1,0 +1,19 @@
+- load i18n
+- block login_modal
+    %form#login-modal.modal.hide.fade.in.well{'method': 'POST', 'action': '{{ LOGIN_URL }}'}
+        - csrf_token
+        .modal-header
+            %a.close{'data-dismiss': "modal"}×
+            %h3
+                {% trans "Login" %}
+        .modal-body
+            %label{'for': 'id_username'}
+                {% trans "Username" %}:
+            %input#id_username{'name': 'username', 'maxlength': '100', 'type': 'text'}
+            %label{'for': 'id_password'}
+                {% trans "Password" %}:
+            %input#id_password{'name': 'password', 'maxlength': '100', 'type': 'password'}
+            %input#id_next{'name': 'next', 'maxlength': '100', 'type': 'hidden', 'value': '{{ request.get_full_path }}'}
+        .modal-footer
+            %button.btn.btn-primary{'type': 'submit'}
+                {% trans "Login" %}

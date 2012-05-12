@@ -10,9 +10,5 @@
                 {% trans "Login" %}
 
 - block content
-
-    %form.well.form-inline{'action': '', 'method': 'POST', 'style': 'text-align: center;'}
-        - csrf_token
-        = form
-        %button.btn.btn-info{'type': 'submit'}
-            {% trans "Login" %}
+    {% trans "Login" as form_submit_title %}
+    - include 'snippets/form.haml'
