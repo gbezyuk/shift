@@ -53,6 +53,8 @@ INSTALLED_APPS = (
     'django_coverage',
     'django_jenkins',
     'modeltranslation',
+    'utils',
+    'accounts',
     'main',
     'doppler',
     'doppler.shift.catalog',
@@ -60,9 +62,9 @@ INSTALLED_APPS = (
 
 # django_jenkins apps list
 PROJECT_APPS = (
+    'accounts',
     'main',
     'doppler.shift.catalog',
-    'doppler.auth',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -93,6 +95,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	'django.contrib.messages.context_processors.messages',
 	'django.contrib.auth.context_processors.auth',
     'main.context_processors.login_url',
+    'main.context_processors.default_avatar_url',
 )
 
 LOGGING = {
@@ -117,7 +120,7 @@ ACCOUNT_ACTIVATION_DAYS = 2
 EMAIL_HOST = 'localhost'
 DEFAULT_FROM_EMAIL = 'gbezyuk@gmail.com'
 LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/auth/login/'
+LOGIN_URL = '/accounts/auth/login/'
 
 # grappelli settings
 GRAPPELLI_ADMIN_TITLE = "Admin site area"
@@ -160,6 +163,9 @@ FILEBROWSER_DEFAULT_PERMISSIONS = 0755
 FILEBROWSER_IMAGE_MAXBLOCK = 1024*1024*32
 FILEBROWSER_URL_TINYMCE = '/static/grappelli/tinymce/jscripts/tiny_mce/'
 
-# Doppler Shift engine configuration
+DEFAULT_AVATAR_URL = MEDIA_URL + 'img/default-avatar.gif'
+AVATAR_STORAGE_PATH_REL = FILEBROWSER_DIRECTORY + 'avatars/'
+AVATAR_STORAGE_PATH = MEDIA_ROOT + AVATAR_STORAGE_PATH_REL
+
 DOPPLER_SHIFT_CATALOG_PRODUCT_MULTIPLE_PRICES = True
 DOPPLER_SHIFT_CATALOG_PRODUCT_MULTIPLE_CATEGORIES = False

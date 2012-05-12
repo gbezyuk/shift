@@ -1,5 +1,7 @@
 - extends 'html5_empty.haml'
 - load i18n
+- load repeatblock
+- enablemacros
 
 - block sitewide_styles
     %link{'rel': 'stylesheet', 'href':'{{ MEDIA_URL }}bootstrap/css/bootstrap.min.css', 'type': 'text/css'}
@@ -23,22 +25,7 @@
                         %ul.nav
                             - include 'home_link.haml'
                             - include 'doppler/shift/catalog/snippets/breadcrumbs/catalog.haml'
-                        %ul.nav.pull-right
-                            - if request.user.is_anonymous
-                                %li
-                                    %a#login-modal-toggler{'data-toggle': 'modal', 'href': '{{ LOGIN_URL }}'}
-                                        {% trans "login" %}
-                            - else
-                                %li.dropdown
-                                    %a#auth-dropdown-toggler.dropdown-toggle{'href': "#", 'data-toggle': "dropdown"}
-                                        {% trans "You are logged in as " %}
-                                        %i.icon-user
-                                        %strong
-                                            = request.user.username
-                                    %ul.dropdown-menu
-                                        %li
-                                            %a{'href': '{% url doppler_auth_logout %}'}
-                                                {% trans "Logout" %}
+                        - include 'accounts/snippets/header_widget.haml'
 
     - block main_container
         .container.main_container
@@ -51,6 +38,8 @@
                 - block page_caption
             - block content
 
+            - repeat breadcrumbs
+
             %footer.footer
                 %p.pull-right
                     %a{'href': "#"}
@@ -58,21 +47,4 @@
 
     - block modals
         - if request.user.is_anonymous
-            - block login_modal
-                %form#login-modal.modal.hide.fade.in.well{'method': 'POST', 'action': '{{ LOGIN_URL }}'}
-                    - csrf_token
-                    .modal-header
-                        %a.close{'data-dismiss': "modal"}×
-                        %h3
-                            {% trans "Login" %}
-                    .modal-body
-                        %label{'for': 'id_username'}
-                            {% trans "Username" %}:
-                        %input#id_username{'name': 'username', 'maxlength': '100', 'type': 'text'}
-                        %label{'for': 'id_password'}
-                            {% trans "Password" %}:
-                        %input#id_password{'name': 'password', 'maxlength': '100', 'type': 'password'}
-                        %input#id_next{'name': 'next', 'maxlength': '100', 'type': 'hidden', 'value': '{{ request.get_full_path }}'}
-                    .modal-footer
-                        %button.btn.btn-primary{'type': 'submit'}
-                            {% trans "Login" %}
+            - include 'accounts/snippets/login_modal.haml'
