@@ -13,7 +13,7 @@
                 = user
 
 - block content
-    - ifequal request.user user
+    - ifequal request.user user_model
         %form
             %fieldset
                 .form-actions
@@ -25,22 +25,12 @@
                         {% trans "Change avatar" %}
 
     %ul.thumbnails
-        %li.thumbnail.avatar
-            - if user.profile.avatar
-                %a{'href': '{{ user.profile.avatar.url }}'}
-                    - load fb_versions
-                    %img.version200x200{'src': '{% version user.profile.avatar "200x200" %}'}
-            - else
-                %a{'href': '{% url change_avatar %}'}
-                    %img.version200x200{'src': '{{ DEFAULT_AVATAR_URL }}', 'title': '{% trans "Avatar not set" %}'}
-    %dl
-        - for field in user_profile_form
-            %dt
-                = field.label
-            %dd
-                = field.value
+    - with avatar=user_model.profile.avatar
+        - include 'accounts/snippets/user_profile_avatar.haml'
+    - with user=user_model
+        - include 'accounts/snippets/user_profile.haml'
 
-    - ifequal request.user user
+    - ifequal request.user user_model
         %form
             %fieldset
                 .form-actions

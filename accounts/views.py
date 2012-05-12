@@ -18,7 +18,7 @@ def profile(request, template_name='accounts/profile.haml'):
     """
     Profile view
     """
-    profile_form = ProfileForm(data=request.POST or None, instance=request.user.profile)
+    user_profile_form = ProfileForm(data=request.POST or None, instance=request.user.profile)
     return direct_to_template(request, template_name, locals())
 
 @login_required
@@ -64,6 +64,6 @@ def user(request, user_id, template_name='accounts/user.haml'):
     """
     User details view
     """
-    user = get_object_or_404(User, pk=user_id)
-    user_profile_form = ProfileForm(data=request.POST or None, instance=user)
+    user_model = get_object_or_404(User, pk=user_id)
+    user_profile_form = ProfileForm(data=request.POST or None, instance=user_model)
     return direct_to_template(request, template_name, locals())

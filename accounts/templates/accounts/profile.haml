@@ -20,19 +20,7 @@
                         {% trans "Edit Profile" %}
                     %a.btn.btn-primary{'href': '{% url change_avatar %}'}
                         {% trans "Change avatar" %}
-    %ul.thumbnails
-        %li.thumbnail.avatar
-            - if request.user.profile.avatar
-                %a{'href': '{{ request.user.profile.avatar.url }}'}
-                    - load fb_versions
-                    %img.version200x200{'src': '{% version request.user.profile.avatar "200x200" %}'}
-            - else
-                %a{'href': '{% url change_avatar %}'}
-                    %img.version200x200{'src': '{{ DEFAULT_AVATAR_URL }}', 'title': '{% trans "Avatar not set" %}'}
-    %dl
-        - for field in profile_form
-            %dt
-                = field.label
-            %dd
-                = field.value
+    - with avatar=request.user.profile.avatar
+        - include 'accounts/snippets/user_profile_avatar.haml'
+    - include 'accounts/snippets/user_profile.haml'
     - repeat form_actions
