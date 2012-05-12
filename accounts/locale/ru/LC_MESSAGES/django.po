@@ -1,0 +1,192 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-12 13:09+0400\n"
+"PO-Revision-Date: 2012-05-12 13:11\n"
+"Last-Translator:   <admin@example.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"X-Translated-Using: django-rosetta 0.6.6\n"
+
+#: forms.py:23
+msgid "Your profile is successfully updated"
+msgstr "Ваш профиль успешно обновлён"
+
+#: forms.py:24 forms.py:36
+msgid "There were some errors during form validation"
+msgstr "При валидации формы обнаружены ошибки"
+
+#: forms.py:30
+msgid "upload new avatar file"
+msgstr "загрузить новый файл аватара"
+
+#: forms.py:30 models.py:23
+msgid "avatar"
+msgstr "аватар"
+
+#: forms.py:35
+msgid "Your profile avatar is successfully updated"
+msgstr "Ваш аватар успешно обновлён"
+
+#: forms.py:43
+msgid "ChangeAvatarForm haven`t got the profile instance"
+msgstr "ChangeAvatarForm не передан параметр instance"
+
+#: models.py:15
+msgid "user"
+msgstr "пользователь"
+
+#: models.py:16
+msgid "first name"
+msgstr "имя"
+
+#: models.py:16
+msgid "your first name"
+msgstr "ваше имя"
+
+#: models.py:17
+msgid "last name"
+msgstr "фамилия"
+
+#: models.py:17
+msgid "your last name"
+msgstr "ваша фамилия"
+
+#: models.py:18
+msgid "middle name"
+msgstr "отчество"
+
+#: models.py:19
+msgid "birth date"
+msgstr "дата рождения"
+
+#: models.py:20
+msgid "phone number"
+msgstr "номер телефона"
+
+#: models.py:21
+msgid "male"
+msgstr "завидуйте, я - МУЖЧИНА!"
+
+#: models.py:21
+msgid "female"
+msgstr "я - ЖЕНЩИНА, и это звучит гордо!"
+
+#: models.py:22
+msgid "sex"
+msgstr "пол"
+
+#: models.py:24
+msgid "about"
+msgstr "дополнительно обо мне"
+
+#: models.py:25
+msgid "created"
+msgstr "создано"
+
+#: models.py:26
+msgid "modified"
+msgstr "изменено"
+
+#: models.py:47
+msgid "Wrong file extension / MIME type for avatar provided!"
+msgstr "Неверное расширение файла / MIME-тип для аватара"
+
+#: auth/forms.py:15
+msgid "username"
+msgstr "имя пользователя"
+
+#: auth/forms.py:16
+msgid "password"
+msgstr "пароль"
+
+#: auth/tests.py:31 auth/tests.py:55 templates/accounts/header_widget.haml:6
+msgid "login"
+msgstr "войти"
+
+#: auth/tests.py:39 auth/tests.py:47
+msgid "logout"
+msgstr "выйти"
+
+#: auth/views.py:26
+msgid "You have successfully logged in"
+msgstr "Вы успешно вошли в систему"
+
+#: auth/views.py:34
+msgid "This account is disabled"
+msgstr "Эта учётная запись заблокирована"
+
+#: auth/views.py:36
+msgid "Invalid login/password pair"
+msgstr "Некорректная пара логин/пароль"
+
+#: templates/accounts/change_avatar.haml:10
+#: templates/accounts/edit_profile.haml:10
+#: templates/accounts/header_widget.haml:17 templates/accounts/profile.haml:12
+msgid "Profile"
+msgstr "Профиль"
+
+#: templates/accounts/change_avatar.haml:13 templates/accounts/profile.haml:22
+#: templates/accounts/user.haml:25 templates/accounts/user.haml.py:42
+msgid "Change avatar"
+msgstr "Изменить аватар"
+
+#: templates/accounts/change_avatar.haml:16
+#: templates/accounts/edit_profile.haml:16
+msgid "update"
+msgstr "обновить"
+
+#: templates/accounts/edit_profile.haml:13
+msgid "Edit profile"
+msgstr "Редактировать профиль"
+
+#: templates/accounts/header_widget.haml:10
+msgid "You are logged in as "
+msgstr "Вы успешно вошли в систему как"
+
+#: templates/accounts/header_widget.haml:20
+msgid "Logout"
+msgstr "Выйти"
+
+#: templates/accounts/profile.haml:20 templates/accounts/user.haml:23
+#: templates/accounts/user.haml.py:40
+msgid "Edit Profile"
+msgstr "Редактировать Профиль"
+
+#: templates/accounts/user.haml:10 templates/accounts/users.haml:10
+msgid "Users"
+msgstr "Пользователи"
+
+#: templates/accounts/user.haml:21 templates/accounts/user.haml.py:38
+msgid "This is you"
+msgstr "Это вы"
+
+#: templates/accounts/users.haml:17
+msgid "User"
+msgstr "Пользователь"
+
+#: templates/accounts/users.haml:28
+msgid "no users available"
+msgstr "Нет пользователей"
+
+#: templates/accounts/auth/login.haml:10 templates/accounts/auth/login.haml:18
+msgid "Login"
+msgstr "Войти"
+
+#: templates/accounts/snippets/user_profile_avatar.haml:10
+msgid "Avatar not set"
+msgstr "Аватар не установлен"
+
+#~ msgid "Update"
+#~ msgstr "Обновить"

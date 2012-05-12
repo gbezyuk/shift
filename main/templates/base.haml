@@ -1,39 +1,53 @@
 - extends 'html5_empty.haml'
 - load i18n
+- load repeatblock
+- enablemacros
 
 - block sitewide_styles
     %link{'rel': 'stylesheet', 'href':'{{ MEDIA_URL }}bootstrap/css/bootstrap.min.css', 'type': 'text/css'}
+    %link{'rel': 'stylesheet', 'href': '{{ MEDIA_URL }}jquery-lightbox/css/jquery.lightbox-0.5.css', 'type': 'text/css'}
     %link{'rel': 'stylesheet', 'href':'{{ MEDIA_URL }}css/bootstrap-tuning.css', 'type': 'text/css'}
 
 - block sitewide_scripts
     %script{'type': 'text/javascript', 'src': '{{ MEDIA_URL }}js/jquery/jquery-1.7.2.min.js'}
     %script{'type': 'text/javascript', 'src': '{{ MEDIA_URL }}bootstrap/js/bootstrap.min.js'}
+    %script{'type': 'text/javascript', 'src': '{{ MEDIA_URL }}jquery-lightbox/js/jquery.lightbox-0.5.js'}
+    %script{'type': 'text/javascript', 'src': '{{ MEDIA_URL }}js/global.js'}
 
 - block body
-    .navbar.navbar-fixed-top
-        .navbar-inner
-            .container
-                %a.brand{'href': '/'}
-                    {% trans "Western Shop" %}
-                .nav-collapse
-                    %ul.nav
-                        %li
-                            %a{'href': '{% url home %}'}
-                                {% trans "Home page" %}
-                        %li
-                            %a{'href': '/admin/'}
-                                {% trans "To admin" %}
-    .container.main_container
-        - block breadcrumbs
-        - if messages
-            - for message in messages
-                %div{'class': 'alert alert-{{ message.tags }}'}
-                    = message
-        %h1.page_caption
-            - block page_caption
-        - block content
+    - block navbar
+        .navbar.navbar-fixed-top
+            .navbar-inner
+                .container
+                    %a.brand{'href': '/'}
+                        {% trans "Western Shop" %}
+                    .nav-collapse
+                        %ul.nav
+                            - include 'home_link.haml'
+                            - include 'doppler/shift/catalog/snippets/breadcrumbs/catalog.haml'
+                            %li
+                                %a{'href': '/admin/'}
+                                    {% trans "To admin" %}
+                        - include 'accounts/snippets/header_widget.haml'
 
-        %footer.footer
-            %p.pull-right
-                %a{'href': "#"}
-                    {% trans "Back to top" %}
+    - block main_container
+        .container.main_container
+            - block breadcrumbs
+            - if messages
+                - for message in messages
+                    %div{'class': 'alert alert-{{ message.tags }}'}
+                        = message
+            %h1.page_caption
+                - block page_caption
+            - block content
+
+            - repeat breadcrumbs
+
+            %footer.footer
+                %p.pull-right
+                    %a{'href': "#"}
+                        {% trans "Back to top" %}
+
+    - block modals
+        - if request.user.is_anonymous
+            - include 'accounts/snippets/login_modal.haml'

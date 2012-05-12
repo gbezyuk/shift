@@ -1,0 +1,10 @@
+- load i18n
+%ul.thumbnails
+    %li.thumbnail.avatar
+        - if avatar
+            %a{'href': '{{ avatar.url }}'}
+                - load fb_versions
+                %img.version200x200{'src': '{% version avatar "200x200" %}'}
+        - else
+            %a{'href': '{% url change_avatar %}'}
+                %img.version200x200{'src': '{{ DEFAULT_AVATAR_URL }}', 'title': '{% trans "Avatar not set" %}'}

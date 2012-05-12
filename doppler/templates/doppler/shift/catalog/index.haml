@@ -1,5 +1,12 @@
 - extends 'doppler/shift/catalog/base.haml'
+- load i18n
+
+- block inner_breadcrumbs
+    - include 'doppler/shift/catalog/snippets/breadcrumbs/catalog.haml'
 
 - block content
-    - for category in root_categories
-        = category.name
+    - if root_categories
+        - with categories=root_categories
+            - include 'doppler/shift/catalog/snippets/category_list.haml'
+    - else
+        {% trans "No categories available" %}

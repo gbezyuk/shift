@@ -5,7 +5,7 @@ versions = versions
 
 [django]
 recipe = djangorecipe
-settings = development
+settings = local_settings.development
 versions = versions
 eggs =
         django-model-utils
