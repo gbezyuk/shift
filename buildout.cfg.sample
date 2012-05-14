@@ -1,0 +1,38 @@
+[buildout]
+parts = django
+
+versions = versions
+
+[django]
+recipe = djangorecipe
+settings = local_settings.development
+versions = versions
+eggs =
+        django-model-utils
+#        django-modeltranslation
+        PIL
+        south
+#        django-grappelli
+        django-filebrowser
+        django-rosetta
+        ipython
+#        django-mptt
+#        feincms
+
+        pygments
+        hamlpy
+        djaml
+
+        webtest
+        django-webtest
+        django-coverage
+        factory_boy
+        pylint
+        django_any
+        django_jenkins
+        coverage
+
+project = main
+
+[versions]
+django = 1.4
