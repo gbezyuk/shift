@@ -12,7 +12,7 @@ pip install pygments # --upgrade
 
 pip install south # --upgrade
 
-pip install django-grappelli # --upgrade
+#pip install django-grappelli==2.4 # --upgrade # until 2.4 released using direct repository branch copy
 pip install django-filebrowser # --upgrade
 pip install PIL # --upgrade
 
