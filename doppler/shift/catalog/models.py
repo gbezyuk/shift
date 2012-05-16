@@ -121,7 +121,8 @@ class Product(models.Model):
     if MULTIPLE_PRICES:
         @property
         def price(self):
-            return Price.get_minimal_enabled_price_for_product(self).value
+            price_obj = Price.get_minimal_enabled_price_for_product(self)
+            return price_obj.value if price_obj else None
         @property
         def remainder(self):
             return Price.get_minimal_enabled_price_for_product(self).remainder
@@ -167,6 +168,6 @@ if MULTIPLE_PRICES:
             Returns minimal enabled price value on set of prices related to provided product
             """
             min_value = product.prices.filter(enabled=True).aggregate(Min('value'))['value__min']
-            enabled_prices_with_min_value = product.prices.filter(enabled=True, value=min_value)
-            return enabled_prices_with_min_value[0]
-
+            if min_value:
+                return product.prices.filter(enabled=True, value=min_value)[0]
+            return None
