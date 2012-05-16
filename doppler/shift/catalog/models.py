@@ -145,8 +145,8 @@ if MULTIPLE_PRICES:
 
         product = models.ForeignKey(to=Product, verbose_name=_('product'), related_name='prices')
         enabled = models.BooleanField(default=True, verbose_name=_('enabled'))
-        value = models.PositiveIntegerField(verbose_name=_('value'))
         remainder = models.PositiveIntegerField(verbose_name=_('remainder'), default=0)
+        value = models.PositiveIntegerField(verbose_name=_('value'))
         note = models.CharField(max_length=255, verbose_name=_('note'), blank=True, null=True)
 
         @classmethod
