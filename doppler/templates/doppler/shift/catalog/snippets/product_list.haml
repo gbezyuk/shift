@@ -11,12 +11,11 @@
                     - if product.price
                         %strong
                             = product.price
-                        - if product.price.remainder
+                        - if product.remainder
                             %em
-                                = product.price.remainder
+                                = product.remainder
                         - else
-                            %em
-                                {% trans "N/A" %}
+                            {% trans "N/A" %}
                     - else
                         %em
                             {% trans "N/A" %}
