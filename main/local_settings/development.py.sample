@@ -1,4 +1,5 @@
 from main.settings import *
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = True
@@ -9,3 +10,9 @@ DATABASES = {
         'NAME': PROJECT_ROOT_PATH + 'dev.sqlite3',
     }
 }
+
+#EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+#EMAIL_FILE_PATH = PROJECT_ROOT_PATH + 'email_dump'
+
+ADMINS = (('Grigory Bezyuk', 'gbezyuk@gmail.com'))
+MANAGERS = ADMINS

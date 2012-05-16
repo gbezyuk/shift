@@ -1,0 +1,625 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+@import "compass";
+
+@import "blueprint";
+
+
+
+
+
+/*  BLUEPRINT GRID
+------------------------------------------------------------------------------------------------------ */
+
+$blueprint-grid-columns: 24;
+$blueprint-container-size: 940px;
+$blueprint-grid-margin: 20px;
+
+// Use this to calculate the width based on the total width.
+// Or you can set $blueprint-grid-width to a fixed value and unset $blueprint-container-size -- it will be calculated for you.
+$blueprint-grid-width: ($blueprint-container-size + $blueprint-grid-margin) / $blueprint-grid-columns - $blueprint-grid-margin;
+
+@include blueprint-grid;
+
+
+// $blueprint-grid-columns-module: 24;
+// $blueprint-container-size-module: 918px;
+// $blueprint-grid-margin-module: 18px;
+// $blueprint-grid-width-module: ($blueprint-container-size-module + $blueprint-grid-margin-module) / $blueprint-grid-columns-module - $blueprint-grid-margin-module;
+
+// @function grp-module-width($n) {
+//     @return $blueprint-grid-width-module * $n + $blueprint-grid-margin-module * ($n - 1);
+// }
+// $n: $blueprint-grid-columns-module;
+// @while $n > 0 {
+//     .grp-module .span-#{$n} {
+//     	margin-right: $blueprint-grid-margin-module;
+//         width: grp-module-width($n);
+//         background: #e4f;
+//         &.last {
+//         	margin-right: 0;
+//         }
+//     }
+//     $n: $n - 1;
+// }
+
+
+
+
+/*  CUSTOM IMPORTS (place them after blueprint because they might depend on blueprint constants)
+------------------------------------------------------------------------------------------------------ */
+
+// Import Custom Library
+
+@import "partials/skins/grp-default";
+
+// @import "partials/library/colors";
+// @import "partials/library/gradients";
+@import "partials/library/borders";
+@import "partials/library/margins-paddings";
+
+@import "partials/layout/sprites";
+
+@import "partials/typography/base";
+@import "partials/typography/typo";
+
+@import "partials/forms/django-resets";
+// @import "partials/forms/helpers";
+@import "partials/forms/forms";
+@import "partials/forms/autocompletes";
+
+@import "partials/layout/actions";
+@import "partials/layout/components";
+@import "partials/layout/modules";
+@import "partials/layout/buttons";
+@import "partials/layout/tools";
+@import "partials/layout/tables";
+@import "partials/layout/changelist";
+@import "partials/layout/delete-confirmation";
+
+
+// @import "partials/custom/jquery-ui-all";
+
+@import "partials/custom/jquery-ui";
+
+
+
+
+
+
+/*  BASE STYLES
+------------------------------------------------------------------------------------------------------ */
+
+body {
+	position: relative;
+	float: left;
+	clear: both;
+	@include clearfix;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	@include box-sizing(border-box);
+	@extend .grp-font-color;
+	@extend .grp-font-family;
+	@extend .grp-font-size;
+	@extend .grp-line-height;
+	background: #fff;
+	overflow: visible;
+}
+
+.grp-column {
+	&.grp-centered {
+		position: relative;
+		display: block;
+		float: none !important;
+		margin: 0 auto !important;
+	}
+}
+.grp-span-fluid {
+	float: none;
+	display: table-cell;
+	width: 10000px;
+	// @include box-sizing(border-box);
+}
+
+body.grp-login {
+	#grp-context-navigation {
+		display: none;
+	}
+	#grp-content {
+		top: 36px;
+	}
+	.grp-column.grp-login {
+		width: 482px;
+		fieldset.grp-module {
+			@include border-top-radius(0);
+			border-color: #222;
+			border-top: 1px solid #111 !important;
+			background: #222;
+			.grp-row {
+				@include grp-padding($grp-padding-size);
+				border-top: 1px solid #333 !important;
+				border-bottom: 1px solid #111 !important;
+				label {
+					color: #fff;
+				}
+				.errorlist {
+					color: lighten(#bf3030, 5);
+				}
+			}
+		}
+		.grp-module.grp-submit-row, 
+		.grp-module.grp-submit-row ul {
+			padding: 0;
+			border: 0;
+			background: transparent;
+			li {
+				float: right;
+				margin-right: -5px;
+				background: transparent;
+			}
+		}
+	}
+}
+
+
+header#grp-header {
+	// display: none;
+	position: fixed;
+	z-index: 1000;
+	float: left;
+	clear: both;
+	width: 100%;
+	@include box-sizing(border-box);
+
+	#grp-navigation {
+		position: relative;
+		float: left;
+		clear: both;
+		width: 100%;
+		padding: 0 20px;
+		@include box-sizing(border-box);
+		@include grp-gradient-dark;
+		@include clearfix;
+		overflow: visible;
+		header h1 {
+			margin: 0;
+			padding: 10px 0;
+			font-size: 12px;
+			line-height: 16px;
+		}
+		a {
+			color: lighten($grp-link-color, 10);
+			&:hover {
+				color: #fff;
+			}
+		}
+		ul {
+			li.grp-collapse {
+				position: relative;
+				z-index: 1000;
+				> ul {
+					display: none;
+				}
+				&.grp-open {
+					> ul {
+						position: absolute;
+						z-index: 1010;
+						display: block;
+						margin: -1px 0 0 -1px;
+						width: 207px;
+						border-top: 1px solid darken(#222, 10);
+						@include border-bottom-radius($grp-border-radius);
+						background: #222;
+						li {
+							border-top: 1px solid lighten(#222, 10);
+							border-bottom: 1px solid darken(#222, 10);
+							&:last-child {
+								border-bottom: 0;
+							}
+							a {
+								display: block;
+								@include grp-padding($grp-padding-size-s $grp-padding-size);
+							}
+						}
+					}
+				}
+			}
+			&#grp-user-tools {
+				
+				margin: 0;
+				border-left: 1px solid darken(#222, 10);
+				> li {
+					@include horizontal-list-item(5px, left);
+					border-left: 1px solid lighten(#222, 7);
+					border-right: 1px solid darken(#222, 10);
+					&.grp-user-options-container {
+						width: 200px;
+					}
+					&:last-child {
+						border-right: 0;
+					}
+					a {
+						display: block;
+						padding: 10px;
+					}
+				}
+				
+			}
+		}
+		
+	}
+	#grp-admin-title {
+		position: relative;
+		float: left;
+		font-weight: bold;
+	}
+	#grp-user-tools {
+		position: relative;
+		float: right;
+		font-weight: bold;
+	}
+}
+
+
+
+/*  CONTENT
+------------------------------------------------------------------------------------------------------ */
+
+#grp-content {
+	position: relative;
+	float: left;
+	clear: both;
+	@include clearfix;
+	top: 80px;
+	padding: 0 20px 200px;
+	width: 100%;
+	@include box-sizing(border-box);
+	// overflow: visible;
+	// overflow: auto;
+}
+
+
+
+
+/*  BREADCRUMBS & TOC
+------------------------------------------------------------------------------------------------------ */
+
+@mixin grp-context-navigation {
+	position: relative;
+	float: left;
+	clear: both;
+	width: 100%;
+	font-weight: bold;
+	// @include box-shadow(0 5px 5px #ccc);
+	@include box-sizing(border-box);
+	border-bottom: 1px solid $grp-context-navigation-border-color;
+	background: $grp-context-navigation-background-color;
+}
+#grp-context-navigation {
+	@include grp-context-navigation;
+}
+
+@mixin grp-breadcrumbs {
+	float: left;
+	> ul {
+		@include horizontal-list(5px, left);
+		@include grp-padding($grp-padding-size-s 20px);
+		a {
+			display: block;
+			padding-right: 15px;
+			@include icons-sprite(breadcrumbs, $offset-x: 100%);
+			&:hover {
+				@include icons-sprite(breadcrumbs_hover, $offset-x: 100%);
+			}
+		}
+	}
+}
+#grp-breadcrumbs {
+	@include grp-breadcrumbs;
+}
+
+@mixin grp-page-tools {
+	float: right;
+	right: 20px;
+	#grp-toc-handler {
+		display: none;
+	}
+	#grp-toc-content {
+		display: none;
+	}
+	ul.grp-page-tools {
+		@include grp-padding(0 20px);
+		overflow: visible;
+		li {
+			position: relative;
+			padding: 1px 0 0;
+			a {
+				display: block;
+				width: 18px;
+				height: 24px;
+				&#grp-open-all {
+					@include icons-sprite(tools-open-handler);
+				}
+				&#grp-close-all {
+					@include icons-sprite(tools-close-handler);
+				}
+			}
+		}
+	}
+}
+#grp-page-tools {
+	@include grp-page-tools;
+}
+
+
+
+
+/*  MESSAGE-LIST
+------------------------------------------------------------------------------------------------------ */
+
+@mixin grp-messagelist {
+	position: relative;
+	float: none;
+	clear: both;
+	@include grp-margin(0 0 $grp-margin-size-l);
+	width: 100%;
+	@include box-sizing(border-box);
+	li {
+		font-weight: bold;
+		@include grp-padding($grp-padding-size-s $grp-padding-size);
+		border: 1px solid $grp-messagelist-border-color;
+		@include border-radius($grp-border-radius);
+		background: $grp-messagelist-background-color;
+		&.grp-success {
+			border: 1px solid $grp-messagelist-success-border-color;
+			background: $grp-messagelist-success-background-color;
+		}
+		&.grp-warning {
+			border: 1px solid $grp-messagelist-warning-border-color;
+			background: $grp-messagelist-warning-background-color;
+		}
+		&.grp-error {
+			border: 1px solid $grp-messagelist-error-border-color;
+			background: $grp-messagelist-error-background-color;
+		}
+		& + li {
+			margin-top: 2px;
+		}
+	}
+}
+.grp-messagelist {
+	@include grp-messagelist;
+}
+
+
+/*  FOOTER
+------------------------------------------------------------------------------------------------------ */
+
+@mixin grp-submit-row {
+	padding: 0;
+    border: 0;
+    background: transparent;
+	> ul {
+		margin-top: 10px;
+		overflow: visible;
+		> li {
+			@include horizontal-list-item(5px, right);
+			margin-left: 10px;
+			@include border-radius($grp-form-button-border-radius + 2px);
+	        @include box-shadow(0 0 10px #bbb);
+			&.grp-float-left {
+				margin-left: 0;
+				margin-right: 10px;
+			}
+			input[type=submit], 
+			a {
+				@include opacity(.75);
+				&.grp-default {
+					@include opacity(1);
+				}
+				&:hover {
+					@include opacity(1);
+				}
+			}
+		}
+	}
+}
+.grp-submit-row {
+	@include grp-submit-row;
+	&.grp-footer {
+		> ul {
+			margin-top: 0;
+			> li {
+				padding: 5px !important;
+				background: #444;
+		        @include box-shadow(none);
+			}
+		}
+	}
+}
+
+@mixin grp-footer {
+	position: fixed;
+	float: left;
+	bottom: 0;
+	left: 0;
+	margin: 0;
+	padding: 10px 20px;
+	width: 100%;
+	border: 0;
+	@include border-radius(0);
+	@include box-sizing(border-box);
+	@include grp-gradient-dark;
+	@include clearfix;
+}
+.grp-footer {
+	@include grp-footer;
+	
+}
+
+
+
+/*  POPUP
+------------------------------------------------------------------------------------------------------ */
+
+body.grp-popup {
+	#grp-navigation {
+		display: none;
+	}
+	#grp-breadcrumbs {
+		top: 0;
+	}
+	#grp-content {
+		// top: 40px; // if breadrumbs
+		top: 20px;
+	}
+}
+
+
+/*  LAYOUTS
+------------------------------------------------------------------------------------------------------ */
+
+
+.grp-layout-container {
+	position: relative;
+	float: left;
+	clear: both;
+	width: 100%;
+	@include box-sizing(border-box);
+	.grp-column-left, .grp-column-right {
+		@include box-sizing(border-box);
+	}
+}
+@function grp-column-width($n) {
+    @return $blueprint-grid-width * $n + $blueprint-grid-margin * ($n - 1);
+}
+$n: $blueprint-grid-columns;
+@while $n > 0 {
+	.grp-layout-container {
+		// Basic column-left and -right
+		.grp-column-left {
+        	position: relative;
+			float: left;
+			clear: left;
+        }
+        .grp-column-right {
+	        position: relative;
+			float: right;
+			clear: right;
+        	margin-right: 0;
+		}
+		// Basic settings for a fluid left column
+		&.grp-column-left-fluid {
+			.grp-column-left {
+	        	width: 100%;
+			}
+			.grp-column-right {
+		        position: relative;
+				float: right;
+				clear: right;
+	        	margin-right: 0;
+			}
+		}
+		// Specific settings for a fluid left column
+	    &.grp-column-right-span-#{$n} {
+	    	margin-right: - grp-column-width($n);
+	        .grp-column-left {
+	        	margin-right: - grp-column-width($n) + 20;
+	        	padding-right: grp-column-width($n) + 20;
+			}
+	        .grp-column-right {
+		        width: grp-column-width($n);
+				margin-left: - grp-column-width($n) + 20;
+			}
+	    }
+	    // Basic settings for a fluid right column
+		&.grp-column-right-fluid {
+			.grp-column-right {
+		        display: block;
+				float: left;
+				width: 100%;
+		    }
+		}
+		// Specific settings for a fluid right column
+	    &.grp-column-left-span-#{$n} {
+	    	.grp-column-left {
+	        	margin-right: - grp-column-width($n);
+				width: grp-column-width($n);
+			}
+	        .grp-column-right {
+		        padding-left: grp-column-width($n) + 20;
+		    }
+	    }
+	    $n: $n - 1;
+	}
+}
+
+
+
+
+// @mixin grp-layout($left-column, $right-column) {
+// 	@if $left-column == fluid and $right-column == fluid {
+// 		body {
+// 			background: #e4f;
+// 		}
+// 	} @else if $left-column == fluid {
+// 		body {
+// 			background: #4ef;
+// 		}
+// 	} @else if $right-column == fluid {
+// 		body {
+// 			background: #fe4;
+// 		}
+// 	}
+// }
+// @include grp-layout(220px, fluid);
+
+
+
+// body{
+//   margin:0;
+//   padding:200px 0 200px 0;
+//  }
+// #test-header {
+// 	position:absolute;
+// 	z-index: 1000;
+//   top:0;
+//   left:0;
+//   width:100%;
+//   height:200px;
+//   background: #4ef;
+// }
+// #test-content {
+// 	z-index: 100;
+// 	background: #e4f;
+// }
+// #test-footer {
+// 	position:absolute;
+// 	z-index: 1000;
+//   bottom:0;
+//   left:0;
+//   width:100%;
+//   height:200px;
+//   background: #000;
+// }
+// @media screen{
+//   body div#test-header{
+//    position:fixed;
+//   }
+//   body div#test-footer{
+//    position:fixed;
+//   }
+//  }
+//  * html body{
+//   overflow:hidden;
+//  } 
+//  * html div#test-content{
+//   height:100%;
+//   overflow:auto;
+//  }
+

@@ -123,7 +123,7 @@ class Product(models.Model):
         def price(self):
             return Price.get_minimal_enabled_price_for_product(self)
     else:
-        price = models.DecimalField(verbose_name=_('price'), max_digits=10, decimal_places=3)
+        price = models.PositiveIntegerField(verbose_name=_('price'), default=0)
 
     def __unicode__(self):
         return self.name
@@ -145,7 +145,8 @@ if MULTIPLE_PRICES:
 
         product = models.ForeignKey(to=Product, verbose_name=_('product'), related_name='prices')
         enabled = models.BooleanField(default=True, verbose_name=_('enabled'))
-        value = models.DecimalField(verbose_name=_('value'), max_digits=10, decimal_places=3)
+        remainder = models.PositiveIntegerField(verbose_name=_('remainder'), default=0)
+        value = models.PositiveIntegerField(verbose_name=_('value'))
         note = models.CharField(max_length=255, verbose_name=_('note'), blank=True, null=True)
 
         @classmethod

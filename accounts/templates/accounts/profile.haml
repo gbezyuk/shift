@@ -1,0 +1,25 @@
+- extends 'base.haml'
+- load i18n
+- load repeatblock
+- enablemacros
+
+- block breadcrumbs
+    %ul.breadcrumb
+        - include 'home_link.haml'
+        %li
+            %a{'href': '{% url profile %}'}
+                {% trans "Profile" %}
+
+- block content
+    - block form_actions
+        %form
+            %fieldset
+                .form-actions
+                    %a.btn.btn-primary{'href': '{% url edit_profile %}'}
+                        {% trans "Edit Profile" %}
+                    %a.btn.btn-primary{'href': '{% url change_avatar %}'}
+                        {% trans "Change avatar" %}
+    - with avatar=request.user.profile.avatar
+        - include 'accounts/snippets/user_profile_avatar.haml'
+    - include 'accounts/snippets/user_profile.haml'
+    - repeat form_actions
