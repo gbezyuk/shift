@@ -4,12 +4,9 @@ Product: Shift e-commerce engine
 Module: Catalog
 Part: Model-related Tests
 """
-from django.core.urlresolvers import reverse
 from django.test import TestCase
-from doppler.shift.catalog.models import Image
-from doppler.shift.catalog.tests.factories import ImageFactory
-from .factories import CategoryFactory, ProductFactory
-from ..models import Category, Product, Price, MULTIPLE_PRICES
+from .factories import CategoryFactory, ProductFactory, ImageFactory
+from ..models import Category, Image, MULTIPLE_PRICES
 
 class CategoryTestCase(TestCase):
     """
