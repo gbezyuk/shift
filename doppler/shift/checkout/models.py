@@ -8,6 +8,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from django.db import models
 from doppler.shift.catalog.models import Product
+from ..catalog.models import MULTIPLE_PRICES
+if MULTIPLE_PRICES:
+    from ..catalog.models import Price
 import random
 
 class Cart(models.Model):
@@ -75,14 +78,24 @@ class Cart(models.Model):
         else:
             return []
 
-    def insert_item(self, product, quantity, price):
+    def insert_item(self, product, quantity):
         """
         Insert item to the cart instance
         """
-        try:
-            self.cart_items.get(product=product, price=price).augment_quantity(quantity)
-        except CartItem.DoesNotExist:
-            CartItem(product=product, price=price, quantity=quantity, cart=self).save()
+        assert product.price > 0, "Can not add a product without price to cart"
+        assert quantity > 0, "Cart item quantity must be positive integer"
+        if MULTIPLE_PRICES:
+            try:
+                self.cart_items.get(product=product,
+                    price=product.get_minimal_enabled_price()).augment_quantity(quantity)
+            except CartItem.DoesNotExist:
+                CartItem(product=product, price=product.get_minimal_enabled_price(),
+                    quantity=quantity, cart=self).save()
+        else:
+            try:
+                self.cart_items.get(product=product, price=product.price).augment_quantity(quantity)
+            except CartItem.DoesNotExist:
+                CartItem(product=product, price=product.price, quantity=quantity, cart=self).save()
 
 
 class CartItem(models.Model):
@@ -93,10 +106,15 @@ class CartItem(models.Model):
         verbose_name = _('cart item')
         verbose_name_plural = _('cart items')
         ordering = ['created']
+        if MULTIPLE_PRICES:
+            unique_together = [('product', 'price', 'cart')]
+        else:
+            unique_together = [('product', 'cart')]
 
     cart = models.ForeignKey(to=Cart, verbose_name=_('cart'), related_name='cart_items')
     product = models.ForeignKey(to=Product, verbose_name=_('product'))
-    price = models.PositiveIntegerField(verbose_name=_('price'), default=0)
+    if MULTIPLE_PRICES:
+        price = models.ForeignKey(to=Price, verbose_name=_('price'))
     quantity = models.IntegerField(default = 1, verbose_name = _('quantity'))
     created = models.DateTimeField(auto_now_add = True, verbose_name = _('created'))
     modified = models.DateTimeField(auto_now = True, verbose_name = _('modified'))
@@ -106,7 +124,7 @@ class CartItem(models.Model):
         """
         Return total price as product price times product quantity
         """
-        return self.quantity * self.price
+        return self.quantity * self.product.price
 
     def augment_quantity(self, quantity):
         """
