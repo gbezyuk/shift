@@ -58,6 +58,7 @@ INSTALLED_APPS = (
     'main',
     'doppler',
     'doppler.shift.catalog',
+    'doppler.shift.checkout',
 )
 
 # django_jenkins apps list
@@ -65,6 +66,7 @@ PROJECT_APPS = (
     'accounts',
     'main',
     'doppler.shift.catalog',
+    'doppler.shift.checkout',
 )
 
 MIDDLEWARE_CLASSES = (

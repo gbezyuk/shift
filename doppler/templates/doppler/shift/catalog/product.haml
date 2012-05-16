@@ -14,6 +14,15 @@
             {% trans "Price" %}:
             %strong
                 = product.price
+            - if product.remainder
+                {% trans "Remains in stock" %}:
+                %strong
+                    = product.remainder
+                %em
+                    {% trans "Last updated" %}
+                    = product.remainder_update_time
+            - else
+                {% trans "Not available now" %}
         - else
             %em
                 {% trans "Not available now" %}
