@@ -121,9 +121,16 @@ class Product(models.Model):
     if MULTIPLE_PRICES:
         @property
         def price(self):
-            return Price.get_minimal_enabled_price_for_product(self)
+            return Price.get_minimal_enabled_price_for_product(self).value
+        @property
+        def remainder(self):
+            return Price.get_minimal_enabled_price_for_product(self).remainder
+        @property
+        def remainder_update_time(self):
+            return Price.get_minimal_enabled_price_for_product(self).modified
     else:
         price = models.PositiveIntegerField(verbose_name=_('price'), default=0)
+        remainder = models.PositiveIntegerField(verbose_name=_('remainder'), default=0)
 
     def __unicode__(self):
         return self.name
@@ -142,16 +149,24 @@ if MULTIPLE_PRICES:
             verbose_name = _('price')
             verbose_name_plural = _('prices')
             ordering = ['product', 'enabled', 'value']
+            unique_together = [('product', 'value',),]
 
         product = models.ForeignKey(to=Product, verbose_name=_('product'), related_name='prices')
         enabled = models.BooleanField(default=True, verbose_name=_('enabled'))
         remainder = models.PositiveIntegerField(verbose_name=_('remainder'), default=0)
         value = models.PositiveIntegerField(verbose_name=_('value'))
+        added_to_cart_times = models.PositiveIntegerField(verbose_name=_('added to cart times'), default=0)
+        ordered_times = models.PositiveIntegerField(verbose_name=_('ordered times'), default=0)
         note = models.CharField(max_length=255, verbose_name=_('note'), blank=True, null=True)
+        created = models.DateTimeField(auto_now_add = True, verbose_name = _('created'))
+        modified = models.DateTimeField(auto_now = True, verbose_name = _('modified'))
 
         @classmethod
         def get_minimal_enabled_price_for_product(cls, product):
             """
             Returns minimal enabled price value on set of prices related to provided product
             """
-            return product.prices.filter(enabled=True).aggregate(Min('value'))['value__min']
+            min_value = product.prices.filter(enabled=True).aggregate(Min('value'))['value__min']
+            enabled_prices_with_min_value = product.prices.filter(enabled=True, value=min_value)
+            return enabled_prices_with_min_value[0]
+
