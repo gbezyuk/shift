@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-16 08:39+0400\n"
-"PO-Revision-Date: 2012-05-16 08:41\n"
+"POT-Creation-Date: 2012-05-16 08:56+0400\n"
+"PO-Revision-Date: 2012-05-16 08:57\n"
 "Last-Translator:   <root@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -74,7 +74,7 @@ msgid "other images"
 msgstr "прочие изображения"
 
 #: shift/catalog/admin.py:84 shift/catalog/models.py:126
-#: shift/catalog/models.py:142
+#: shift/catalog/models.py:142 shift/checkout/models.py:69
 msgid "price"
 msgstr "цена"
 
@@ -122,14 +122,17 @@ msgid "parent"
 msgstr "родитель"
 
 #: shift/catalog/models.py:73 shift/catalog/models.py:109
+#: shift/checkout/models.py:16 shift/checkout/models.py:71
 msgid "created"
 msgstr "создано"
 
 #: shift/catalog/models.py:74 shift/catalog/models.py:110
+#: shift/checkout/models.py:17 shift/checkout/models.py:72
 msgid "modified"
 msgstr "изменено"
 
 #: shift/catalog/models.py:95 shift/catalog/models.py:146
+#: shift/checkout/models.py:68
 msgid "product"
 msgstr "товар"
 
@@ -152,6 +155,26 @@ msgstr "величина"
 #: shift/catalog/models.py:150
 msgid "note"
 msgstr "пометка"
+
+#: shift/checkout/models.py:18
+msgid "session key"
+msgstr "ключ сессии"
+
+#: shift/checkout/models.py:63
+msgid "cart item"
+msgstr "позиция корзины"
+
+#: shift/checkout/models.py:64
+msgid "cart items"
+msgstr "позиции корзины"
+
+#: shift/checkout/models.py:67
+msgid "cart"
+msgstr "корзина"
+
+#: shift/checkout/models.py:70
+msgid "quantity"
+msgstr "количество"
 
 #: templates/admin/feincms/catalog/category/tree_editor.html:32
 msgid "Shortcuts"
