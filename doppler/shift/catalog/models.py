@@ -123,7 +123,7 @@ class Product(models.Model):
         def price(self):
             return Price.get_minimal_enabled_price_for_product(self)
     else:
-        price = models.DecimalField(verbose_name=_('price'), max_digits=10, decimal_places=3)
+        price = models.PositiveIntegerField(verbose_name=_('price'), default=0)
 
     def __unicode__(self):
         return self.name
