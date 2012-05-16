@@ -4,6 +4,7 @@ Product: Shift e-commerce engine
 Module: Catalog
 Part: Model-related Tests
 """
+from django.db.utils import IntegrityError
 from django.test import TestCase
 from .factories import CategoryFactory, ProductFactory, ImageFactory
 from ..models import Category, Image, MULTIPLE_PRICES
@@ -132,7 +133,14 @@ if MULTIPLE_PRICES:
             Initialization with a factory-provided set of models
             """
             self.sample_product = ProductFactory()
-    
+
+        def test_product_price_values_unique(self):
+            """
+            Make sure IntegrityError is thrown where necessary on unique_together constraint
+            """
+            PriceFactory(product=self.sample_product, value=1)
+            self.assertRaises(IntegrityError, PriceFactory, product=self.sample_product, value=1)
+
         def test_product_with_no_prices(self):
             """
             Product with no prices should return None as price
@@ -150,8 +158,8 @@ if MULTIPLE_PRICES:
             """
             Product with many disabled prices should return None as price
             """
-            PriceFactory(product=self.sample_product, enabled=False)
-            PriceFactory(product=self.sample_product, enabled=False)
+            PriceFactory(product=self.sample_product, enabled=False, value=1)
+            PriceFactory(product=self.sample_product, enabled=False, value=2)
             self.assertEqual(self.sample_product.price, None)
     
         def test_product_with_single_enabled_price(self):
