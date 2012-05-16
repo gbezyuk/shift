@@ -121,9 +121,13 @@ class Product(models.Model):
     if MULTIPLE_PRICES:
         @property
         def price(self):
-            return Price.get_minimal_enabled_price_for_product(self)
+            return Price.get_minimal_enabled_price_for_product(self).value
+        @property
+        def price(self):
+            return Price.get_minimal_enabled_price_for_product(self).remainder
     else:
         price = models.PositiveIntegerField(verbose_name=_('price'), default=0)
+        remainder = models.PositiveIntegerField(verbose_name=_('remainder'), default=0)
 
     def __unicode__(self):
         return self.name
@@ -142,6 +146,7 @@ if MULTIPLE_PRICES:
             verbose_name = _('price')
             verbose_name_plural = _('prices')
             ordering = ['product', 'enabled', 'value']
+            unique_together = [('product', 'value',),]
 
         product = models.ForeignKey(to=Product, verbose_name=_('product'), related_name='prices')
         enabled = models.BooleanField(default=True, verbose_name=_('enabled'))
@@ -154,4 +159,6 @@ if MULTIPLE_PRICES:
             """
             Returns minimal enabled price value on set of prices related to provided product
             """
-            return product.prices.filter(enabled=True).aggregate(Min('value'))['value__min']
+            min_value = product.prices.filter(enabled=True).aggregate(Min('value'))['value__min']
+            enabled_prices_with_min_value = product.prices.filter(enabled=True, value=min_value).limit(1)
+            return enabled_prices_with_min_value[0]
