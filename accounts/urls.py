@@ -15,7 +15,7 @@ urlpatterns = patterns('',
     url(r'profile/$', profile, name='profile'),
     url(r'profile/edit/$', edit_profile, name='edit_profile'),
     url(r'profile/change_avatar/$', change_avatar, name='change_avatar'),
-    (r'^api/', include(entry_resource.urls)),
+    url(r'^api/', include(entry_resource.urls)),
 #    uncomment lines bellow to enable user list and user details views
 #    url(r'users/$', users, name='users'),
 #    url(r'users/(?P<user_id>\d+)/$', user, name='user'),
