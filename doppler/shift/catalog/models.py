@@ -128,11 +128,11 @@ class Product(models.Model):
         @property
         def remainder(self):
             price_obj = self.get_minimal_enabled_price()
-            return price.remainder if price_obj else None
+            return price_obj.remainder if price_obj else None
         @property
         def remainder_update_time(self):
             price_obj = self.get_minimal_enabled_price()
-            return price.modified if price_obj else None
+            return price_obj.modified if price_obj else None
     else:
         price = models.PositiveIntegerField(verbose_name=_('price'), default=0)
         remainder = models.PositiveIntegerField(verbose_name=_('remainder'), default=0)
