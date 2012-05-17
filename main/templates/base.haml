@@ -10,7 +10,8 @@
 
 - block title
     - get_metadata as metadata
-    = metadata.title.value
+    - if metadata.title.value
+        = metadata.title.value
 
 - block sitewide_styles
     %link{'rel': 'stylesheet', 'href':'{{ MEDIA_URL }}bootstrap/css/bootstrap.min.css', 'type': 'text/css'}
@@ -46,7 +47,8 @@
             %h1.page_caption
                 - block page_caption
                     - get_metadata as metadata
-                    = metadata.heading.value
+                    - if metadata.heading.value
+                        = metadata.heading.value
             - block content
 
             - repeat breadcrumbs
