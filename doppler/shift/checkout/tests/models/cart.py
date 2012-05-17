@@ -7,12 +7,11 @@ Subpart: Cart tests
 """
 from django.contrib.auth.models import AnonymousUser
 from django.http import HttpRequest
-from django.contrib.sessions.models import Session
 from django.test import TestCase
 from django.test.client import Client
 from doppler.shift.catalog.models import MULTIPLE_PRICES
-from doppler.shift.checkout.models import Cart
-from ..factories import UserFactory, ProductFactory, PriceFactory
+from doppler.shift.checkout.models import Cart, CartItem
+from ..factories import UserFactory, ProductFactory, PriceFactory, CartItemFactory, CartFactory
 
 class CartTestCase(TestCase):
     """
@@ -53,8 +52,8 @@ class CartTestCase(TestCase):
         self.assertRaises(AssertionError, cart.insert_item, sample_product, 1)
         self.assertEqual(len(Cart.get_cart_items(self.request)), 0)
         if MULTIPLE_PRICES:
-            sample_product.prices.add(PriceFactory())
-            another_product.prices.add(PriceFactory())
+            PriceFactory(product=sample_product)
+            PriceFactory(product=another_product)
         self.assertRaises(AssertionError, cart.insert_item, sample_product, 0)
         cart.insert_item(sample_product, 1)
         self.assertEqual(len(Cart.get_cart_items(self.request)), 1)
@@ -88,14 +87,21 @@ class CartTestCase(TestCase):
         """
         self.assertEqual(len(Cart.get_cart_items(self.request)), 0)
         sample_product = ProductFactory()
+        another_product = ProductFactory()
         cart = Cart.get_cart(self.request, create_if_not_exist=True)
         if MULTIPLE_PRICES:
-            sample_product.prices.add(PriceFactory())
+            PriceFactory(product=sample_product)
         cart.insert_item(sample_product, 1)
         cart_item_added = Cart.get_cart_items(self.request)[0]
         self.assertEqual(cart_item_added.product, sample_product)
         self.assertEqual(cart_item_added.quantity, 1)
         self.assertRaises(AssertionError, cart.update_quantity, sample_product, 0)
+        self.assertRaises(AssertionError, cart.update_quantity, another_product, 0)
+        self.assertRaises(AssertionError, cart.update_quantity, another_product, 1)
+        if MULTIPLE_PRICES:
+            PriceFactory(product=another_product)
+        self.assertRaises(AssertionError, cart.update_quantity, another_product, 0)
+        self.assertRaises(CartItem.DoesNotExist, cart.update_quantity, another_product, 1)
         cart.update_quantity(sample_product, 10)
         cart_item_added = Cart.get_cart_items(self.request)[0]
         self.assertEqual(cart_item_added.product, sample_product)
@@ -107,51 +113,114 @@ class CartTestCase(TestCase):
         """
         self.request.user = UserFactory()
         self.test_changing_cart_product_quantity_by_unauthorized_user()
-#
-#    def test_removing_cart_product_by_authorized_user(self):
-#        """
-#        Testing removing cart product by authorized user
-#        """
-#        raise NotImplementedError
-#
-#    def test_removing_cart_product_by_unauthorized_user(self):
-#        """
-#        Testing removing cart product by unauthorized user
-#        """
-#        raise NotImplementedError
-#
-#    def test_clear_cart_by_authorized_user(self):
-#        """
-#        Testing clearing cart by authorized user
-#        """
-#        raise NotImplementedError
-#
-#    def test_clear_cart_by_unauthorized_user(self):
-#        """
-#        Testing clearing cart by unauthorized user
-#        """
-#        raise NotImplementedError
-#
-#    def test_cart_item_total_price_calculation(self):
-#        """
-#        Testing cart item total price calculation
-#        """
-#        raise NotImplementedError
-#
-#    def test_cart_total_price_calculation(self):
-#        """
-#        Testing cart total price calculation
-#        """
-#        raise NotImplementedError
-#
-#    def test_cart_total_quantity_calculation(self):
-#        """
-#        Testing cart total quantity calculation
-#        """
-#        raise NotImplementedError
-#
-#    def test_cart_distinct_quantity_calculation(self):
-#        """
-#        Testing cart distinct quantity calculation
-#        """
-#        raise NotImplementedError
+
+    def test_removing_cart_product_by_unauthorized_user(self):
+        """
+        Testing removing cart product by authorized user
+        """
+        self.assertEqual(len(Cart.get_cart_items(self.request)), 0)
+        sample_product = ProductFactory()
+        another_product = ProductFactory()
+        cart = Cart.get_cart(self.request, create_if_not_exist=True)
+        if MULTIPLE_PRICES:
+            PriceFactory(product=sample_product)
+        cart.insert_item(sample_product, 1)
+        cart_item_added = Cart.get_cart_items(self.request)[0]
+        self.assertEqual(cart_item_added.product, sample_product)
+        self.assertEqual(cart_item_added.quantity, 1)
+        cart.remove_product(another_product)#shouldn't raise any exception
+        cart.remove_product(sample_product)
+        self.assertEqual(len(Cart.get_cart_items(self.request)), 0)
+
+    def test_removing_cart_product_by_authorized_user(self):
+        """
+        Testing removing cart product by unauthorized user
+        """
+        self.request.user = UserFactory()
+        self.test_removing_cart_product_by_unauthorized_user()
+
+    def test_clear_cart_by_authorized_user(self):
+        """
+        Testing clearing cart by authorized user
+        """
+        self.assertEqual(len(Cart.get_cart_items(self.request)), 0)
+        sample_product = ProductFactory()
+        another_product = ProductFactory()
+        cart = Cart.get_cart(self.request, create_if_not_exist=True)
+        if MULTIPLE_PRICES:
+            PriceFactory(product=sample_product)
+        cart.insert_item(sample_product, 1)
+        cart_item_added = Cart.get_cart_items(self.request)[0]
+        self.assertEqual(cart_item_added.product, sample_product)
+        self.assertEqual(cart_item_added.quantity, 1)
+        cart.clear()
+        self.assertEqual(len(Cart.get_cart_items(self.request)), 0)
+
+    def test_clear_cart_by_unauthorized_user(self):
+        """
+        Testing clearing cart by unauthorized user
+        """
+        self.request.user = UserFactory()
+        self.test_removing_cart_product_by_unauthorized_user()
+
+    def test_cart_item_total_price_calculation(self):
+        """
+        Testing cart item total price calculation
+        """
+        sample_product = ProductFactory()
+        cart = Cart.get_cart(self.request, create_if_not_exist=True)
+        if MULTIPLE_PRICES:
+            cart_item = CartItemFactory(product=sample_product, cart=cart, price=PriceFactory(product=sample_product))
+        self.assertEqual(cart_item.total_price, cart_item.product.price * cart_item.quantity)
+
+    def test_cart_total_price_calculation(self):
+        """
+        Testing cart total price calculation
+        """
+        self.assertEqual(len(Cart.get_cart_items(self.request)), 0)
+        sample_product = ProductFactory()
+        another_product = ProductFactory()
+        cart = Cart.get_cart(self.request, create_if_not_exist=True)
+        self.assertEqual(len(Cart.get_cart_items(self.request)), 0)
+        if MULTIPLE_PRICES:
+            PriceFactory(product=sample_product)
+            PriceFactory(product=another_product)
+        cart.insert_item(sample_product, 1)
+        self.assertEqual(len(Cart.get_cart_items(self.request)), 1)
+        cart_item_added = Cart.get_cart_items(self.request)[0]
+        self.assertEqual(cart_item_added.product, sample_product)
+        self.assertEqual(cart_item_added.quantity, 1)
+        cart.insert_item(sample_product, 1)
+        self.assertEqual(len(Cart.get_cart_items(self.request)), 1)
+        cart.insert_item(another_product, 1)
+        self.assertEqual(len(Cart.get_cart_items(self.request)), 2)
+        cart_items = Cart.get_cart_items(self.request)
+        self.assertEqual(sample_product.price * cart_items[0].quantity, cart_items[0].total_price)
+        self.assertEqual(another_product.price * cart_items[1].quantity, cart_items[1].total_price)
+        self.assertEqual(sample_product.price * cart_items[0].quantity + another_product.price * cart_items[1].quantity, cart.total_price)
+        self.assertEqual(cart_items[0].total_price + cart_items[1].total_price, cart.total_price)
+
+    def test_cart_total_quantity_calculation(self):
+        """
+        Testing cart total quantity calculation
+        """
+        self.assertEqual(len(Cart.get_cart_items(self.request)), 0)
+        sample_product = ProductFactory()
+        another_product = ProductFactory()
+        cart = Cart.get_cart(self.request, create_if_not_exist=True)
+        self.assertEqual(len(Cart.get_cart_items(self.request)), 0)
+        if MULTIPLE_PRICES:
+            PriceFactory(product=sample_product)
+            PriceFactory(product=another_product)
+        cart.insert_item(sample_product, 20)
+        self.assertEqual(len(Cart.get_cart_items(self.request)), 1)
+        cart_item_added = Cart.get_cart_items(self.request)[0]
+        self.assertEqual(cart_item_added.product, sample_product)
+        self.assertEqual(cart_item_added.quantity, 20)
+        cart.insert_item(sample_product, 1)
+        self.assertEqual(len(Cart.get_cart_items(self.request)), 1)
+        cart.insert_item(another_product, 100)
+        self.assertEqual(len(Cart.get_cart_items(self.request)), 2)
+        cart_items = Cart.get_cart_items(self.request)
+        self.assertEqual(cart.total_quantity, 121)
+        self.assertEqual(cart.total_distinct_quantity, 2)

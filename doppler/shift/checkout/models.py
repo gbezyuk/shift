@@ -88,14 +88,14 @@ class Cart(models.Model):
         assert quantity > 0, "Cart item quantity must be positive integer"
         if MULTIPLE_PRICES:
             try:
-                self.cart_items.all().get(product=product,
+                self.cart_items.get(product=product,
                     price=product.get_minimal_enabled_price()).augment_quantity(quantity)
             except CartItem.DoesNotExist:
                 CartItem(product=product, price=product.get_minimal_enabled_price(),
                     quantity=quantity, cart=self).save()
         else:
             try:
-                self.cart_items.all().get(product=product, price=product.price).augment_quantity(quantity)
+                self.cart_items.get(product=product, price=product.price).augment_quantity(quantity)
             except CartItem.DoesNotExist:
                 CartItem(product=product, price=product.price, quantity=quantity, cart=self).save()
 
@@ -106,11 +106,49 @@ class Cart(models.Model):
         assert product.price > 0, "Can not add a product without price to cart"
         assert quantity > 0, "Cart item quantity must be positive integer"
         if MULTIPLE_PRICES:
-            self.cart_items.all().get(product=product,
+            self.cart_items.get(product=product,
                 price=product.get_minimal_enabled_price()).update_quantity(quantity)
         else:
-            self.cart_items.all().get(product=product, price=product.price).update_quantity(quantity)
+            self.cart_items.get(product=product, price=product.price).update_quantity(quantity)
 
+    def remove_product(self, product):
+        """
+        Remove item from cart instance
+        """
+        self.cart_items.filter(product=product).delete()
+
+    def clear(self):
+        """
+        Clear the cart instance
+        """
+        self.cart_items.all().delete()
+
+    @property
+    def total_price(self):
+        """
+        Get cart total price
+        """
+        answer = 0
+        for item in self.cart_items.all():
+            answer += item.total_price
+        return answer
+
+    @property
+    def total_quantity(self):
+        """
+        Get cart total quantity
+        """
+        answer = 0
+        for item in self.cart_items.all():
+            answer += item.quantity
+        return answer
+
+    @property
+    def total_distinct_quantity(self):
+        """
+        Get total distinct quantity
+        """
+        return self.cart_items.all().count()
 
 class CartItem(models.Model):
     """
