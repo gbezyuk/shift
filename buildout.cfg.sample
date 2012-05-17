@@ -18,6 +18,12 @@ eggs =
         ipython
         django-mptt
         feincms
+        PIL
+        south
+#        django-grappelli
+        django-filebrowser
+        django-rosetta
+        ipython
 
         pygments
         hamlpy
@@ -31,7 +37,12 @@ eggs =
         django_any
         django_jenkins
         coverage
+
         DjangoSEO
+
+        pyyaml
+        lxml
+        django-tastypie
 
 project = main
 
