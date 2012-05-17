@@ -63,7 +63,9 @@ class Cart(models.Model):
             return Cart.objects.get(key=key)
         except Cart.DoesNotExist:
             if create_if_not_exist and key:
-                return Cart(key=key, user=request.user if request.user.authenticated() else None)
+                cart = Cart(key=key, user=request.user if request.user.is_authenticated() else None)
+                cart.save()
+                return cart
             else:
                 return None
 
@@ -86,16 +88,28 @@ class Cart(models.Model):
         assert quantity > 0, "Cart item quantity must be positive integer"
         if MULTIPLE_PRICES:
             try:
-                self.cart_items.get(product=product,
+                self.cart_items.all().get(product=product,
                     price=product.get_minimal_enabled_price()).augment_quantity(quantity)
             except CartItem.DoesNotExist:
                 CartItem(product=product, price=product.get_minimal_enabled_price(),
                     quantity=quantity, cart=self).save()
         else:
             try:
-                self.cart_items.get(product=product, price=product.price).augment_quantity(quantity)
+                self.cart_items.all().get(product=product, price=product.price).augment_quantity(quantity)
             except CartItem.DoesNotExist:
                 CartItem(product=product, price=product.price, quantity=quantity, cart=self).save()
+
+    def update_quantity(self, product, quantity):
+        """
+        Insert item to the cart instance
+        """
+        assert product.price > 0, "Can not add a product without price to cart"
+        assert quantity > 0, "Cart item quantity must be positive integer"
+        if MULTIPLE_PRICES:
+            self.cart_items.all().get(product=product,
+                price=product.get_minimal_enabled_price()).update_quantity(quantity)
+        else:
+            self.cart_items.all().get(product=product, price=product.price).update_quantity(quantity)
 
 
 class CartItem(models.Model):
@@ -131,4 +145,11 @@ class CartItem(models.Model):
         Augments product quantity by provided value
         """
         self.quantity += int(quantity)
+        self.save()
+
+    def update_quantity(self, quantity):
+        """
+        Updates product quantity with provided value
+        """
+        self.quantity = int(quantity)
         self.save()

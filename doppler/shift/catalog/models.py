@@ -119,16 +119,20 @@ class Product(models.Model):
 
     # pricing strategy may differ depending on current store
     if MULTIPLE_PRICES:
+        def get_minimal_enabled_price(self):
+            return Price.get_minimal_enabled_price_for_product(self)
         @property
         def price(self):
-            price_obj = Price.get_minimal_enabled_price_for_product(self)
+            price_obj = self.get_minimal_enabled_price()
             return price_obj.value if price_obj else None
         @property
         def remainder(self):
-            return Price.get_minimal_enabled_price_for_product(self).remainder
+            price_obj = self.get_minimal_enabled_price()
+            return price.remainder if price_obj else None
         @property
         def remainder_update_time(self):
-            return Price.get_minimal_enabled_price_for_product(self).modified
+            price_obj = self.get_minimal_enabled_price()
+            return price.modified if price_obj else None
     else:
         price = models.PositiveIntegerField(verbose_name=_('price'), default=0)
         remainder = models.PositiveIntegerField(verbose_name=_('remainder'), default=0)
