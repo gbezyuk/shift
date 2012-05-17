@@ -14,6 +14,8 @@ from feincms.admin import tree_editor
 from django.contrib import admin
 from django.conf import settings
 from filebrowser.base import FileObject
+from rollyourown.seo.admin import get_inline
+from main.seo import MyMetadata
 if MULTIPLE_PRICES:
     from .models import Price
 
@@ -49,7 +51,7 @@ class ProductAdmin(TinyMCEAdmin, TranslationAdmin):
     list_display = ('lot', 'name', 'main_image', 'other_images', 'html_description', 'enabled', 'price', 'category', )
     list_editable = ('enabled',)
     list_display_links = ('lot', 'name', 'html_description',)
-    inlines = [ImageTabularInline]
+    inlines = [ImageTabularInline, get_inline(MyMetadata)]
 
     def lot(self, object):
         return object.id
@@ -93,7 +95,7 @@ class ProductAdmin(TinyMCEAdmin, TranslationAdmin):
             return html_chunk
         other_prices.short_description= _('other prices')
         other_prices.allow_tags = True
-        inlines = [PriceTabularInline, ImageTabularInline]
+        inlines = [PriceTabularInline, ImageTabularInline, get_inline(MyMetadata)]
 
 class CategoryAdmin(tree_editor.TreeEditor, TinyMCEAdmin, TranslationAdmin):
     list_display = ('__unicode__', 'enabled_toggle', 'main_image', 'other_images', 'html_description')
@@ -116,7 +118,7 @@ class CategoryAdmin(tree_editor.TreeEditor, TinyMCEAdmin, TranslationAdmin):
         return get_object_thumbnails_html(obj)
     other_images.allow_tags = True
     other_images.short_description= _('other images')
-    inlines = [ImageTabularInline]
+    inlines = [ImageTabularInline, get_inline(MyMetadata)]
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)

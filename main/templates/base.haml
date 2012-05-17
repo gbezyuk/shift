@@ -2,6 +2,15 @@
 - load i18n
 - load repeatblock
 - enablemacros
+- load seo
+- block seo_meta
+    - get_metadata as metadata
+    = metadata.description
+    = metadata.keywords
+
+- block title
+    - get_metadata as metadata
+    = metadata.title.value
 
 - block sitewide_styles
     %link{'rel': 'stylesheet', 'href':'{{ MEDIA_URL }}bootstrap/css/bootstrap.min.css', 'type': 'text/css'}
@@ -39,6 +48,8 @@
                         = message
             %h1.page_caption
                 - block page_caption
+                    - get_metadata as metadata
+                    = metadata.heading.value
             - block content
 
             - repeat breadcrumbs

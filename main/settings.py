@@ -53,6 +53,7 @@ INSTALLED_APPS = (
     'django_coverage',
     'django_jenkins',
     'modeltranslation',
+    'rollyourown.seo',
     'utils',
     'accounts',
     'main',
