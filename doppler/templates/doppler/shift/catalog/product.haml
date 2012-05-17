@@ -1,5 +1,13 @@
 - extends 'doppler/shift/catalog/base.haml'
 - load i18n
+- load seo
+
+- block title
+    - get_metadata as metadata
+    - if not metadata.title.value
+        = product.name
+    - else
+        = metadata.title.value
 
 - block inner_breadcrumbs
     - include 'doppler/shift/catalog/snippets/breadcrumbs/catalog.haml'
