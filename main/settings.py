@@ -56,6 +56,7 @@ INSTALLED_APPS = (
     'rollyourown.seo',
     'utils',
     'accounts',
+    'compressor',
     'main',
     'doppler',
     'doppler.shift.catalog',
@@ -81,6 +82,7 @@ MIDDLEWARE_CLASSES = (
 STATICFILES_FINDERS = (
 	'django.contrib.staticfiles.finders.FileSystemFinder',
 	'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 TEMPLATE_LOADERS = (
@@ -172,3 +174,8 @@ AVATAR_STORAGE_PATH = MEDIA_ROOT + AVATAR_STORAGE_PATH_REL
 
 DOPPLER_SHIFT_CATALOG_PRODUCT_MULTIPLE_PRICES = True
 DOPPLER_SHIFT_CATALOG_PRODUCT_MULTIPLE_CATEGORIES = False
+
+COMPRESS_URL = '/'
+COMPRESS_ROOT = PROJECT_ROOT_PATH
+COMPRESS_ENABLED = True
+COMPRESS_OUTPUT_DIR = 'media/CACHE'

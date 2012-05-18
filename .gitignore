@@ -1,4 +1,5 @@
 repo-utils
+media/CACHE
 media/uploads/*.*
 media/uploads/avatars/*.*
 media/uploads_versions/*.*
