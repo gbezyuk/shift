@@ -43,6 +43,7 @@ eggs =
         pyyaml
         lxml
         django-tastypie
+        django_compressor
 
 project = main
 

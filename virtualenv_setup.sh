@@ -37,3 +37,5 @@ pip install DjangoSEO
 pip install pyyaml
 pip install lxml
 pip install django-tastypie
+
+pip install django_compressor
