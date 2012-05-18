@@ -45,6 +45,11 @@ eggs =
         django-tastypie
         django_compressor
 
+        pip install pyyaml
+        pip install lxml
+        pip install django-tastypie
+        pip install BeautifulSoup
+
 project = main
 
 [versions]
