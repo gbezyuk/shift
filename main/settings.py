@@ -179,3 +179,9 @@ COMPRESS_URL = '/'
 COMPRESS_ROOT = PROJECT_ROOT_PATH
 COMPRESS_ENABLED = True
 COMPRESS_OUTPUT_DIR = 'media/CACHE'
+COMPRESS_PRECOMPILERS = (
+    ('text/coffeescript', 'coffee --compile --stdio'),
+    ('text/less', 'lessc {infile} {outfile}'),
+    ('text/x-sass', 'sass {infile} {outfile}'),
+    ('text/x-scss', 'sass --scss {infile} {outfile}'),
+    )
