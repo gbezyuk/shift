@@ -32,6 +32,8 @@ eggs =
         django_jenkins
         coverage
 
+        django_compressor
+
 project = main
 
 [versions]

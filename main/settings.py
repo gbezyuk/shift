@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'django_jenkins',
     'utils',
     'accounts',
+    'compressor',
     'main',
 )
 
@@ -53,6 +54,7 @@ MIDDLEWARE_CLASSES = (
 STATICFILES_FINDERS = (
 	'django.contrib.staticfiles.finders.FileSystemFinder',
 	'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 TEMPLATE_LOADERS = (
@@ -148,3 +150,8 @@ FILEBROWSER_URL_TINYMCE = '/static/grappelli/tinymce/jscripts/tiny_mce/'
 DEFAULT_AVATAR_URL = MEDIA_URL + 'img/default-avatar.gif'
 AVATAR_STORAGE_PATH_REL = FILEBROWSER_DIRECTORY + 'avatars/'
 AVATAR_STORAGE_PATH = MEDIA_ROOT + AVATAR_STORAGE_PATH_REL
+
+COMPRESS_URL = '/'
+COMPRESS_ROOT = PROJECT_ROOT_PATH
+COMPRESS_ENABLED = True
+COMPRESS_OUTPUT_DIR = 'media/CACHE'
