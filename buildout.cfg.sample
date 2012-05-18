@@ -34,10 +34,10 @@ eggs =
 
         django_compressor
 
-        pip install pyyaml
-        pip install lxml
-        pip install django-tastypie
-        pip install BeautifulSoup
+        pyyaml
+        lxml
+        django-tastypie
+        BeautifulSoup
 
 project = main
 
