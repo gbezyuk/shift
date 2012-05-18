@@ -2,11 +2,12 @@
     margin-top: 60px;
 }
 
-ul.breadcrumb > li:after {
-    content: '/';
-    color: #999;
-}
-
-    ul.breadcrumb > li:last-child:after {
+ul.breadcrumb {
+    li:after {
+        content: '/';
+        color: #999;
+    }
+    li:last-child:after {
         content: '';
     }
+}
