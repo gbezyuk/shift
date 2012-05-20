@@ -1,8 +1,8 @@
 - extends 'doppler_base.haml'
 
--#- block cart_header_widget
--#    - with cart_link_class="active"
--#        - include 'doppler/shift/cart/snippets/header_widget.haml'
+- block cart_header_widget
+    - with cart_link_class="active"
+        - include 'doppler/shift/checkout/snippets/header_widget.haml'
 
 - block breadcrumbs
     %ul.breadcrumb
