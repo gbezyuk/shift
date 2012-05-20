@@ -10,6 +10,8 @@
                 {% trans "Price" %}
             %th
                 {% trans "Quantity" %}
+            %th
+                {% trans "Total" %}
     %tbody
         - if cart
             - for item in cart.items.all
@@ -21,6 +23,16 @@
                         = item.price.value
                     %td
                         = item.quantity
+                    %td
+                        = item.total_price
+            %tr
+                %th
+                %th
+                %th
+                %th
+                    = cart.total_quantity
+                %th
+                    = cart.total_price
         - else
             %tr
                 %th{'colspan': '4'}
