@@ -1,0 +1,15 @@
+- load i18n
+%ul.nav.pull-right
+    %li.dropdown
+        %a#cart-dropdown-toggler.dropdown-toggle{'href': "{% url doppler_shift_cart %}", 'data-toggle': "dropdown"}
+            {% trans "Cart" %}
+            - if cart_distinct_quantity
+                %span.badge.badge-info
+                    = cart_distinct_quantity
+            - else
+                .badge
+                    0
+        %ul.dropdown-menu
+            %li
+                %a{'href': '{% url doppler_shift_cart %}'}
+                    {% trans "View cart" %}

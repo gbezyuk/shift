@@ -103,6 +103,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'main.context_processors.login_url',
     'main.context_processors.default_avatar_url',
     'doppler.shift.catalog.context_processors.categories',
+    'doppler.shift.checkout.context_processors.cart',
 )
 
 LOGGING = {
