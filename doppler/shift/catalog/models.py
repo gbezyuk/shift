@@ -92,6 +92,9 @@ class Category(MPTTModel):
     def get_absolute_url(self):
         return 'doppler_shift_catalog_category', (), {'category_id': self.pk}
 
+    def has_active_children(self):
+        return Category.objects.filter(parent=self).exists()
+
 class Product(models.Model):
     """
     Basic catalog entity - a product
