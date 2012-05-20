@@ -1,8 +1,9 @@
 %ul.categories.thumbnails
     - for category in categories
-        %li.thumbnail
+        %li.thumbnail.position-thumbnail
             %a{'href': '{{ category.get_absolute_url }}'}
-                - with image=category.main_image no_link=1 thumbnail_version="200x200"
-                    - include 'doppler/shift/catalog/snippets/image.haml'
+                .version.version200x200
+                    - with image=category.main_image no_link=1 thumbnail_version="200x200"
+                        - include 'doppler/shift/catalog/snippets/image.haml'
                 %h3
                     = category.name
