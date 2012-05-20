@@ -4,7 +4,7 @@
         %tr
             %th
                 {% trans "#" %}
-            %th
+            %th{'colspan': 2}
                 {% trans "Product" %}
             %th
                 {% trans "Price" %}
@@ -18,7 +18,13 @@
                 %tr
                     %td
                     %td
-                        = item.product
+                        %ul.thumbnails
+                            %li.thumbnail.version.version80x80
+                                - with image=item.product.main_image thumbnail_version="80x80"
+                                    - include 'doppler/shift/catalog/snippets/image.haml'
+                    %td
+                        %a{'href': '{{ item.product.get_absolute_url }}'}
+                            = item.product
                     %td
                         = item.price.value
                     %td
@@ -26,14 +32,12 @@
                     %td
                         = item.total_price
             %tr
-                %th
-                %th
-                %th
+                %th{'colspan': '4'}
                 %th
                     = cart.total_quantity
                 %th
                     = cart.total_price
         - else
             %tr
-                %th{'colspan': '4'}
+                %th{'colspan': '6'}
                     {% trans "Your shopping cart is empty yet" %}
