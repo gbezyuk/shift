@@ -1,0 +1,27 @@
+- load i18n
+%table.table.cart
+    %thead
+        %tr
+            %th
+                {% trans "#" %}
+            %th
+                {% trans "Product" %}
+            %th
+                {% trans "Price" %}
+            %th
+                {% trans "Quantity" %}
+    %tbody
+        - if cart
+            - for item in cart.items.all
+                %tr
+                    %td
+                    %td
+                        = item.product
+                    %td
+                        = item.price.value
+                    %td
+                        = item.quantity
+        - else
+            %tr
+                %th{'colspan': '4'}
+                    {% trans "Your shopping cart is empty yet" %}

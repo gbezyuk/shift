@@ -70,13 +70,13 @@ class Cart(models.Model):
                 return None
 
     @classmethod
-    def get_cart_items(cls, request):
+    def get_items(cls, request):
         """
         Get cart items basing on provided request
         """
         cart = cls.get_cart(request)
         if cart:
-            return cart.cart_items.all()
+            return cart.items.all()
         else:
             return []
 
@@ -85,19 +85,21 @@ class Cart(models.Model):
         Insert item to the cart instance
         """
         assert product.price > 0, "Can not add a product without price to cart"
-        assert quantity > 0, "Cart item quantity must be positive integer"
+        assert quantity > 0, "Cart item quantity must be positive integer, %s found" % quantity
+        assert quantity <= product.remainder, "Cart item quantity must be not greater than product remainder, which is %s" % product.remainder
         if MULTIPLE_PRICES:
             try:
-                self.cart_items.get(product=product,
+                self.items.get(product=product,
                     price=product.get_minimal_enabled_price()).augment_quantity(quantity)
             except CartItem.DoesNotExist:
                 CartItem(product=product, price=product.get_minimal_enabled_price(),
                     quantity=quantity, cart=self).save()
         else:
             try:
-                self.cart_items.get(product=product, price=product.price).augment_quantity(quantity)
+                self.items.get(product=product, price=product.price).augment_quantity(quantity)
             except CartItem.DoesNotExist:
                 CartItem(product=product, price=product.price, quantity=quantity, cart=self).save()
+        product.reserve_quantity(quantity)
 
     def update_quantity(self, product, quantity):
         """
@@ -105,23 +107,25 @@ class Cart(models.Model):
         """
         assert product.price > 0, "Can not add a product without price to cart"
         assert quantity > 0, "Cart item quantity must be positive integer"
+        assert quantity <= product.remainder, "Cart item quantity must be not greater than product remainder, which is %s" % product.remainder
         if MULTIPLE_PRICES:
-            self.cart_items.get(product=product,
+            self.items.get(product=product,
                 price=product.get_minimal_enabled_price()).update_quantity(quantity)
         else:
-            self.cart_items.get(product=product, price=product.price).update_quantity(quantity)
+            self.items.get(product=product, price=product.price).update_quantity(quantity)
+        product.reserve_quantity(quantity)
 
     def remove_product(self, product):
         """
         Remove item from cart instance
         """
-        self.cart_items.filter(product=product).delete()
+        self.items.filter(product=product).delete()
 
     def clear(self):
         """
         Clear the cart instance
         """
-        self.cart_items.all().delete()
+        self.items.all().delete()
 
     @property
     def total_price(self):
@@ -129,7 +133,7 @@ class Cart(models.Model):
         Get cart total price
         """
         answer = 0
-        for item in self.cart_items.all():
+        for item in self.items.all():
             answer += item.total_price
         return answer
 
@@ -139,7 +143,7 @@ class Cart(models.Model):
         Get cart total quantity
         """
         answer = 0
-        for item in self.cart_items.all():
+        for item in self.items.all():
             answer += item.quantity
         return answer
 
@@ -148,7 +152,7 @@ class Cart(models.Model):
         """
         Get total distinct quantity
         """
-        return self.cart_items.all().count()
+        return self.items.all().count()
 
 class CartItem(models.Model):
     """
@@ -163,7 +167,7 @@ class CartItem(models.Model):
         else:
             unique_together = [('product', 'cart')]
 
-    cart = models.ForeignKey(to=Cart, verbose_name=_('cart'), related_name='cart_items')
+    cart = models.ForeignKey(to=Cart, verbose_name=_('cart'), related_name='items')
     product = models.ForeignKey(to=Product, verbose_name=_('product'))
     if MULTIPLE_PRICES:
         price = models.ForeignKey(to=Price, verbose_name=_('price'))

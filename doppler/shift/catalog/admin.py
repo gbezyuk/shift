@@ -42,7 +42,7 @@ def get_object_thumbnails_html(obj):
 
 class PriceTabularInline(admin.TabularInline):
     model = Price
-    readonly_fields = ['added_to_cart_times', 'ordered_times',]
+    readonly_fields = ['added_to_cart_times', 'ordered_times', 'reserved']
 
 class ImageTabularInline(generic.GenericTabularInline):
     model = Image
