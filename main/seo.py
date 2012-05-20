@@ -1,5 +1,5 @@
 from rollyourown import seo
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 
 class MyMetadata(seo.Metadata):
     title       = seo.Tag(head=True, max_length=68)
