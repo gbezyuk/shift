@@ -14,11 +14,10 @@ urlpatterns = patterns('',
     url(r'^admin/rosetta/', include('rosetta.urls')),
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', HomeView.as_view(), name='home'),
     url(r'^auth/', include('doppler.auth.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('accounts.urls')),
-    url(r'^$', HomeView.as_view(), name='home'),
+#    url(r'^$', HomeView.as_view(), name='home'),
     url(r'^', include('doppler.shift.urls')),
 )
 

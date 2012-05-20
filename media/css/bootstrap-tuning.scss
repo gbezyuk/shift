@@ -34,3 +34,98 @@ li.thumbnail {
     color: $western-hover-color;
   }
 }
+
+.catalog_widget {
+  ul {
+    background: transparent url('/media/img/menu-stripe.png') 5px top repeat-y;
+    padding: 0;
+    display: none;
+    line-height: 17px;
+    font-size: 14px;
+    list-style: none;
+    margin-left: 0;
+
+    li {
+      list-style: none;
+      padding: 4px 0 4px 18px;
+      background-color: transparent;
+      background-position: 6px 14px;
+      background-repeat: no-repeat;
+    }
+    li.empty {
+      background-image: url('/media/img/menu-empty.png');
+      background-position: 6px 14px;
+    }
+    li.empty:last-child {
+      background-image: url('/media/img/menu-last-empty.png');
+      background-position: 5px 14px;
+    }
+
+    li.active {
+    }
+
+    li.active > a {
+      font-weight: bold;
+      border-radius: 4px;
+      background: #08C;
+      color: #FFF;
+      padding: 2px;
+    }
+
+    li.extendable {
+    }
+    li.extendable.active {
+    }
+    li.extendable.extended {
+      background-image: url('/media/img/menu-open.png');
+      background-position: 0px 8px;
+    }
+    li.extendable.extended:last-child {
+      background-image: url('/media/img/menu-last-open.png');
+      background-position: 0px 8px;
+    }
+    li.extendable.extended > ul {
+      display: block;
+    }
+    li.extendable.extended.active {
+    }
+    li.extendable.collapsed {
+      background-image: url('/media/img/menu-closed.png');
+      background-position: 0px 8px;
+    }
+    li.extendable.collapsed:last-child {
+      background-image: url('/media/img/menu-last-closed.png');
+      background-position: 0px 8px;
+    }
+    li.extendable.collapsed.active {
+    }
+  }
+  ul.root {
+    display: block;
+    margin: 0 10px 10px 10px;
+  }
+  ul.root > li > a,
+  ul.root > li > a:visited {
+    /*font-weight: bold;*/
+    /*text-transform: uppercase;*/
+    /*color: #5D359A;*/
+
+    li.level_2 > a:link,
+    li.level_3 > a:link,
+    li.level_4 > a:link,
+    li.level_5 > a:link,
+    li.level_2 > a:visited,
+    li.level_3 > a:visited,
+    li.level_4 > a:visited,
+    li.level_5 > a:visited {
+      /*color: #666;*/
+    }
+
+    li.level_2 > a:hover,
+    li.level_3 > a:hover,
+    li.level_4 > a:hover,
+    li.level_5 > a:hover {
+      /*color: #CD121B;*/
+    }
+  }
+}
