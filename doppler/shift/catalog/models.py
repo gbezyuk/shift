@@ -65,10 +65,15 @@ class Category(MPTTModel):
         self_main = Image.get_main_image_for_object(self)
         if self_main:
             return self_main
-        else:
-            for child in self.children.filter(enabled=True):
-                if child.main_image:
-                    return child.main_image
+        if self.products.all().exists():
+            print self.products.all()
+            for product in self.products.all().order_by('?'):
+                product_image = product.main_image
+                if product_image:
+                    return product_image
+        for child in self.children.filter(enabled=True):
+            if child.main_image:
+                return child.main_image
         return None
     created = models.DateTimeField(auto_now_add = True, verbose_name = _('created'))
     modified = models.DateTimeField(auto_now = True, verbose_name = _('modified'))
