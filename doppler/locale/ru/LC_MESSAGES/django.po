@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-16 08:56+0400\n"
-"PO-Revision-Date: 2012-05-16 08:57\n"
-"Last-Translator:   <root@example.com>\n"
+"POT-Creation-Date: 2012-05-21 02:34+0400\n"
+"PO-Revision-Date: 2012-05-21 02:37\n"
+"Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,44 +47,44 @@ msgstr "Эта учётная запись отключена"
 msgid "Invalid login/password pair"
 msgstr "Некорректное сочетание имени пользователя и пароля"
 
-#: shift/catalog/admin.py:39
+#: shift/catalog/admin.py:41
 msgid "no images"
 msgstr "нет изображений"
 
-#: shift/catalog/admin.py:56
+#: shift/catalog/admin.py:58
 msgid "lot"
 msgstr "лот"
 
-#: shift/catalog/admin.py:60 shift/catalog/admin.py:104
-#: shift/catalog/models.py:59 shift/catalog/models.py:100
+#: shift/catalog/admin.py:62 shift/catalog/admin.py:106
+#: shift/catalog/models.py:59 shift/catalog/models.py:107
 msgid "description"
 msgstr "описание"
 
-#: shift/catalog/admin.py:67 shift/catalog/admin.py:88
-#: shift/catalog/admin.py:111
+#: shift/catalog/admin.py:69 shift/catalog/admin.py:90
+#: shift/catalog/admin.py:113
 msgid "not set"
 msgstr "не установлено"
 
-#: shift/catalog/admin.py:69 shift/catalog/admin.py:113
+#: shift/catalog/admin.py:71 shift/catalog/admin.py:115
 msgid "main image"
 msgstr "главное изображение"
 
-#: shift/catalog/admin.py:74 shift/catalog/admin.py:118
+#: shift/catalog/admin.py:76 shift/catalog/admin.py:120
 msgid "other images"
 msgstr "прочие изображения"
 
-#: shift/catalog/admin.py:84 shift/catalog/models.py:126
-#: shift/catalog/models.py:142 shift/checkout/models.py:69
+#: shift/catalog/admin.py:86 shift/catalog/models.py:157
+#: shift/catalog/models.py:174 shift/checkout/models.py:179
 msgid "price"
 msgstr "цена"
 
-#: shift/catalog/admin.py:94
+#: shift/catalog/admin.py:96
 msgid "other prices"
 msgstr "прочие цены"
 
-#: shift/catalog/admin.py:100 shift/catalog/models.py:28
-#: shift/catalog/models.py:60 shift/catalog/models.py:101
-#: shift/catalog/models.py:147
+#: shift/catalog/admin.py:102 shift/catalog/models.py:28
+#: shift/catalog/models.py:60 shift/catalog/models.py:108
+#: shift/catalog/models.py:180
 msgid "enabled"
 msgstr "включено"
 
@@ -101,19 +101,19 @@ msgid "image"
 msgstr "изображение"
 
 #: shift/catalog/models.py:37 shift/catalog/models.py:62
-#: shift/catalog/models.py:102
+#: shift/catalog/models.py:109
 msgid "images"
 msgstr "изображения"
 
-#: shift/catalog/models.py:54 shift/catalog/models.py:118
+#: shift/catalog/models.py:54 shift/catalog/models.py:125
 msgid "category"
 msgstr "категория"
 
-#: shift/catalog/models.py:55 shift/catalog/models.py:115
+#: shift/catalog/models.py:55 shift/catalog/models.py:122
 msgid "categories"
 msgstr "категории"
 
-#: shift/catalog/models.py:58 shift/catalog/models.py:99
+#: shift/catalog/models.py:58 shift/catalog/models.py:106
 msgid "name"
 msgstr "наименование"
 
@@ -121,60 +121,87 @@ msgstr "наименование"
 msgid "parent"
 msgstr "родитель"
 
-#: shift/catalog/models.py:73 shift/catalog/models.py:109
-#: shift/checkout/models.py:16 shift/checkout/models.py:71
+#: shift/catalog/models.py:77 shift/catalog/models.py:116
+#: shift/catalog/models.py:187 shift/checkout/models.py:20
+#: shift/checkout/models.py:181
 msgid "created"
 msgstr "создано"
 
-#: shift/catalog/models.py:74 shift/catalog/models.py:110
-#: shift/checkout/models.py:17 shift/checkout/models.py:72
+#: shift/catalog/models.py:78 shift/catalog/models.py:117
+#: shift/catalog/models.py:188 shift/checkout/models.py:21
+#: shift/checkout/models.py:182
 msgid "modified"
 msgstr "изменено"
 
-#: shift/catalog/models.py:95 shift/catalog/models.py:146
-#: shift/checkout/models.py:68
+#: shift/catalog/models.py:102 shift/catalog/models.py:179
+#: shift/checkout/models.py:177
 msgid "product"
 msgstr "товар"
 
-#: shift/catalog/models.py:96
+#: shift/catalog/models.py:103
 msgid "products"
 msgstr "товары"
 
-#: shift/catalog/models.py:143
-msgid "prices"
-msgstr "цены"
-
-#: shift/catalog/models.py:148
+#: shift/catalog/models.py:158 shift/catalog/models.py:181
 msgid "remainder"
 msgstr "остаток"
 
-#: shift/catalog/models.py:149
+#: shift/catalog/models.py:175
+msgid "prices"
+msgstr "цены"
+
+#: shift/catalog/models.py:182 templates/doppler/shift/catalog/product.haml:37
+msgid "reserved"
+msgstr "зарезервировано"
+
+#: shift/catalog/models.py:183
 msgid "value"
 msgstr "величина"
 
-#: shift/catalog/models.py:150
+#: shift/catalog/models.py:184
+msgid "added to cart times"
+msgstr "добавлений в корзину"
+
+#: shift/catalog/models.py:185
+msgid "ordered times"
+msgstr "количество заказов"
+
+#: shift/catalog/models.py:186
 msgid "note"
 msgstr "пометка"
 
-#: shift/checkout/models.py:18
+#: shift/checkout/forms.py:15 shift/checkout/models.py:180
+msgid "quantity"
+msgstr "количество"
+
+#: shift/checkout/forms.py:29
+#, python-format
+msgid "%d is maximum quantity we can offer for this product"
+msgstr "%d - максимальное количество, какое мы можем предложить"
+
+#: shift/checkout/forms.py:39
+msgid "product was successfully added to your cart"
+msgstr "товар был успешно добавлен в корзину"
+
+#: shift/checkout/models.py:22
 msgid "session key"
 msgstr "ключ сессии"
 
-#: shift/checkout/models.py:63
+#: shift/checkout/models.py:23
+msgid "user"
+msgstr "пользователь"
+
+#: shift/checkout/models.py:168
 msgid "cart item"
 msgstr "позиция корзины"
 
-#: shift/checkout/models.py:64
+#: shift/checkout/models.py:169
 msgid "cart items"
 msgstr "позиции корзины"
 
-#: shift/checkout/models.py:67
+#: shift/checkout/models.py:176
 msgid "cart"
 msgstr "корзина"
-
-#: shift/checkout/models.py:70
-msgid "quantity"
-msgstr "количество"
 
 #: templates/admin/feincms/catalog/category/tree_editor.html:32
 msgid "Shortcuts"
@@ -196,7 +223,7 @@ msgstr "Фильтр"
 msgid "Login"
 msgstr "Войти"
 
-#: templates/doppler/shift/catalog/category.haml:21
+#: templates/doppler/shift/catalog/category.haml:29
 msgid "This category is empty"
 msgstr "Эта категория пуста"
 
@@ -204,21 +231,77 @@ msgstr "Эта категория пуста"
 msgid "No categories available"
 msgstr "Нет доступных категорий"
 
-#: templates/doppler/shift/catalog/product.haml:14
+#: templates/doppler/shift/catalog/product.haml:22
+#: templates/doppler/shift/checkout/snippets/cart_table.haml:10
 msgid "Price"
 msgstr "Цена"
 
-#: templates/doppler/shift/catalog/product.haml:19
+#: templates/doppler/shift/catalog/product.haml:26
+msgid "Remains in stock"
+msgstr "В наличии"
+
+#: templates/doppler/shift/catalog/product.haml:30
+msgid "Last updated"
+msgstr "Последнее обновление"
+
+#: templates/doppler/shift/catalog/product.haml:34
+#: templates/doppler/shift/catalog/product.haml:40
 msgid "Not available now"
 msgstr "Нет в наличии"
 
-#: templates/doppler/shift/catalog/snippets/product_list.haml:16
-msgid "N/A"
-msgstr "Нет"
-
+#: templates/doppler/shift/catalog/snippets/header_widget.haml:4
 #: templates/doppler/shift/catalog/snippets/breadcrumbs/catalog.haml:4
 msgid "Catalog"
 msgstr "Каталог"
+
+#: templates/doppler/shift/catalog/snippets/product_list.haml:19
+#: templates/doppler/shift/catalog/snippets/product_list.haml:22
+msgid "N/A"
+msgstr "Нет"
+
+#: templates/doppler/shift/checkout/cart.haml:15
+msgid "Clear cart"
+msgstr "Очистить корзину"
+
+#: templates/doppler/shift/checkout/cart.haml:17
+msgid "Update quantity"
+msgstr "Обновить количество"
+
+#: templates/doppler/shift/checkout/cart.haml:19
+msgid "Make order"
+msgstr "Сделать заказ"
+
+#: templates/doppler/shift/checkout/snippets/add_to_cart_form.haml:6
+msgid "Add to cart"
+msgstr "Добавить в корзину"
+
+#: templates/doppler/shift/checkout/snippets/cart_table.haml:6
+msgid "#"
+msgstr "#"
+
+#: templates/doppler/shift/checkout/snippets/cart_table.haml:8
+msgid "Product"
+msgstr "Товар"
+
+#: templates/doppler/shift/checkout/snippets/cart_table.haml:12
+msgid "Quantity"
+msgstr "Количество"
+
+#: templates/doppler/shift/checkout/snippets/cart_table.haml:14
+msgid "Total"
+msgstr "Итого"
+
+#: templates/doppler/shift/checkout/snippets/cart_table.haml:39
+msgid "Your shopping cart is empty yet"
+msgstr "Ваша корзина пуста"
+
+#: templates/doppler/shift/checkout/snippets/header_widget.haml:9
+msgid "Cart"
+msgstr "Корзина"
+
+#: templates/doppler/shift/checkout/snippets/header_widget.haml:13
+msgid "View cart"
+msgstr "Просмотреть корзину"
 
 #~ msgid "id"
 #~ msgstr "артикул"
