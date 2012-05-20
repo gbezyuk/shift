@@ -31,4 +31,5 @@ $(function () {
 $(function () {
     $('#login-modal-toggler').attr('href', '#login-modal');
     $('#auth-dropdown-toggler').attr('href', '#');
+    $('#catalog-dropdown-toggler').attr('href', '#');
 });

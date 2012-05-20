@@ -1,5 +1,9 @@
 - extends 'doppler_base.haml'
 
+- block catalog_header_widget
+    - with catalog_link_class="active"
+        - include 'doppler/shift/catalog/snippets/header_widget.haml'
+
 - block breadcrumbs
     %ul.breadcrumb
         - include 'home_link.haml'
