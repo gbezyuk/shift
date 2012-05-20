@@ -36,6 +36,8 @@ li.thumbnail {
 }
 
 .catalog_widget {
+  background-color: #FFF;
+
   ul {
     background: transparent url('/media/img/menu-stripe.png') 5px top repeat-y;
     padding: 0;
@@ -67,7 +69,7 @@ li.thumbnail {
     li.active > a {
       font-weight: bold;
       border-radius: 4px;
-      background: #08C;
+      background: $western-hover-color;
       color: #FFF;
       padding: 2px;
     }
