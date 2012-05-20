@@ -20,20 +20,19 @@
 
             - block favicon
 
-            - load compress
-            - compress css
-                - block styles
+            - block styles
+                - load compress
+                - compress css
                     - block sitewide_styles
                     - block page_styles
                     - block additional_styles
                     - block user_styles
 
-            - compress js
-                - block scripts
-                    - block sitewide_scripts
-                    - block additional_scripts
-                    - block page_scripts
-                    - block user_scripts
-                    - block counters
+            - block scripts
+                - block sitewide_scripts
+                - block additional_scripts
+                - block page_scripts
+                - block user_scripts
+                - block counters
 
     - block body

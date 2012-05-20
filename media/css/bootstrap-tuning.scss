@@ -1,6 +1,17 @@
+$western-foreground-color: #D68E5F;
+$western-hover-color: #401C0C;
+
 body {
   background: url('/media/img/tal_1.jpg') left top repeat;
-  color: #D68E5F;
+  color: $western-foreground-color;
+}
+
+a {
+  color: $western-foreground-color;
+}
+
+a:hover {
+  color: $western-hover-color;
 }
 
 .main_container {
@@ -15,4 +26,11 @@ ul.breadcrumb {
     li:last-child:after {
         content: '';
     }
+}
+
+li.thumbnail {
+  background: url('/media/img/back_1.jpg') left top repeat;
+  a {
+    color: $western-hover-color;
+  }
 }
