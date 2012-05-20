@@ -2,13 +2,11 @@
 %ul.nav.pull-right
     %li.dropdown{'class': '{{ cart_link_class }}'}
         %a#cart-dropdown-toggler.dropdown-toggle{'href': "{% url doppler_shift_cart %}", 'data-toggle': "dropdown"}
-            {% trans "Cart" %}
             - if cart_distinct_quantity
-                %span.badge.badge-info
-                    = cart_distinct_quantity
+                %span.badge.badge-info {{ cart_distinct_quantity }}
             - else
-                .badge
-                    0
+                %span.badge 0
+            {% trans "Cart" %}
         %ul.dropdown-menu
             %li
                 %a{'href': '{% url doppler_shift_cart %}'}

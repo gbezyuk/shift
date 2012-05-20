@@ -149,6 +149,10 @@ class Product(models.Model):
             price_obj = self.get_minimal_enabled_price()
             price_obj.reserve_quantity(q)
 
+        def release_reserved(self, q):
+            price_obj = self.get_minimal_enabled_price()
+            price_obj.release_reserved(q)
+
     else:
         price = models.PositiveIntegerField(verbose_name=_('price'), default=0)
         remainder = models.PositiveIntegerField(verbose_name=_('remainder'), default=0)

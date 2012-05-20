@@ -10,9 +10,13 @@ from django.template.context import RequestContext
 from django.utils.translation import ugettext_lazy as _
 from .models import Cart
 
-def cart(request, template_name='doppler/shift/checkout/cart.haml'):
+def cart(request, clear=False, template_name='doppler/shift/checkout/cart.haml'):
     """
     Cart view
     """
     cart = Cart.get_cart(request=request)
+    if cart and clear:
+        cart.clear()
+        cart.delete()
+        cart = None
     return render_to_response(template_name, {'cart': cart}, context_instance=RequestContext(request))

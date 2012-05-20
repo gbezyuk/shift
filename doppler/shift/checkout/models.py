@@ -119,13 +119,19 @@ class Cart(models.Model):
         """
         Remove item from cart instance
         """
-        self.items.filter(product=product).delete()
+        items = self.items.filter(product=product)
+        for item in items:
+            item.product.release_reserved(item.quantity)
+        items.delete()
 
     def clear(self):
         """
         Clear the cart instance
         """
-        self.items.all().delete()
+        items = self.items.all()
+        for item in items:
+            item.product.release_reserved(item.quantity)
+        items.delete()
 
     @property
     def total_price(self):
