@@ -86,20 +86,21 @@ class Cart(models.Model):
         """
         assert product.price > 0, "Can not add a product without price to cart"
         assert quantity > 0, "Cart item quantity must be positive integer, %s found" % quantity
-        assert quantity <= product.remainder, "Cart item quantity must be not greater than product remainder, which is %s" % product.remainder
+        assert quantity <= product.remainder, "Cart item quantity %s must be not greater than product remainder, which is %s" % (quantity, product.remainder)
         if MULTIPLE_PRICES:
             try:
                 self.items.get(product=product,
                     price=product.get_minimal_enabled_price()).augment_quantity(quantity)
             except CartItem.DoesNotExist:
+                product.reserve_quantity(quantity)
                 CartItem(product=product, price=product.get_minimal_enabled_price(),
                     quantity=quantity, cart=self).save()
         else:
             try:
                 self.items.get(product=product, price=product.price).augment_quantity(quantity)
             except CartItem.DoesNotExist:
+                product.reserve_quantity(quantity)
                 CartItem(product=product, price=product.price, quantity=quantity, cart=self).save()
-        product.reserve_quantity(quantity)
 
     def update_quantity(self, product, quantity):
         """
@@ -113,7 +114,6 @@ class Cart(models.Model):
                 price=product.get_minimal_enabled_price()).update_quantity(quantity)
         else:
             self.items.get(product=product, price=product.price).update_quantity(quantity)
-        product.reserve_quantity(quantity)
 
     def remove_product(self, product):
         """
@@ -160,6 +160,13 @@ class Cart(models.Model):
         """
         return self.items.all().count()
 
+    def update_quantities(self, item_quantity_dict):
+        """
+        Updates item quantities basing on provided dictionary
+        """
+        for item_id in item_quantity_dict:
+            self.items.get(pk=item_id).update_quantity(item_quantity_dict[item_id])
+
 class CartItem(models.Model):
     """
     Shopping cart item.
@@ -192,6 +199,11 @@ class CartItem(models.Model):
         """
         Augments product quantity by provided value
         """
+        delta = quantity - self.quantity
+        if delta > 0:
+            self.product.reserve_quantity(delta)
+        elif delta < 0:
+            self.product.release_reserved(-delta)
         self.quantity += int(quantity)
         self.save()
 
@@ -199,5 +211,10 @@ class CartItem(models.Model):
         """
         Updates product quantity with provided value
         """
+        delta = quantity - self.quantity
+        if delta > 0:
+            self.product.reserve_quantity(delta)
+        elif delta < 0:
+            self.product.release_reserved(-delta)
         self.quantity = int(quantity)
         self.save()

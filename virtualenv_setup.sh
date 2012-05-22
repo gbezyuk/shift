@@ -40,3 +40,5 @@ pip install django-tastypie
 pip install BeautifulSoup
 
 pip install django_compressor
+
+pip install querystring-parser

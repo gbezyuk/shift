@@ -48,4 +48,5 @@ if MULTIPLE_PRICES:
         FACTORY_FOR = Price
         note = 'sample price'
         value = 100
+        remainder = 100
         enabled = True

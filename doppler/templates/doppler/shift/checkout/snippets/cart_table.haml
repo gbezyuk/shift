@@ -17,6 +17,9 @@
             - for item in cart.items.all
                 %tr
                     %td
+                        - if cart_mode
+                            - load cart_form_tags
+                            = form|cart_form_remove_item_input:item.id
                     %td
                         %ul.thumbnails
                             %li.thumbnail.version.version80x80
@@ -28,7 +31,10 @@
                     %td
                         = item.price.value
                     %td
-                        = item.quantity
+                        - if cart_mode
+                            = form|cart_form_item_count_input:item.id
+                        - else
+                            = item.quantity
                     %td
                         = item.total_price
             %tr
