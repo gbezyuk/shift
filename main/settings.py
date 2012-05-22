@@ -67,7 +67,7 @@ INSTALLED_APPS = (
 # django_jenkins apps list
 PROJECT_APPS = (
     'accounts',
-    'main',
+#    'main',
     'doppler.shift.catalog',
     'doppler.shift.checkout',
 )
@@ -78,6 +78,7 @@ MIDDLEWARE_CLASSES = (
 	'django.middleware.csrf.CsrfViewMiddleware',
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
+    'session_cart.middleware.SimpleCartMiddleware',
 )
 
 STATICFILES_FINDERS = (
@@ -103,6 +104,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'main.context_processors.login_url',
     'main.context_processors.default_avatar_url',
     'doppler.shift.catalog.context_processors.categories',
+    'session_cart.context_processors.carts',
 )
 
 LOGGING = {
@@ -187,3 +189,5 @@ COMPRESS_PRECOMPILERS = (
     ('text/x-sass', 'sass {infile} {outfile}'),
     ('text/x-scss', 'sass --scss {infile} {outfile}'),
     )
+
+CART_MODEL = 'doppler.shift.catalog.models.Price'

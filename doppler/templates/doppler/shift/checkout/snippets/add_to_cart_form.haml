@@ -1,0 +1,6 @@
+- load i18n
+%form{'method': 'POST', 'action': ''}
+    - csrf_token
+    = form
+    %button{'type': 'submit'}
+        {% trans "Add to cart" %}

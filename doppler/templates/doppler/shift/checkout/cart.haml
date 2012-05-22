@@ -1,0 +1,23 @@
+- extends 'doppler/shift/checkout/base.haml'
+- load i18n
+- load repeatblock
+- enablemacros
+
+- block inner_breadcrumbs
+    -#- include 'doppler/shift/catalog/snippets/breadcrumbs/catalog.haml'
+
+- block doppler_content
+    %form{'method': 'POST'}
+        - csrf_token
+        - block form_actions
+            %fieldset
+                .form-actions
+                    %button.btn{'href': '{% url doppler_shift_cart %}'}
+                        {% trans "Update" %}
+                    %a.btn{'href': '{% url doppler_shift_clear_cart %}'}
+                        {% trans "Clear" %}
+                    %a.btn.btn-primary{'href': '{% url doppler_shift_make_order %}'}
+                        {% trans "ORDER" %}
+        - with cart_mode=1
+            - include 'doppler/shift/checkout/snippets/cart_table.haml'
+        - repeat form_actions

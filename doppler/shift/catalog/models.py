@@ -66,7 +66,6 @@ class Category(MPTTModel):
         if self_main:
             return self_main
         if self.products.all().exists():
-            print self.products.all()
             for product in self.products.all().order_by('?'):
                 product_image = product.main_image
                 if product_image:
@@ -144,6 +143,9 @@ class Product(models.Model):
     else:
         price = models.PositiveIntegerField(verbose_name=_('price'), default=0)
         remainder = models.PositiveIntegerField(verbose_name=_('remainder'), default=0)
+        @property
+        def remainder_update_time(self):
+            return self.modified
 
     def __unicode__(self):
         return self.name
@@ -156,18 +158,18 @@ class Product(models.Model):
 if MULTIPLE_PRICES:
     class Price(models.Model):
         """
-        A Price model for advanced pricing strategy
+        A Shipment model for advanced pricing strategy
         """
         class Meta:
-            verbose_name = _('price')
-            verbose_name_plural = _('prices')
+            verbose_name = _('shipment')
+            verbose_name_plural = _('shipments')
             ordering = ['product', 'enabled', 'value']
             unique_together = [('product', 'value',),]
 
         product = models.ForeignKey(to=Product, verbose_name=_('product'), related_name='prices')
         enabled = models.BooleanField(default=True, verbose_name=_('enabled'))
         remainder = models.PositiveIntegerField(verbose_name=_('remainder'), default=0)
-        value = models.PositiveIntegerField(verbose_name=_('value'))
+        value = models.PositiveIntegerField(verbose_name=_('price'))
         added_to_cart_times = models.PositiveIntegerField(verbose_name=_('added to cart times'), default=0)
         ordered_times = models.PositiveIntegerField(verbose_name=_('ordered times'), default=0)
         note = models.CharField(max_length=255, verbose_name=_('note'), blank=True, null=True)
@@ -183,3 +185,6 @@ if MULTIPLE_PRICES:
             if min_value:
                 return product.prices.filter(enabled=True, value=min_value)[0]
             return None
+
+        def __unicode__(self):
+            return "%r - %s" % (self.product.name, self.value)

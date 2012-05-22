@@ -4,9 +4,12 @@ Product: Shift e-commerce engine
 Module: Catalog
 Part: Views implementation
 """
+from django.contrib import messages
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
+from django.utils.translation import ugettext_lazy as _
 from .models import Category, Product
+from ..checkout.forms import AddProductToCartForm
 
 def index(request, template_name='doppler/shift/catalog/index.haml'):
     """
@@ -39,10 +42,15 @@ def product(request, product_id, template_name='doppler/shift/catalog/product.ha
     """
     product = get_object_or_404(Product, pk=product_id, category__isnull=False, category__enabled=True, enabled=True)
     category = product.category
+    form = AddProductToCartForm(data=request.POST or None, shipment=product.get_minimal_enabled_price())
+    if form.is_valid():
+        form.save(request)
+        messages.success(request, AddProductToCartForm.success_message)
     return render_to_response(
         template_name,
             {
             'category': category,
             'product': product,
+            'form': form,
             },
         context_instance=RequestContext(request))

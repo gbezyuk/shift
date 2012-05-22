@@ -29,8 +29,12 @@
                 %em
                     {% trans "Last updated" %}
                     = product.remainder_update_time
+                - include 'doppler/shift/checkout/snippets/add_to_cart_form.haml'
             - else
                 {% trans "Not available now" %}
+                - if product.reserved
+                    = product.reserved
+                    {% trans "reserved" %}
         - else
             %em
                 {% trans "Not available now" %}

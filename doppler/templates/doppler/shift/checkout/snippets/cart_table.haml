@@ -1,0 +1,49 @@
+- load i18n
+%table.table.cart
+    %thead
+        %tr
+            %th
+                {% trans "Remove" %}
+            %th{'colspan': 2}
+                {% trans "Product" %}
+            %th
+                {% trans "Price" %}
+            %th
+                {% trans "Quantity" %}
+            %th
+                {% trans "Total" %}
+    %tbody
+        - if cart
+            - for item in cart
+                %tr
+                    %td
+                        - if cart_mode
+                            - load cart_form_tags
+                            = form|cart_form_remove_item_input:item.item.id
+                    %td
+                        %ul.thumbnails
+                            %li.thumbnail.version.version80x80
+                                - with image=item.item.product.main_image thumbnail_version="80x80"
+                                    - include 'doppler/shift/catalog/snippets/image.haml'
+                    %td
+                        %a{'href': '{{ item.item.product.get_absolute_url }}'}
+                            = item.item.product
+                    %td
+                        = item.item.value
+                    %td
+                        - if cart_mode
+                            = form|cart_form_item_quantity_input:item.item.id
+                        - else
+                            = item.quantity
+                    %td
+                        = item.total_price
+            %tr
+                %th{'colspan': '4'}
+                %th
+                    = cart.total_quantity
+                %th
+                    = cart.total_price
+        - else
+            %tr
+                %th{'colspan': '6'}
+                    {% trans "Your shopping cart is empty yet" %}

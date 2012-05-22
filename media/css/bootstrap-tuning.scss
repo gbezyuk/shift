@@ -18,6 +18,10 @@ a:hover {
     margin-top: 60px;
 }
 
+ul.nav li.dropdown:hover ul.dropdown-menu {
+  display: block;
+}
+
 ul.breadcrumb {
     li:after {
         content: '/';

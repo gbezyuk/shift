@@ -1,0 +1,20 @@
+- load i18n
+%ul.nav.pull-right
+    %li.dropdown{'class': '{{ cart_link_class }}'}
+        %a#cart-dropdown-toggler.dropdown-toggle{'href': "{% url doppler_shift_cart %}", 'data-toggle': "dropdown"}
+            - if cart.items_total
+                %span.badge.badge-info
+                    %span#cart_header_widget_items_total
+                        = cart.items_total
+                    (
+                    %span#cart_header_widget_total_quantity
+                        = cart.total_quantity
+                    )
+                    {% trans "product in your cart" %}
+            - else
+                %span.badge
+                    {% trans "your cart is empty yet" %}
+        %ul.dropdown-menu
+            %li
+                %a{'href': '{% url doppler_shift_cart %}'}
+                    {% trans "View cart" %}
