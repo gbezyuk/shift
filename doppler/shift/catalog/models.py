@@ -66,6 +66,7 @@ class Category(MPTTModel):
         if self_main:
             return self_main
         if self.products.all().exists():
+            print self.products.all()
             for product in self.products.all().order_by('?'):
                 product_image = product.main_image
                 if product_image:
@@ -137,25 +138,15 @@ class Product(models.Model):
             price_obj = self.get_minimal_enabled_price()
             return price_obj.remainder if price_obj else None
         @property
-        def reserved(self):
-            price_obj = self.get_minimal_enabled_price()
-            return price_obj.reserved if price_obj else None
-        @property
         def remainder_update_time(self):
             price_obj = self.get_minimal_enabled_price()
             return price_obj.modified if price_obj else None
-
-        def reserve_quantity(self, q):
-            price_obj = self.get_minimal_enabled_price()
-            price_obj.reserve_quantity(q)
-
-        def release_reserved(self, q):
-            price_obj = self.get_minimal_enabled_price()
-            price_obj.release_reserved(q)
-
     else:
         price = models.PositiveIntegerField(verbose_name=_('price'), default=0)
         remainder = models.PositiveIntegerField(verbose_name=_('remainder'), default=0)
+        @property
+        def remainder_update_time(self):
+            return self.modified
 
     def __unicode__(self):
         return self.name
@@ -179,7 +170,6 @@ if MULTIPLE_PRICES:
         product = models.ForeignKey(to=Product, verbose_name=_('product'), related_name='prices')
         enabled = models.BooleanField(default=True, verbose_name=_('enabled'))
         remainder = models.PositiveIntegerField(verbose_name=_('remainder'), default=0)
-        reserved = models.PositiveIntegerField(verbose_name=_('reserved'), default=0)
         value = models.PositiveIntegerField(verbose_name=_('value'))
         added_to_cart_times = models.PositiveIntegerField(verbose_name=_('added to cart times'), default=0)
         ordered_times = models.PositiveIntegerField(verbose_name=_('ordered times'), default=0)
@@ -196,23 +186,3 @@ if MULTIPLE_PRICES:
             if min_value:
                 return product.prices.filter(enabled=True, value=min_value)[0]
             return None
-
-        def reserve_quantity(self, q):
-            """
-            Moves quantity from remainder to reserve
-            """
-            assert q > 0
-            assert self.remainder >= q
-            self.remainder -= q
-            self.reserved += q
-            self.save()
-
-        def release_reserved(self, q):
-            """
-            Moves quantity from reserved to remainder
-            """
-            assert q > 0
-            assert self.reserved  >= q
-            self.remainder += q
-            self.reserved -= q
-            self.save()

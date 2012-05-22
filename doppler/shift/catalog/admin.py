@@ -40,9 +40,10 @@ def get_object_thumbnails_html(obj):
         return '<ul style="margin: 0; padding: 0; overflow: hidden; min-width: 168px; max-width: 336px;">' + ''.join(html_bits) + '</ul>'
     return _('no images')
 
-class PriceTabularInline(admin.TabularInline):
-    model = Price
-    readonly_fields = ['added_to_cart_times', 'ordered_times', 'reserved']
+if MULTIPLE_PRICES:
+    class PriceTabularInline(admin.TabularInline):
+        model = Price
+        readonly_fields = ['added_to_cart_times', 'ordered_times',]
 
 class ImageTabularInline(generic.GenericTabularInline):
     model = Image
