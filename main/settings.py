@@ -67,7 +67,7 @@ INSTALLED_APPS = (
 # django_jenkins apps list
 PROJECT_APPS = (
     'accounts',
-    'main',
+#    'main',
     'doppler.shift.catalog',
     'doppler.shift.checkout',
 )
