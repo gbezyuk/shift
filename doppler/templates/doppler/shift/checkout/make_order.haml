@@ -4,7 +4,8 @@
 - enablemacros
 
 - block inner_breadcrumbs
-    -#- include 'doppler/shift/catalog/snippets/breadcrumbs/catalog.haml'
+    - include 'doppler/shift/checkout/snippets/breadcrumbs/cart.haml'
+    - include 'doppler/shift/checkout/snippets/breadcrumbs/make_order.haml'
 
 - block doppler_content
     %p {% trans "Check your order please one more time before sending. You can get back to cart editing if necessary" %}

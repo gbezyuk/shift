@@ -10,7 +10,8 @@
                     %span#cart_header_widget_total_quantity
                         = cart.total_quantity
                     )
-                    {% trans "product in your cart" %}
+                    {% trans "product in your cart for total price of" %}
+                    = cart.total_price
             - else
                 %span.badge
                     {% trans "your cart is empty yet" %}
@@ -18,3 +19,7 @@
             %li
                 %a{'href': '{% url doppler_shift_cart %}'}
                     {% trans "View cart" %}
+                %a{'href': '{% url doppler_shift_clear_cart %}'}
+                    {% trans "Clear cart" %}
+                %a{'href': '{% url doppler_shift_make_order %}'}
+                    {% trans "Make Order" %}
