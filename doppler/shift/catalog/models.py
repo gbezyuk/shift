@@ -144,6 +144,9 @@ class Product(models.Model):
     else:
         price = models.PositiveIntegerField(verbose_name=_('price'), default=0)
         remainder = models.PositiveIntegerField(verbose_name=_('remainder'), default=0)
+        @property
+        def remainder_update_time(self):
+            return self.modified
 
     def __unicode__(self):
         return self.name
