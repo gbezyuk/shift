@@ -1,0 +1,17 @@
+- extends 'doppler/shift/checkout/base.haml'
+- load i18n
+- load repeatblock
+- enablemacros
+
+- block inner_breadcrumbs
+    -#- include 'doppler/shift/catalog/snippets/breadcrumbs/catalog.haml'
+
+- block doppler_content
+    %p {% trans "Check your order please one more time before sending. You can get back to cart editing if necessary" %}
+    %form{'method': 'POST'}
+        - csrf_token
+        - include 'doppler/shift/checkout/snippets/cart_table.haml'
+        %fieldset
+            .form-actions
+                %button.btn.btn-primary{'name': 'confirm'}
+                    {% trans "CONFIRM ORDER" %}
