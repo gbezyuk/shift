@@ -13,39 +13,30 @@ if MULTIPLE_PRICES:
     from ..catalog.models import Price
 import random
 
-class Cart(models.Model):
+class Cart(object):
     """
     Shopping cart. Session-based, available both for authorized and unauthorized users.
     """
-    created = models.DateTimeField(auto_now_add = True, verbose_name = _('created'))
-    modified = models.DateTimeField(auto_now = True, verbose_name = _('modified'))
-    key = models.CharField(max_length = 50, verbose_name = _('session key'))
-    user = models.ForeignKey(to=User, verbose_name=_('user'), blank=True, null=True)
-
     CART_ID_SESSION_KEY = 'cart_id' #TODO: move to settings configuration file
     CART_ID_CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*()'
+    CART_ID_LENGTH = 50
+
+    def __init__(self, request):
+        self.key = Cart._get_session_stored_cart_id(request)
 
     @classmethod
     def _generate_cart_id(cls):
         """
         Private method for unique cart id generation
         """
-        # setting generation params
         cart_id = ''
-        characters = cls.CART_ID_CHARACTERS
-        cart_id_length = 50
-        # generating key
-        for y in range(cart_id_length):
-            cart_id += characters[random.randint(0, len(characters)-1)]
-        # preventing even extremely low-possible random match
-        try:
-            Cart.objects.get(key=cart_id)
-            cart_id = cls._generate_cart_id()
-        except Cart.DoesNotExist:
-            return cart_id
+        rand_border = len(cls.CART_ID_CHARACTERS) - 1
+        for y in range(cls.CART_ID_LENGTH):
+            cart_id += cls.CART_ID_CHARACTERS[random.randint(0, rand_border)]
+        return cart_id
 
     @classmethod
-    def get_session_stored_cart_id(cls, request):
+    def _get_session_stored_cart_id(cls, request):
         """
         Retrieve session-stored cart-id
         """
@@ -53,119 +44,53 @@ class Cart(models.Model):
             request.session[cls.CART_ID_SESSION_KEY] = cls._generate_cart_id()
         return request.session[cls.CART_ID_SESSION_KEY]
 
-    @classmethod
-    def get_cart(cls, request, create_if_not_exist=False):
+    @property
+    def items(self):
         """
-        Get cart model basing on provided request
+        Get cart items for current cart basing on key
         """
-        key = cls.get_session_stored_cart_id(request)
-        try:
-            return Cart.objects.get(key=key)
-        except Cart.DoesNotExist:
-            if create_if_not_exist and key:
-                cart = Cart(key=key, user=request.user if request.user.is_authenticated() else None)
-                cart.save()
-                return cart
-            else:
-                return None
+        return CartItem.objects.filter(key=self.key)
 
-    @classmethod
-    def get_items(cls, request):
+    @property
+    def is_empty(self):
         """
-        Get cart items basing on provided request
+        True if cart is empty
         """
-        cart = cls.get_cart(request)
-        if cart:
-            return cart.items.all()
-        else:
-            return []
-
-    def insert_item(self, product, quantity):
-        """
-        Insert item to the cart instance
-        """
-        assert product.price > 0, "Can not add a product without price to cart"
-        assert quantity > 0, "Cart item quantity must be positive integer, %s found" % quantity
-        assert quantity <= product.remainder, "Cart item quantity %s must be not greater than product remainder, which is %s" % (quantity, product.remainder)
-        if MULTIPLE_PRICES:
-            try:
-                self.items.get(product=product,
-                    price=product.get_minimal_enabled_price()).augment_quantity(quantity)
-            except CartItem.DoesNotExist:
-                product.reserve_quantity(quantity)
-                CartItem(product=product, price=product.get_minimal_enabled_price(),
-                    quantity=quantity, cart=self).save()
-        else:
-            try:
-                self.items.get(product=product, price=product.price).augment_quantity(quantity)
-            except CartItem.DoesNotExist:
-                product.reserve_quantity(quantity)
-                CartItem(product=product, price=product.price, quantity=quantity, cart=self).save()
-
-    def update_quantity(self, product, quantity):
-        """
-        Insert item to the cart instance
-        """
-        assert product.price > 0, "Can not add a product without price to cart"
-        assert quantity > 0, "Cart item quantity must be positive integer"
-        assert quantity <= product.remainder, "Cart item quantity must be not greater than product remainder, which is %s" % product.remainder
-        if MULTIPLE_PRICES:
-            self.items.get(product=product,
-                price=product.get_minimal_enabled_price()).update_quantity(quantity)
-        else:
-            self.items.get(product=product, price=product.price).update_quantity(quantity)
-
-    def remove_product(self, product):
-        """
-        Remove item from cart instance
-        """
-        items = self.items.filter(product=product)
-        for item in items:
-            item.product.release_reserved(item.quantity)
-        items.delete()
+        return not CartItem.objects.filter(key=self.key).count()
 
     def clear(self):
         """
         Clear the cart instance
         """
-        items = self.items.all()
-        for item in items:
-            item.product.release_reserved(item.quantity)
-        items.delete()
+        self.items.delete()
 
     @property
     def total_price(self):
         """
-        Get cart total price
+        Cart total price
         """
-        answer = 0
-        for item in self.items.all():
-            answer += item.total_price
-        return answer
+        return reduce(lambda res, x: res + x, [item.total_price for item in self.items.all()])
 
     @property
     def total_quantity(self):
         """
         Get cart total quantity
         """
-        answer = 0
-        for item in self.items.all():
-            answer += item.quantity
-        return answer
+        return reduce(lambda res, x: res + x, [item.quantity for item in self.items.all()])
 
     @property
-    def total_distinct_quantity(self):
+    def distinct_quantity(self):
         """
         Get total distinct quantity
         """
-        return self.items.all().count()
+        return self.items.count()
 
-    def update_quantities(self, item_quantity_dict):
+    def update_quantities(self, dict):
         """
-        Updates item quantities basing on provided dictionary
+        Updates item quantities basing on provided dictionary [cart_item_id: product_quantity]
         """
-        for item_id in item_quantity_dict:
-            self.items.get(pk=item_id).update_quantity(item_quantity_dict[item_id])
+        for id in dict:
+            self.items.get(pk=id).update_quantity(dict[id])
 
 class CartItem(models.Model):
     """
@@ -175,15 +100,10 @@ class CartItem(models.Model):
         verbose_name = _('cart item')
         verbose_name_plural = _('cart items')
         ordering = ['created']
-        if MULTIPLE_PRICES:
-            unique_together = [('product', 'price', 'cart')]
-        else:
-            unique_together = [('product', 'cart')]
+        unique_together = [('cart_key', 'shipment')]
 
-    cart = models.ForeignKey(to=Cart, verbose_name=_('cart'), related_name='items')
-    product = models.ForeignKey(to=Product, verbose_name=_('product'))
-    if MULTIPLE_PRICES:
-        price = models.ForeignKey(to=Price, verbose_name=_('price'))
+    cart_key = models.CharField(max_length=50, verbose_name=_('cart key'))
+    shipment = models.ForeignKey(to=Price, verbose_name=_('shipment'))
     quantity = models.IntegerField(default = 1, verbose_name = _('quantity'))
     created = models.DateTimeField(auto_now_add = True, verbose_name = _('created'))
     modified = models.DateTimeField(auto_now = True, verbose_name = _('modified'))
@@ -193,17 +113,12 @@ class CartItem(models.Model):
         """
         Return total price as product price times product quantity
         """
-        return self.quantity * self.product.price
+        return self.quantity * self.shipment.price
 
     def augment_quantity(self, quantity):
         """
         Augments product quantity by provided value
         """
-        delta = quantity - self.quantity
-        if delta > 0:
-            self.product.reserve_quantity(delta)
-        elif delta < 0:
-            self.product.release_reserved(-delta)
         self.quantity += int(quantity)
         self.save()
 
@@ -211,10 +126,5 @@ class CartItem(models.Model):
         """
         Updates product quantity with provided value
         """
-        delta = quantity - self.quantity
-        if delta > 0:
-            self.product.reserve_quantity(delta)
-        elif delta < 0:
-            self.product.release_reserved(-delta)
         self.quantity = int(quantity)
         self.save()

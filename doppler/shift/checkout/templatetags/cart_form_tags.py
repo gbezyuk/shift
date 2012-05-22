@@ -14,10 +14,10 @@ def cart_form_remove_item_input(form, item_id):
     field_name = 'remove_item[%d]' % (item_id,)
     return BoundField(form, form.fields[field_name], field_name)
 
-@register.filter(name='cart_form_item_count_input')
-def cart_form_item_count_input(form, item_id):
+@register.filter(name='cart_form_item_quantity_input')
+def cart_form_item_quantity_input(form, item_id):
     """
-    Item count input bound field filter
+    Item quantity input bound field filter
     """
-    field_name = 'item_count[%d]' % (item_id,)
+    field_name = 'item_quantity[%d]' % (item_id,)
     return BoundField(form, form.fields[field_name], field_name)

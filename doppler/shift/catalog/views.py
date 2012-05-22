@@ -42,7 +42,7 @@ def product(request, product_id, template_name='doppler/shift/catalog/product.ha
     """
     product = get_object_or_404(Product, pk=product_id, category__isnull=False, category__enabled=True, enabled=True)
     category = product.category
-    form = AddProductToCartForm(data=request.POST or None, product=product)
+    form = AddProductToCartForm(data=request.POST or None, shipment=product.get_minimal_enabled_price())
     if form.is_valid():
         form.save(request)
         messages.success(request, AddProductToCartForm.success_message)

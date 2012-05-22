@@ -10,29 +10,21 @@ from django.template.context import RequestContext
 from django.utils.translation import ugettext_lazy as _
 from .models import Cart
 from .forms import UpdateCartForm
+from django.views.generic.simple import redirect_to
+from django.core.urlresolvers import reverse
 
-def cart(request, clear=False, template_name='doppler/shift/checkout/cart.haml'):
+def clear_cart(request):
+    request.cart.empty()
+    return redirect_to(request, reverse('doppler_shift_cart'), permanent=False)
+
+def cart(request, template_name='doppler/shift/checkout/cart.haml'):
     """
     Cart view
     """
-    cart = Cart.get_cart(request=request)
-    form = UpdateCartForm(request, data=request.POST)
-    if cart:
-        if clear:
-            cart.clear()
-            cart.delete()
-            cart = None
-        else:
-            if form.is_valid():
-                form.update_count()
-    return render_to_response(
-        template_name,
-        {
-            'cart': cart,
-            'form': form
-        },
-        context_instance=RequestContext(request)
-    )
+    form = UpdateCartForm(request, data=request.POST or None)
+    if form.is_valid():
+        form.update_cart()
+    return render_to_response(template_name, {'form': form }, context_instance=RequestContext(request))
 
 #def show(request, template_name="cart/cart.html"):
 #    form = UpdateCartForm(request, request.POST or cart.get_cart_form_dictionary(request))

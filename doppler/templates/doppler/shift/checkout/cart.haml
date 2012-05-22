@@ -13,11 +13,11 @@
             %fieldset
                 .form-actions
                     %a.btn{'href': '{% url doppler_shift_clear_cart %}'}
-                        {% trans "Clear cart" %}
+                        {% trans "Clear" %}
                     %button.btn{'href': '{% url doppler_shift_cart %}'}
-                        {% trans "Update quantity" %}
+                        {% trans "Update" %}
                     %a.btn.btn-primary{'href': '{% url doppler_shift_cart %}'}
-                        {% trans "Make order" %}
+                        {% trans "ORDER" %}
         - with cart_mode=1
             - include 'doppler/shift/checkout/snippets/cart_table.haml'
         - repeat form_actions
