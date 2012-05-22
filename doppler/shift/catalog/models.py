@@ -66,7 +66,6 @@ class Category(MPTTModel):
         if self_main:
             return self_main
         if self.products.all().exists():
-            print self.products.all()
             for product in self.products.all().order_by('?'):
                 product_image = product.main_image
                 if product_image:
