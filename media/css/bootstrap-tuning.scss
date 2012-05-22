@@ -156,3 +156,15 @@ li.thumbnail {
   background: url('/media/img/back_1.jpg') left top repeat;
   color: $western-hover-color;
 }
+
+.label-info, .badge-info, .btn-primary {
+  background: $western-foreground-color;
+}
+
+.btn-primary:hover {
+  background: lighten($western-foreground-color, 10%);
+}
+
+.form-actions {
+  border-radius: 10px;
+}
