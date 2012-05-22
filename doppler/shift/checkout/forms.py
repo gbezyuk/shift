@@ -6,7 +6,6 @@ Part: Models implementation
 """
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from .models import Cart
 from querystring_parser import parser
 
 class AddProductToCartForm(forms.Form):
@@ -60,3 +59,5 @@ class UpdateCartForm(forms.Form):
         self.request.cart.update_quantities(post_dict['item_quantity'])
         if 'remove_item' in post_dict:
             self.request.cart.remove_items(list(post_dict['remove_item']))
+
+    success_message = _('cart was successfully updated')
