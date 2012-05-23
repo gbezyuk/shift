@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-23 13:38+0400\n"
-"PO-Revision-Date: 2012-05-23 13:43\n"
+"POT-Creation-Date: 2012-05-23 14:10+0400\n"
+"PO-Revision-Date: 2012-05-23 14:10\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -74,7 +74,7 @@ msgid "other images"
 msgstr "прочие изображения"
 
 #: shift/catalog/admin.py:87 shift/catalog/models.py:145
-#: shift/catalog/models.py:173 shift/checkout/models.py:62
+#: shift/catalog/models.py:173 shift/checkout/models.py:70
 msgid "price"
 msgstr "цена"
 
@@ -123,18 +123,18 @@ msgstr "родитель"
 
 #: shift/catalog/models.py:78 shift/catalog/models.py:117
 #: shift/catalog/models.py:177 shift/checkout/models.py:25
-#: shift/checkout/models.py:63
+#: shift/checkout/models.py:71
 msgid "created"
 msgstr "создано"
 
 #: shift/catalog/models.py:79 shift/catalog/models.py:118
 #: shift/catalog/models.py:178 shift/checkout/models.py:26
-#: shift/checkout/models.py:64
+#: shift/checkout/models.py:72
 msgid "modified"
 msgstr "изменено"
 
 #: shift/catalog/models.py:103 shift/catalog/models.py:170
-#: shift/checkout/models.py:60
+#: shift/checkout/models.py:68
 msgid "product"
 msgstr "товар"
 
@@ -166,7 +166,7 @@ msgstr "количество заказов"
 msgid "note"
 msgstr "пометка"
 
-#: shift/checkout/forms.py:15 shift/checkout/models.py:61
+#: shift/checkout/forms.py:15 shift/checkout/models.py:69
 msgid "quantity"
 msgstr "количество"
 
@@ -203,7 +203,7 @@ msgstr ""
 msgid "Your order is successfully made!"
 msgstr "Ваш заказ успешно отравлен!"
 
-#: shift/checkout/models.py:20 shift/checkout/models.py:59
+#: shift/checkout/models.py:20 shift/checkout/models.py:67
 msgid "order"
 msgstr "заказ"
 
@@ -264,15 +264,15 @@ msgstr "IP-адрес"
 msgid "Order #%d"
 msgstr "Заказ #%d"
 
-#: shift/checkout/models.py:55
+#: shift/checkout/models.py:63
 msgid "order item"
 msgstr "позиция заказа"
 
-#: shift/checkout/models.py:56
+#: shift/checkout/models.py:64
 msgid "order items"
 msgstr "позиции заказов"
 
-#: shift/checkout/views.py:51
+#: shift/checkout/views.py:52
 #, python-format
 msgid ""
 "Execuse us, %(requested)d is too much for %(product)s, only %(available)d "
@@ -311,6 +311,7 @@ msgstr "Нет доступных категорий"
 
 #: templates/doppler/shift/catalog/product.haml:22
 #: templates/doppler/shift/checkout/snippets/cart_table.haml:10
+#: templates/doppler/shift/checkout/snippets/order_details.haml:10
 msgid "Price"
 msgstr "Цена"
 
@@ -374,14 +375,18 @@ msgid "Remove"
 msgstr "Удалить"
 
 #: templates/doppler/shift/checkout/snippets/cart_table.haml:8
+#: templates/doppler/shift/checkout/snippets/order_details.haml:8
 msgid "Product"
 msgstr "Товар"
 
 #: templates/doppler/shift/checkout/snippets/cart_table.haml:12
+#: templates/doppler/shift/checkout/snippets/order_details.haml:12
 msgid "Quantity"
 msgstr "Количество"
 
 #: templates/doppler/shift/checkout/snippets/cart_table.haml:14
+#: templates/doppler/shift/checkout/snippets/order_details.haml:14
+#: templates/doppler/shift/checkout/snippets/order_list.haml:10
 msgid "Total"
 msgstr "Итого"
 
@@ -409,6 +414,31 @@ msgstr "Очистить корзину"
 msgid "Make Order"
 msgstr "Сделать заказ"
 
+#: templates/doppler/shift/checkout/snippets/order_details.haml:6
+#: templates/doppler/shift/checkout/snippets/order_list.haml:6
+msgid "#"
+msgstr "#"
+
+#: templates/doppler/shift/checkout/snippets/order_list.haml:8
+msgid "Order"
+msgstr "Заказ"
+
+#: templates/doppler/shift/checkout/snippets/order_list.haml:12
+msgid "Status"
+msgstr "Статус"
+
+#: templates/doppler/shift/checkout/snippets/order_list.haml:14
+msgid "Created"
+msgstr "Создано"
+
+#: templates/doppler/shift/checkout/snippets/order_list.haml:16
+msgid "Modified"
+msgstr "Изменено"
+
+#: templates/doppler/shift/checkout/snippets/order_list.haml:39
+msgid "You haven't ordered anything yet"
+msgstr "Вы пока ничего не заказывали"
+
 #: templates/doppler/shift/checkout/snippets/breadcrumbs/cart.haml:4
 msgid "Cart"
 msgstr "Корзина"
@@ -416,6 +446,10 @@ msgstr "Корзина"
 #: templates/doppler/shift/checkout/snippets/breadcrumbs/make_order.haml:4
 msgid "Make order"
 msgstr "Сделать заказ"
+
+#: templates/doppler/shift/checkout/snippets/breadcrumbs/orders.haml:4
+msgid "Orders"
+msgstr "Заказы"
 
 #~ msgid "prices"
 #~ msgstr "цены"
@@ -437,9 +471,6 @@ msgstr "Сделать заказ"
 
 #~ msgid "Update quantity"
 #~ msgstr "Обновить количество"
-
-#~ msgid "#"
-#~ msgstr "#"
 
 #~ msgid "id"
 #~ msgstr "артикул"

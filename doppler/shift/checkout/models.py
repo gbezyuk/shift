@@ -48,6 +48,14 @@ class Order(models.Model):
     def total_price(self):
         return reduce(lambda res, x: res+x, [item.total_price for item in self.items.all()])
 
+    @property
+    def total_quantity(self):
+        return reduce(lambda res, x: res+x, [item.quantity for item in self.items.all()])
+
+    @models.permalink
+    def get_absolute_url(self):
+        return 'doppler_shift_order', (), {'order_id': self.pk}
+
     #TODO: save method override for remainder updates basing on status change; and also status change notifications
 
 class OrderItem(models.Model):
