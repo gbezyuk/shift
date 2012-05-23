@@ -7,6 +7,8 @@ Part: Models implementation
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from querystring_parser import parser
+from .models import Order, OrderItem
+from doppler.shift.catalog.models import ProductNotAvailableError
 
 class AddProductToCartForm(forms.Form):
     """To be used with product model"""
@@ -61,3 +63,53 @@ class UpdateCartForm(forms.Form):
             self.request.cart.remove_items(list(post_dict['remove_item']))
 
     success_message = _('cart was successfully updated')
+
+class OrderForm(forms.ModelForm):
+    """
+    Order form
+    """
+    class Meta:
+        model = Order
+        exclude = ['user', 'ip_address', 'status']
+
+    def __init__(self, request, **kwargs):
+        super(OrderForm, self).__init__(**kwargs)
+        self.request = request
+        self.fields['customer_name'].initial = self.request.user.profile.first_name
+        self.fields['customer_email'].initial = self.request.user.email
+        self.fields['customer_phone'].initial = self.request.user.profile.phone
+        self.fields['delivery_address'].initial = _('enter your delivery address here')
+        self.fields['comment'].initial = _('enter your custom comment here')
+
+    def is_valid(self):
+        if not super(OrderForm, self).is_valid():
+            return False
+        for cart_position in self.request.cart:
+            if cart_position.quantity > cart_position.item.remainder:
+                raise ProductNotAvailableError(
+                    message='Product is not available: %s, %d; only %d available'
+                        % (cart_position.item.product, cart_position.quantity, cart_position.item.remainder),
+                    product = cart_position.item.product,
+                    shipment=cart_position.item,
+                    maximal_available_quantity=cart_position.item.remainder,
+                    requested_quantity=cart_position.quantity)
+        return True
+
+    def save(self, commit=True):
+        order = super(OrderForm, self).save(commit=False)
+        order.user = self.request.user
+        order.ip_address = self.request.META['REMOTE_ADDR']
+        if commit:
+            order.save()
+            for cart_position in self.request.cart:
+                cart_position.item.decrease_remainer(cart_position.quantity)
+                OrderItem(order=order,
+                    product=cart_position.item.product,
+                    quantity=cart_position.quantity,
+                    price=cart_position.item.value,
+                ).save()
+            self.request.cart.empty()
+        return order
+
+    cart_is_empty_message = _('Your cart is empty. You can not make an empty order, so please fill your cart first.')
+    success_message = _('Your order is successfully made!')

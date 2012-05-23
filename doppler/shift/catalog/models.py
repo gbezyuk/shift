@@ -13,6 +13,7 @@ from mptt.models import MPTTModel
 from .managers import EnabledTreeManager, EnabledRootManager
 from django.conf import settings
 from filebrowser.fields import FileBrowseField
+from django.forms import ValidationError
 
 try:
     MULTIPLE_CATEGORIES = settings.DOPPLER_SHIFT_CATALOG_PRODUCT_MULTIPLE_CATEGORIES
@@ -188,3 +189,19 @@ if MULTIPLE_PRICES:
 
         def __unicode__(self):
             return "%r - %s" % (self.product.name, self.value)
+
+        def decrease_remainer(self, quantity):
+            assert quantity <= self.remainder
+            self.remainder -= quantity
+            self.save()
+
+class ProductNotAvailableError(ValidationError):
+    """
+    Product not available error for cases when someone wants too much of anything
+    """
+    def __init__(self, message, product, shipment, requested_quantity, maximal_available_quantity):
+        super(ProductNotAvailableError, self).__init__(message=message)
+        self.product = product
+        self.shipment = shipment
+        self.requested_quantity = requested_quantity
+        self.maximal_available_quantity = maximal_available_quantity

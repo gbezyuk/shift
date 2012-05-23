@@ -15,7 +15,19 @@
     - if form.non_field_errors
         .alert.alert-error
             = form.non_field_errors
-    - block form_actions
+    - if not bottom_buttons_only
+        - block form_actions
+            %fieldset
+                .form-actions
+                    %button.submit.btn.btn-primary{'type': 'submit'}
+                        - if form_submit_title
+                            {% trans form_submit_title %}
+                        - else
+                            {% trans "edit" %}
+                    %button.submit.btn{'type': 'reset'}
+                        {% trans "reset" %}
+    - include 'snippets/form_fields_only.haml'
+    - if bottom_buttons_only
         %fieldset
             .form-actions
                 %button.submit.btn.btn-primary{'type': 'submit'}
@@ -25,5 +37,5 @@
                         {% trans "edit" %}
                 %button.submit.btn{'type': 'reset'}
                     {% trans "reset" %}
-    - include 'snippets/form_fields_only.haml'
-    - repeat form_actions
+    - else
+        - repeat form_actions
