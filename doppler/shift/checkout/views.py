@@ -48,6 +48,6 @@ def make_order(request, template_name='doppler/shift/checkout/make_order.haml'):
             messages.success(request, OrderForm.success_message)
             return redirect_to(request, reverse('doppler_shift_cart'), permanent=False)
     except ProductNotAvailableError, e:
-        messages.error(request, _('Execuse us, %d is too much for %s, only %d available')
-            % (e.requested_quantity, e.product, e.maximal_available_quantity))
+        messages.error(request, _('Execuse us, %(requested)d is too much for %(product)s, only %(available)d available')
+            % {'requested': e.requested_quantity, 'product': e.product, 'available': e.maximal_available_quantity})
     return render_to_response(template_name, {'form': form}, context_instance=RequestContext(request))
