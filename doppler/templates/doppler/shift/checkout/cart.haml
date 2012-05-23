@@ -10,14 +10,15 @@
     %form{'method': 'POST'}
         - csrf_token
         - block form_actions
-            %fieldset
-                .form-actions
-                    %button.btn{'href': '{% url doppler_shift_cart %}'}
-                        {% trans "Update" %}
-                    %a.btn{'href': '{% url doppler_shift_clear_cart %}'}
-                        {% trans "Clear" %}
-                    %a.btn.btn-primary{'href': '{% url doppler_shift_make_order %}'}
-                        {% trans "ORDER" %}
+            - if cart
+                %fieldset
+                    .form-actions
+                        %button.btn{'href': '{% url doppler_shift_cart %}'}
+                            {% trans "Update" %}
+                        %a.btn{'href': '{% url doppler_shift_clear_cart %}'}
+                            {% trans "Clear" %}
+                        %a.btn.btn-primary{'href': '{% url doppler_shift_make_order %}'}
+                            {% trans "ORDER" %}
         - with cart_mode=1
             - include 'doppler/shift/checkout/snippets/cart_table.haml'
         - repeat form_actions
