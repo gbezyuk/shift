@@ -1,0 +1,13 @@
+- extends 'doppler/shift/checkout/base.haml'
+- load i18n
+- load repeatblock
+- enablemacros
+
+- block inner_breadcrumbs
+    - include 'doppler/shift/checkout/snippets/breadcrumbs/orders.haml'
+    %li
+        %a{'href': '{% url doppler_shift_order order.id %}'}
+            = order
+
+- block doppler_content
+    - include 'doppler/shift/checkout/snippets/order_details.haml'

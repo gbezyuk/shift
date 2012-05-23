@@ -1,0 +1,39 @@
+- load i18n
+%table.table.cart
+    %thead
+        %tr
+            %th
+                {% trans "#" %}
+            %th{'colspan': 2}
+                {% trans "Product" %}
+            %th
+                {% trans "Price" %}
+            %th
+                {% trans "Quantity" %}
+            %th
+                {% trans "Total" %}
+    %tbody
+        - for item in order.items.all
+            %tr
+                %td
+                    = forloop.counter
+                %td
+                    %ul.thumbnails
+                        %li.thumbnail.version.version80x80
+                            - with image=item.product.main_image thumbnail_version="80x80"
+                                - include 'doppler/shift/catalog/snippets/image.haml'
+                %td
+                    %a{'href': '{{ item.product.get_absolute_url }}'}
+                        = item.product
+                %td
+                    = item.price
+                %td
+                    = item.quantity
+                %td
+                    = item.total_price
+        %tr
+            %th{'colspan': '4'}
+            %th
+                = order.total_quantity
+            %th
+                = order.total_price
