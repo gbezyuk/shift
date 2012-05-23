@@ -9,10 +9,7 @@
 
 - block doppler_content
     %p {% trans "Check your order please one more time before sending. You can get back to cart editing if necessary" %}
-    %form{'method': 'POST'}
-        - csrf_token
-        - include 'doppler/shift/checkout/snippets/cart_table.haml'
-        %fieldset
-            .form-actions
-                %button.btn.btn-primary{'name': 'confirm'}
-                    {% trans "CONFIRM ORDER" %}
+    - include 'doppler/shift/checkout/snippets/cart_table.haml'
+    {% trans "CONFIRM ORDER" as form_submit_title %}
+    - with bottom_buttons_only=1
+        - include 'snippets/form.haml'

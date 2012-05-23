@@ -126,3 +126,7 @@ ul.breadcrumb {
   height: 260px;
   overflow: hidden;
 }
+
+.control-group input, .control-group select, .control-group textarea {
+  width: 400px;
+}
