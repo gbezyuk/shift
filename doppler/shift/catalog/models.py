@@ -13,6 +13,7 @@ from mptt.models import MPTTModel
 from .managers import EnabledTreeManager, EnabledRootManager
 from django.conf import settings
 from filebrowser.fields import FileBrowseField
+from django.forms import ValidationError
 
 try:
     MULTIPLE_CATEGORIES = settings.DOPPLER_SHIFT_CATALOG_PRODUCT_MULTIPLE_CATEGORIES
@@ -65,10 +66,14 @@ class Category(MPTTModel):
         self_main = Image.get_main_image_for_object(self)
         if self_main:
             return self_main
-        else:
-            for child in self.children.filter(enabled=True):
-                if child.main_image:
-                    return child.main_image
+        if self.products.all().exists():
+            for product in self.products.all().order_by('?'):
+                product_image = product.main_image
+                if product_image:
+                    return product_image
+        for child in self.children.filter(enabled=True):
+            if child.main_image:
+                return child.main_image
         return None
     created = models.DateTimeField(auto_now_add = True, verbose_name = _('created'))
     modified = models.DateTimeField(auto_now = True, verbose_name = _('modified'))
@@ -86,6 +91,9 @@ class Category(MPTTModel):
     @models.permalink
     def get_absolute_url(self):
         return 'doppler_shift_catalog_category', (), {'category_id': self.pk}
+
+    def has_active_children(self):
+        return Category.objects.filter(parent=self).exists()
 
 class Product(models.Model):
     """
@@ -136,6 +144,9 @@ class Product(models.Model):
     else:
         price = models.PositiveIntegerField(verbose_name=_('price'), default=0)
         remainder = models.PositiveIntegerField(verbose_name=_('remainder'), default=0)
+        @property
+        def remainder_update_time(self):
+            return self.modified
 
     def __unicode__(self):
         return self.name
@@ -148,18 +159,18 @@ class Product(models.Model):
 if MULTIPLE_PRICES:
     class Price(models.Model):
         """
-        A Price model for advanced pricing strategy
+        A Shipment model for advanced pricing strategy
         """
         class Meta:
-            verbose_name = _('price')
-            verbose_name_plural = _('prices')
+            verbose_name = _('shipment')
+            verbose_name_plural = _('shipments')
             ordering = ['product', 'enabled', 'value']
             unique_together = [('product', 'value',),]
 
         product = models.ForeignKey(to=Product, verbose_name=_('product'), related_name='prices')
         enabled = models.BooleanField(default=True, verbose_name=_('enabled'))
         remainder = models.PositiveIntegerField(verbose_name=_('remainder'), default=0)
-        value = models.PositiveIntegerField(verbose_name=_('value'))
+        value = models.PositiveIntegerField(verbose_name=_('price'))
         added_to_cart_times = models.PositiveIntegerField(verbose_name=_('added to cart times'), default=0)
         ordered_times = models.PositiveIntegerField(verbose_name=_('ordered times'), default=0)
         note = models.CharField(max_length=255, verbose_name=_('note'), blank=True, null=True)
@@ -175,3 +186,22 @@ if MULTIPLE_PRICES:
             if min_value:
                 return product.prices.filter(enabled=True, value=min_value)[0]
             return None
+
+        def __unicode__(self):
+            return "%r - %s" % (self.product.name, self.value)
+
+        def decrease_remainer(self, quantity):
+            assert quantity <= self.remainder
+            self.remainder -= quantity
+            self.save()
+
+class ProductNotAvailableError(ValidationError):
+    """
+    Product not available error for cases when someone wants too much of anything
+    """
+    def __init__(self, message, product, shipment, requested_quantity, maximal_available_quantity):
+        super(ProductNotAvailableError, self).__init__(message=message)
+        self.product = product
+        self.shipment = shipment
+        self.requested_quantity = requested_quantity
+        self.maximal_available_quantity = maximal_available_quantity

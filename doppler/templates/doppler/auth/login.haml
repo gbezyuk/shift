@@ -9,7 +9,7 @@
             %a{'href': '{% url doppler_auth_login %}'}
                 {% trans "Login" %}
 
-- block content
+- block doppler_content
 
     %form.well.form-inline{'action': '', 'method': 'POST', 'style': 'text-align: center;'}
         - csrf_token

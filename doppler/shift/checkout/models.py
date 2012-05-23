@@ -6,188 +6,75 @@ Part: Models implementation
 """
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
-from django.db import models
+from model_utils import Choices
+from session_cart.cart import CartItem, Cart
 from doppler.shift.catalog.models import Product
-from ..catalog.models import MULTIPLE_PRICES
-if MULTIPLE_PRICES:
-    from ..catalog.models import Price
-import random
 
-class Cart(models.Model):
-    """
-    Shopping cart. Session-based, available both for authorized and unauthorized users.
-    """
+CartItem.total_price = lambda self: self.item.value * self.quantity
+Cart.total_price = lambda self: reduce(lambda res, x: res + x, [item.total_price() for item in self])
+
+from django.db import models
+
+class Order(models.Model):
+    class Meta:
+        verbose_name = _('order')
+        verbose_name_plural = _('orders')
+        ordering = ['modified',]
+
+    user = models.ForeignKey(to=User, verbose_name=_('user'), related_name='orders')
     created = models.DateTimeField(auto_now_add = True, verbose_name = _('created'))
     modified = models.DateTimeField(auto_now = True, verbose_name = _('modified'))
-    key = models.CharField(max_length = 50, verbose_name = _('session key'))
-    user = models.ForeignKey(to=User, verbose_name=_('user'), blank=True, null=True)
 
-    CART_ID_SESSION_KEY = 'cart_id' #TODO: move to settings configuration file
-    CART_ID_CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*()'
+    STATUS = Choices(
+        ('new', _('new')),
+        ('processing', _('processing')),
+        ('awaits shipping', _('awaits shipping')),
+        ('shipped', _('shipped')),
+        ('cancelled', _('cancelled')),
+    )
+    status = models.CharField(choices=STATUS, default=STATUS.new, max_length=30)
 
-    @classmethod
-    def _generate_cart_id(cls):
-        """
-        Private method for unique cart id generation
-        """
-        # setting generation params
-        cart_id = ''
-        characters = cls.CART_ID_CHARACTERS
-        cart_id_length = 50
-        # generating key
-        for y in range(cart_id_length):
-            cart_id += characters[random.randint(0, len(characters)-1)]
-        # preventing even extremely low-possible random match
-        try:
-            Cart.objects.get(key=cart_id)
-            cart_id = cls._generate_cart_id()
-        except Cart.DoesNotExist:
-            return cart_id
+    customer_name = models.CharField(max_length=30, blank=False, null=False, verbose_name=_('customer name'))
+    customer_phone = models.CharField(max_length=20, default='', blank=False, null=False, verbose_name=_('customer phone'))
+    customer_email = models.EmailField(blank=False, null=False, verbose_name=_('customer e-mail'))
+    delivery_address = models.TextField(default='', blank=False, null=False, verbose_name=_('delivery address'))
+    comment = models.TextField(blank=True, default='', verbose_name=_('comment'))
+    ip_address = models.IPAddressField(verbose_name=_('IP adress'))
 
-    @classmethod
-    def get_session_stored_cart_id(cls, request):
-        """
-        Retrieve session-stored cart-id
-        """
-        if not request.session.get(cls.CART_ID_SESSION_KEY, False):
-            request.session[cls.CART_ID_SESSION_KEY] = cls._generate_cart_id()
-        return request.session[cls.CART_ID_SESSION_KEY]
-
-    @classmethod
-    def get_cart(cls, request, create_if_not_exist=False):
-        """
-        Get cart model basing on provided request
-        """
-        key = cls.get_session_stored_cart_id(request)
-        try:
-            return Cart.objects.get(key=key)
-        except Cart.DoesNotExist:
-            if create_if_not_exist and key:
-                cart = Cart(key=key, user=request.user if request.user.is_authenticated() else None)
-                cart.save()
-                return cart
-            else:
-                return None
-
-    @classmethod
-    def get_cart_items(cls, request):
-        """
-        Get cart items basing on provided request
-        """
-        cart = cls.get_cart(request)
-        if cart:
-            return cart.cart_items.all()
-        else:
-            return []
-
-    def insert_item(self, product, quantity):
-        """
-        Insert item to the cart instance
-        """
-        assert product.price > 0, "Can not add a product without price to cart"
-        assert quantity > 0, "Cart item quantity must be positive integer"
-        if MULTIPLE_PRICES:
-            try:
-                self.cart_items.get(product=product,
-                    price=product.get_minimal_enabled_price()).augment_quantity(quantity)
-            except CartItem.DoesNotExist:
-                CartItem(product=product, price=product.get_minimal_enabled_price(),
-                    quantity=quantity, cart=self).save()
-        else:
-            try:
-                self.cart_items.get(product=product, price=product.price).augment_quantity(quantity)
-            except CartItem.DoesNotExist:
-                CartItem(product=product, price=product.price, quantity=quantity, cart=self).save()
-
-    def update_quantity(self, product, quantity):
-        """
-        Insert item to the cart instance
-        """
-        assert product.price > 0, "Can not add a product without price to cart"
-        assert quantity > 0, "Cart item quantity must be positive integer"
-        if MULTIPLE_PRICES:
-            self.cart_items.get(product=product,
-                price=product.get_minimal_enabled_price()).update_quantity(quantity)
-        else:
-            self.cart_items.get(product=product, price=product.price).update_quantity(quantity)
-
-    def remove_product(self, product):
-        """
-        Remove item from cart instance
-        """
-        self.cart_items.filter(product=product).delete()
-
-    def clear(self):
-        """
-        Clear the cart instance
-        """
-        self.cart_items.all().delete()
+    def __unicode__(self):
+        return _('Order #%d') % self.id
 
     @property
     def total_price(self):
-        """
-        Get cart total price
-        """
-        answer = 0
-        for item in self.cart_items.all():
-            answer += item.total_price
-        return answer
+        return reduce(lambda res, x: res+x, [item.total_price for item in self.items.all()])
 
     @property
     def total_quantity(self):
-        """
-        Get cart total quantity
-        """
-        answer = 0
-        for item in self.cart_items.all():
-            answer += item.quantity
-        return answer
+        return reduce(lambda res, x: res+x, [item.quantity for item in self.items.all()])
 
-    @property
-    def total_distinct_quantity(self):
-        """
-        Get total distinct quantity
-        """
-        return self.cart_items.all().count()
+    @models.permalink
+    def get_absolute_url(self):
+        return 'doppler_shift_order', (), {'order_id': self.pk}
 
-class CartItem(models.Model):
-    """
-    Shopping cart item.
-    """
+    #TODO: save method override for remainder updates basing on status change; and also status change notifications
+
+class OrderItem(models.Model):
     class Meta:
-        verbose_name = _('cart item')
-        verbose_name_plural = _('cart items')
-        ordering = ['created']
-        if MULTIPLE_PRICES:
-            unique_together = [('product', 'price', 'cart')]
-        else:
-            unique_together = [('product', 'cart')]
+        verbose_name = _('order item')
+        verbose_name_plural = _('order items')
+        ordering = ['order', 'modified',]
 
-    cart = models.ForeignKey(to=Cart, verbose_name=_('cart'), related_name='cart_items')
-    product = models.ForeignKey(to=Product, verbose_name=_('product'))
-    if MULTIPLE_PRICES:
-        price = models.ForeignKey(to=Price, verbose_name=_('price'))
-    quantity = models.IntegerField(default = 1, verbose_name = _('quantity'))
+    order = models.ForeignKey(to=Order, verbose_name=_('order'), related_name='items')
+    product = models.ForeignKey(to=Product, verbose_name=_('product'), related_name='orders')
+    quantity = models.PositiveIntegerField(verbose_name=_('quantity'))
+    price = models.PositiveIntegerField(verbose_name=_('price'))
     created = models.DateTimeField(auto_now_add = True, verbose_name = _('created'))
     modified = models.DateTimeField(auto_now = True, verbose_name = _('modified'))
 
     @property
     def total_price(self):
-        """
-        Return total price as product price times product quantity
-        """
-        return self.quantity * self.product.price
+        return self.price * self.quantity
 
-    def augment_quantity(self, quantity):
-        """
-        Augments product quantity by provided value
-        """
-        self.quantity += int(quantity)
-        self.save()
-
-    def update_quantity(self, quantity):
-        """
-        Updates product quantity with provided value
-        """
-        self.quantity = int(quantity)
-        self.save()
+    def save(self, **kwargs):
+        super(OrderItem, self).save(**kwargs)
+        self.order.save() # updating parent order entity modified timestamp

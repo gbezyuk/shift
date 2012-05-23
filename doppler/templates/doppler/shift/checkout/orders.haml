@@ -1,0 +1,10 @@
+- extends 'doppler/shift/checkout/base.haml'
+- load i18n
+- load repeatblock
+- enablemacros
+
+- block inner_breadcrumbs
+    - include 'doppler/shift/checkout/snippets/breadcrumbs/orders.haml'
+
+- block doppler_content
+    - include 'doppler/shift/checkout/snippets/order_list.haml'

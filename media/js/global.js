@@ -16,19 +16,21 @@ $(function () {
 		    );
 	});
 });
-//
-//// catalog widget categories extending/collapsing
+
 //$(function () {
-//	$('.catalog_widget ul li.extendable.collapsing_toggler').click(function () {
-//		var $li = $(this);
-//		$li.toggleClass('extended').toggleClass('collapsed');
-//		return false;
-//	}).find('a').click(function (event) {
-//		event.stopPropagation();
-//	});
+//    $('#login-modal-toggler').attr('href', '#login-modal');
+//    $('#auth-dropdown-toggler').attr('href', '#');
+//    $('#catalog-dropdown-toggler').attr('href', '#');
+//    $('#cart-dropdown-toggler').attr('href', '#');
 //});
 
+// catalog widget categories extending/collapsing
 $(function () {
-    $('#login-modal-toggler').attr('href', '#login-modal');
-    $('#auth-dropdown-toggler').attr('href', '#');
+    $('.catalog_widget ul li.extendable.collapsing_toggler').click(function () {
+        var $li = $(this);
+        $li.toggleClass('extended').toggleClass('collapsed');
+        return false;
+    }).find('a').click(function (event) {
+            event.stopPropagation();
+        });
 });

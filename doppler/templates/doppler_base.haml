@@ -1,1 +1,9 @@
 - extends 'base.haml'
+- block content
+    .row-fluid
+        .span2
+            - block catalog_tree
+                .catalog_widget
+                    - include 'category_tree_snippet.html'
+        .span10
+            - block doppler_content

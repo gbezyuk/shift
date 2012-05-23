@@ -50,6 +50,8 @@ eggs =
         django-tastypie
         BeautifulSoup
 
+	querystring-parser
+
 project = main
 
 [versions]

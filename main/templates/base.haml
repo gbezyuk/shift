@@ -25,20 +25,23 @@
     %script{'type': 'text/javascript', 'src': '{{ MEDIA_URL }}js/global.js'}
 
 - block body
-    .navbar.navbar-fixed-top
-        .navbar-inner
-            .container
-                %a.brand{'href': '/'}
-                    WildPlanet.Ru - {% trans "Wild Planet" %}
-                .nav-collapse
-                    %ul.nav
-                        - include 'home_link.haml'
-                        - include 'doppler/shift/catalog/snippets/breadcrumbs/catalog.haml'
-                        %li
-                            %a{'href': '/admin/'}
-                                {% trans "To admin" %}
-                    - include 'accounts/snippets/header_widget.haml'
-
+    - block navbar
+        .navbar.navbar-fixed-top
+            .navbar-inner
+                .container
+                    %a.brand{'href': '/'}
+                        {% trans "Doppler Shift" %}
+                    .nav-collapse
+                        %ul.nav
+                            - include 'home_link.haml'
+                            - block catalog_header_widget
+                                - include 'doppler/shift/catalog/snippets/header_widget.haml'
+                            %li
+                                %a{'href': '/admin/'}
+                                    {% trans "To admin" %}
+                        - include 'accounts/snippets/header_widget.haml'
+                        - block cart_header_widget
+                            - include 'doppler/shift/checkout/snippets/header_widget.haml'
     - block main_container
         .container.main_container
             - block breadcrumbs
@@ -51,6 +54,7 @@
                     - get_metadata as metadata
                     - if metadata.heading.value
                         = metadata.heading.value
+
             - block content
 
             - repeat breadcrumbs
@@ -59,7 +63,6 @@
                 %p.pull-right
                     %a{'href': "#"}
                         {% trans "Back to top" %}
-
     - block modals
         - if request.user.is_anonymous
             - include 'accounts/snippets/login_modal.haml'

@@ -57,6 +57,7 @@ INSTALLED_APPS = (
     'utils',
     'accounts',
     'compressor',
+    'mptt',
     'main',
     'doppler',
     'doppler.shift.catalog',
@@ -66,7 +67,7 @@ INSTALLED_APPS = (
 # django_jenkins apps list
 PROJECT_APPS = (
     'accounts',
-    'main',
+#    'main',
     'doppler.shift.catalog',
     'doppler.shift.checkout',
 )
@@ -77,6 +78,7 @@ MIDDLEWARE_CLASSES = (
 	'django.middleware.csrf.CsrfViewMiddleware',
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
+    'session_cart.middleware.SimpleCartMiddleware',
 )
 
 STATICFILES_FINDERS = (
@@ -101,6 +103,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	'django.contrib.auth.context_processors.auth',
     'main.context_processors.login_url',
     'main.context_processors.default_avatar_url',
+    'doppler.shift.catalog.context_processors.categories',
+    'session_cart.context_processors.carts',
 )
 
 LOGGING = {
@@ -180,8 +184,10 @@ COMPRESS_ROOT = PROJECT_ROOT_PATH
 COMPRESS_ENABLED = True
 COMPRESS_OUTPUT_DIR = 'media/CACHE'
 COMPRESS_PRECOMPILERS = (
-    ('text/coffeescript', 'coffee --compile --stdio'),
-    ('text/less', 'lessc {infile} {outfile}'),
+#    ('text/coffeescript', 'coffee --compile --stdio'),
+#    ('text/less', 'lessc {infile} {outfile}'),
     ('text/x-sass', 'sass {infile} {outfile}'),
     ('text/x-scss', 'sass --scss {infile} {outfile}'),
     )
+
+CART_MODEL = 'doppler.shift.catalog.models.Price'
