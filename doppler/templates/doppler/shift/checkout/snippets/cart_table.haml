@@ -2,8 +2,9 @@
 %table.table.cart
     %thead
         %tr
-            %th
-                {% trans "Remove" %}
+            - if cart_mode
+                %th
+                    {% trans "Remove" %}
             %th{'colspan': 2}
                 {% trans "Product" %}
             %th
@@ -16,8 +17,8 @@
         - if cart
             - for item in cart
                 %tr
-                    %td
-                        - if cart_mode
+                    - if cart_mode
+                        %td
                             - load cart_form_tags
                             = form|cart_form_remove_item_input:item.item.id
                     %td
@@ -38,14 +39,14 @@
                     %td
                         = item.total_price
             %tr
-                %th{'colspan': '4'}
+                %th{'colspan': '{% if cart_mode %}4{% else %}3{% endif %}'}
                 %th
                     = cart.total_quantity
                 %th
                     = cart.total_price
         - else
             %tr
-                %th{'colspan': '4'}
+                %th{'colspan': '{% if cart_mode %}4{% else %}3{% endif %}'}
                     {% trans "Your shopping cart is empty yet" %}
                 %th 0
                 %th 0

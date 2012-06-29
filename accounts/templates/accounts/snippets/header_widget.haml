@@ -3,7 +3,7 @@
     - if request.user.is_anonymous
         %li
             %a#login-modal-toggler{'data-toggle': 'modal', 'href': '{{ LOGIN_URL }}'}
-                {% trans "login" %}
+                {% trans "login / register" %}
     - else
         %li.dropdown
             %a#auth-dropdown-toggler.dropdown-toggle{'href': "{% url profile %}", 'data-toggle': "dropdown"}

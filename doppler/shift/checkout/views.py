@@ -47,7 +47,7 @@ def make_order(request, template_name='doppler/shift/checkout/make_order.haml'):
         if form.is_valid():
             order = form.save()
             messages.success(request, OrderForm.success_message)
-            return redirect_to(order.get_absolute_url())
+            return redirect_to(request, order.get_absolute_url())
     except ProductNotAvailableError, e:
         messages.error(request, _('Execuse us, %(requested)d is too much for %(product)s, only %(available)d available')
             % {'requested': e.requested_quantity, 'product': e.product, 'available': e.maximal_available_quantity})

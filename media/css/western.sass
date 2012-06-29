@@ -1,5 +1,9 @@
 body
   background: #808080
+  color: #310000
+
+  a
+    color: #310000
 
 .container
   width: 990px
@@ -15,7 +19,6 @@ body
       height: 125px
       width: 990px
       color: #D67E3E
-      //background: #310000 left top repeat-all url('/media/images/leather_dark.jpg')
       background-color: #310000
       background-position: left top
       background-repeat: repeat-all
@@ -97,15 +100,25 @@ body
                 text-decoration: underline
 
 #cart-dropdown-toggler
-  width: 140px
-  height: 50px
-  padding: 0
+  width: 40px
+  height: 40px
+  padding: 5px 10px 5px 90px
   border-radius: 10px
   margin-right: 20px
   margin-top: 20px
-  -webkit-box-shadow: 0 0 20px #C0400F
-  -moz-box-shadow: 0 0 20px #C0400F
-  box-shadow: 0 0 20px #C0400F
+  -webkit-box-shadow: 0 0 20px #E0600F
+  -moz-box-shadow: 0 0 20px #E0600F
+  box-shadow: 0 0 20px #E0600F
+  background-color: #310000
+  background-image: -moz-linear-gradient(center top, #3B0F04, #6A1B0E)
+  background-repeat: repeat-x
+
+  .empty
+
+  .full
+    font-size: 2.5em
+    line-height: 40px
+    height: 40px
 
   span
     padding: 0
@@ -120,9 +133,48 @@ body
   background-color: #D67E3E
   background-color: #E59274
   overflow: hidden
+  padding: 16px
+  width: 962px
+
+  &.with_sidebar
+    padding: 0
+    width: 990px
+
+    .breadcrumb
+      display: none
+
+    .rest
+      margin-left: 200px
+      padding-top: 16px
+      padding-right: 16px
+      position: relative
+
+      .form-actions
+        background: #310000
+        border: none
+        border-radius: 10px
+
+  .btn-primary
+    background-color: #00CC74
+    background-image: -moz-linear-gradient(center top , #00CC88, #00CC55)
+    background-repeat: repeat-x
+    color: #FFF
+
+  .info
+    background-color: #00CC74
+    background-image: -moz-linear-gradient(center top , #00CC88, #00CC55)
+    background-repeat: repeat-x
+    color: #FFF
+    padding: 1em
+    border-radius: 10px
 
   .breadcrumb
-    display: none
+
+    li:after
+      content: '/'
+
+    li:last-child:after
+      content: ''
 
   .catalog_widget
     min-height: 360px
@@ -131,6 +183,7 @@ body
     border: none
     width: 185px
     float: left
+    padding-bottom: 16px
 
     h4
       height: 40px
@@ -144,11 +197,8 @@ body
     a
       color: #FAD386
 
-  .rest
-    margin-left: 200px
-
-    .categories
-      margin: 0
+  .categories
+    margin: 0
 
 
 footer
@@ -176,3 +226,14 @@ footer
   padding: 1em
   width: auto
   height: auto
+
+.control-group input
+.control-group select
+.control-group textarea
+  width: 400px
+
+.errorlist
+  color: red
+
+label
+  color: #310000

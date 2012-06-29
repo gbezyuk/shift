@@ -50,7 +50,7 @@
 
     - block main_container
 
-        .container.main_container
+        .container.main_container{:class => '{% block main_container_class %}{% endblock %}'}
             - block breadcrumbs
             - if messages
                 - for message in messages

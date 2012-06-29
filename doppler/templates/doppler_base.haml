@@ -2,6 +2,9 @@
 - extends 'base.haml'
 - load i18n
 
+- block main_container_class
+    with_sidebar
+
 - block content
     - block catalog_tree
         .catalog_widget

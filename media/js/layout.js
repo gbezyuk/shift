@@ -1,6 +1,8 @@
 function fetch_sidebar_height() {
     var $sidebar = $('.catalog_widget');
-    $sidebar.height($sidebar.parent().height());
+    var $rest = $sidebar.parent();//$('.rest');
+    var rest_height = $rest.height();
+    $sidebar.height(rest_height);
 }
 
 $(function () {
