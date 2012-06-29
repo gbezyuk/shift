@@ -1,0 +1,178 @@
+body
+  background: #808080
+
+.container
+  width: 990px
+
+.navbar
+  margin-bottom: 12px
+
+  .navbar-inner
+    background: transparent
+    box-shadow: none
+
+    .container
+      height: 125px
+      width: 990px
+      color: #D67E3E
+      //background: #310000 left top repeat-all url('/media/images/leather_dark.jpg')
+      background-color: #310000
+      background-position: left top
+      background-repeat: repeat-all
+      background-image: url('/media/images/leather_dark.jpg')
+      position: relative
+      border: 1px solid #F07C40
+      border-bottom-color: #744635
+      border-top: none
+
+      a
+        color: #D67E3E
+
+      .brand
+        padding: 0
+        margin: 0
+        margin-left: 95px
+        width: 630px
+        height: 95px
+        overflow: hidden
+
+        span
+          display: block
+          float: left
+          line-height: 95px
+
+        strong
+          display: block
+          float: left
+          width: 520px
+          text-transform: uppercase
+          font-size: 2em
+          font-weight: bold
+          line-height: 95px
+          padding: 0 15px
+          //text-indent: -9999px
+
+      .main_navigation
+        position: absolute
+        bottom: 0
+        left: 0
+        width: 100%
+        height: 30px
+        color: #310000
+        background-color: #D67E3E
+        background-color: rgba(254, 166, 102, 0.6)
+
+
+        .nav
+          height: 30px
+
+          li
+            height: 30px
+            line-height: 30px
+
+            a
+              height: 30px
+              line-height: 30px
+              padding: 0 3.5em
+              color: #310000
+              text-transform: uppercase
+              font-weight: bold
+
+              &:hover
+                text-decoration: underline
+
+            &.active,
+            &.hover,
+            &:hover
+              a
+                background-color: lighten(#D67E3E, 25%)
+
+        .auth_widget
+          li
+            a
+              color: #FFFFFF
+              text-transform: lowercase
+
+              &:hover
+                text-decoration: underline
+
+#cart-dropdown-toggler
+  width: 140px
+  height: 50px
+  padding: 0
+  border-radius: 10px
+  margin-right: 20px
+  margin-top: 20px
+  -webkit-box-shadow: 0 0 20px #C0400F
+  -moz-box-shadow: 0 0 20px #C0400F
+  box-shadow: 0 0 20px #C0400F
+
+  span
+    padding: 0
+    margin: 0
+    background: auto
+    color: auto
+
+.main_container
+  margin-top: 140px
+  min-height: 360px
+  color: #310000
+  background-color: #D67E3E
+  background-color: #E59274
+  overflow: hidden
+
+  .breadcrumb
+    display: none
+
+  .catalog_widget
+    min-height: 360px
+    color: #FAD386
+    background-color: #552A19
+    border: none
+    width: 185px
+    float: left
+
+    h4
+      height: 40px
+      line-height: 40px
+      padding: 4px 24px
+      text-transform: uppercase
+      font-weight: bold
+      color: #D67E3E
+      background-color: #310000
+
+    a
+      color: #FAD386
+
+  .rest
+    margin-left: 200px
+
+    .categories
+      margin: 0
+
+
+footer
+  border-top: 4px solid #AC6231
+  margin-top: 16px
+  color: #D67E3E
+  background-color: #310000
+  background-position: left top
+  background-repeat: repeat-all
+  background-image: url('/media/images/leather_dark.jpg')
+
+  .footer-inner
+    padding: 16px
+    overflow: hidden
+
+    p
+      margin: 0
+      padding: 0
+
+    a
+      color: #D67E3E
+
+.hero-unit
+  margin: 1em
+  padding: 1em
+  width: auto
+  height: auto
