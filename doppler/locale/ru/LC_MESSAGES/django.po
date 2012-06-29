@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-23 14:10+0400\n"
-"PO-Revision-Date: 2012-05-23 14:10\n"
+"POT-Creation-Date: 2012-06-29 17:55+0400\n"
+"PO-Revision-Date: 2012-06-29 17:57\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -281,6 +281,10 @@ msgstr ""
 "К сожалению, мы можем предложить лишь %(available)d единиц по позиции "
 "%(product). %(requested)d же в наличии нет. "
 
+#: templates/doppler_base.haml:12
+msgid "Men's wear"
+msgstr "Мужская"
+
 #: templates/admin/feincms/catalog/category/tree_editor.html:32
 msgid "Shortcuts"
 msgstr "Ярлыки"
@@ -310,7 +314,7 @@ msgid "No categories available"
 msgstr "Нет доступных категорий"
 
 #: templates/doppler/shift/catalog/product.haml:22
-#: templates/doppler/shift/checkout/snippets/cart_table.haml:10
+#: templates/doppler/shift/checkout/snippets/cart_table.haml:11
 #: templates/doppler/shift/checkout/snippets/order_details.haml:10
 msgid "Price"
 msgstr "Цена"
@@ -370,47 +374,47 @@ msgstr "ПОДТВЕРДИТЬ ЗАКАЗ"
 msgid "Add to cart"
 msgstr "Добавить в корзину"
 
-#: templates/doppler/shift/checkout/snippets/cart_table.haml:6
+#: templates/doppler/shift/checkout/snippets/cart_table.haml:7
 msgid "Remove"
 msgstr "Удалить"
 
-#: templates/doppler/shift/checkout/snippets/cart_table.haml:8
+#: templates/doppler/shift/checkout/snippets/cart_table.haml:9
 #: templates/doppler/shift/checkout/snippets/order_details.haml:8
 msgid "Product"
 msgstr "Товар"
 
-#: templates/doppler/shift/checkout/snippets/cart_table.haml:12
+#: templates/doppler/shift/checkout/snippets/cart_table.haml:13
 #: templates/doppler/shift/checkout/snippets/order_details.haml:12
 msgid "Quantity"
 msgstr "Количество"
 
-#: templates/doppler/shift/checkout/snippets/cart_table.haml:14
+#: templates/doppler/shift/checkout/snippets/cart_table.haml:15
 #: templates/doppler/shift/checkout/snippets/order_details.haml:14
 #: templates/doppler/shift/checkout/snippets/order_list.haml:10
 msgid "Total"
 msgstr "Итого"
 
-#: templates/doppler/shift/checkout/snippets/cart_table.haml:49
+#: templates/doppler/shift/checkout/snippets/cart_table.haml:50
 msgid "Your shopping cart is empty yet"
 msgstr "Ваша корзина пуста"
 
-#: templates/doppler/shift/checkout/snippets/header_widget.haml:13
+#: templates/doppler/shift/checkout/snippets/header_widget.haml:16
 msgid "product in your cart for total price of"
 msgstr "товаров в вашей корзине на общую сумму в"
 
-#: templates/doppler/shift/checkout/snippets/header_widget.haml:17
-msgid "your cart is empty yet"
-msgstr "ваша корзина пока пуста"
+#: templates/doppler/shift/checkout/snippets/header_widget.haml:20
+msgid "cart is empty"
+msgstr "корзина пуста"
 
-#: templates/doppler/shift/checkout/snippets/header_widget.haml:21
+#: templates/doppler/shift/checkout/snippets/header_widget.haml:24
 msgid "View cart"
 msgstr "Просмотреть корзину"
 
-#: templates/doppler/shift/checkout/snippets/header_widget.haml:23
+#: templates/doppler/shift/checkout/snippets/header_widget.haml:26
 msgid "Clear cart"
 msgstr "Очистить корзину"
 
-#: templates/doppler/shift/checkout/snippets/header_widget.haml:25
+#: templates/doppler/shift/checkout/snippets/header_widget.haml:28
 msgid "Make Order"
 msgstr "Сделать заказ"
 

@@ -34,8 +34,8 @@ body
       .brand
         padding: 0
         margin: 0
-        margin-left: 95px
-        width: 630px
+        margin-left: 80px
+        width: 650px
         height: 95px
         overflow: hidden
 
@@ -47,13 +47,14 @@ body
         strong
           display: block
           float: left
-          width: 520px
+          width: 570px
           text-transform: uppercase
           font-size: 2em
           font-weight: bold
           line-height: 95px
           padding: 0 15px
-          //text-indent: -9999px
+          text-indent: -9999px
+          background: left top no-repeat url('/media/images/logo.png')
 
       .main_navigation
         position: absolute
@@ -100,9 +101,9 @@ body
                 text-decoration: underline
 
 #cart-dropdown-toggler
-  width: 40px
+  width: 70px
   height: 40px
-  padding: 5px 10px 5px 90px
+  padding: 5px 10px 5px 60px
   border-radius: 10px
   margin-right: 20px
   margin-top: 20px
@@ -112,6 +113,16 @@ body
   background-color: #310000
   background-image: -moz-linear-gradient(center top, #3B0F04, #6A1B0E)
   background-repeat: repeat-x
+  position: relative
+
+  span
+    display: block
+    position: absolute
+    width: 33px
+    height: 33px
+    left: 15px
+    top: 8px
+    background: left top no-repeat url('/media/images/cart.png')
 
   .empty
 
