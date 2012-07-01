@@ -32,18 +32,33 @@
                 .container
                     %a.brand{'href': '/'}
                         %span
-                            {% trans "shop" %}
+                            магазин
                         %strong
                             {% trans "Western Unit" %}
                     -#.nav-collapse
                     .main_navigation
                         %ul.nav
-                            - include 'home_link.haml'
-                            - block catalog_header_widget
-                                - include 'doppler/shift/catalog/snippets/header_widget.haml'
                             %li
-                                %a{'href': '/admin/'}
-                                    {% trans "To admin" %}
+                                %a{'href': '/mens-wear/'}
+                                    Мужская
+                            %li
+                                %a{'href': '/womens-wear/'}
+                                    Женская
+                            %li
+                                %a{'href': '/children-wear/'}
+                                    Детская
+                            %li
+                                %a{'href': '/to-customer/'}
+                                    Покупателю
+                            %li
+                                %a{'href': '/contacts/'}
+                                    Контакты
+                            -#- include 'home_link.haml'
+                            -#- block catalog_header_widget
+                            -#    - include 'doppler/shift/catalog/snippets/header_widget.haml'
+                            -#%li
+                            -#    %a{'href': '/admin/'}
+                            -#        {% trans "To admin" %}
                         - include 'accounts/snippets/header_widget.haml'
                     - block cart_header_widget
                         - include 'doppler/shift/checkout/snippets/header_widget.haml'

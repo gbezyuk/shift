@@ -1,0 +1,8 @@
+-#- extends 'western-layout-base.html'
+- extends 'base.haml'
+- load i18n
+
+- block content
+    %h1 {% trans "Western Shop" %}
+    %h2 Покупателю
+    - include 'lorem-ipsum.html'

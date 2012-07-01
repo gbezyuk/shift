@@ -1,0 +1,21 @@
+- extends 'doppler/shift/catalog/base.haml'
+- load i18n
+
+- block main_container_class
+    with_sidebar promo mens
+
+- block inner_breadcrumbs
+    - include 'doppler/shift/catalog/snippets/breadcrumbs/catalog.haml'
+
+- block catalog_tree
+    .catalog_widget
+        %h4
+            - block label
+                = category.name
+
+        - if category.has_active_children
+            - with categories=category.active_children
+                - include 'category_tree_snippet.html'
+    .rest
+        - block picture
+            %img{:src => '/media/images/men.jpg', :width => '805px'}

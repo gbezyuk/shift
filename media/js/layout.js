@@ -8,4 +8,5 @@ function fetch_sidebar_height() {
 $(function () {
     $(window).resize(fetch_sidebar_height);
     fetch_sidebar_height();
+    setInterval(fetch_sidebar_height, 500);
 });

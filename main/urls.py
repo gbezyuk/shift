@@ -2,11 +2,9 @@ from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 from filebrowser.sites import site
 from django.conf import settings
+from django.views.generic.simple import redirect_to
 from .views import *
 admin.autodiscover()
-
-handler404 = ViewFor404.as_view()
-handler500 = ViewFor500.as_view()
 
 urlpatterns = patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
@@ -18,7 +16,14 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('accounts.urls')),
 #    url(r'^$', HomeView.as_view(), name='home'),
+    url(r'^$', redirect_to, {'url': '/mens-wear/', 'permanent': False}),
     url(r'^', include('doppler.shift.urls')),
+
+    url(r'^mens-wear/$', mens),
+    url(r'^womens-wear/$', womens),
+    url(r'^children-wear/$', children),
+    url(r'^to-customer/$', to_customer),
+    url(r'^contacts/$', contacts),
 )
 
 if settings.DEBUG:

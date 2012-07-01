@@ -93,7 +93,10 @@ class Category(MPTTModel):
         return 'doppler_shift_catalog_category', (), {'category_id': self.pk}
 
     def has_active_children(self):
-        return Category.objects.filter(parent=self).exists()
+        return Category.objects.filter(parent=self, enabled=True).exists()
+
+    def active_children(self):
+        return Category.objects.filter(parent=self, enabled=True)
 
 class Product(models.Model):
     """
