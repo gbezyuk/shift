@@ -82,7 +82,7 @@
             - repeat breadcrumbs
 
     - block footer
-        %footer.footer.container
+        %footer.footer.container{:class => '{% block footer_class %}{% endblock %}'}
             .footer-inner
                 %p.pull-right
                     %a{'href': "#"}

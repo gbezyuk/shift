@@ -16,14 +16,14 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('accounts.urls')),
 #    url(r'^$', HomeView.as_view(), name='home'),
-    url(r'^$', redirect_to, {'url': '/mens-wear/', 'permanent': False}),
-    url(r'^', include('doppler.shift.urls')),
-
+#    url(r'^$', redirect_to, {'url': '/mens-wear/', 'permanent': False}),
+    url(r'^$', home),
     url(r'^mens-wear/$', mens),
     url(r'^womens-wear/$', womens),
     url(r'^children-wear/$', children),
     url(r'^to-customer/$', to_customer),
     url(r'^contacts/$', contacts),
+    url(r'^', include('doppler.shift.urls')),
 )
 
 if settings.DEBUG:

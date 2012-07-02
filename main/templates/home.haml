@@ -1,13 +1,15 @@
--#- extends 'western-layout-base.html'
-- extends 'base.haml'
+- extends 'doppler/shift/catalog/base.haml'
 - load i18n
 
-- block content
-    .hero-unit
-        %h1 {% trans "Western Shop" %}
-        %p {% trans "To access admin interface click the link above and use " %} admin/admin {% trans "login/password pair" %}.
-        %p {% trans "Theming is default yet." %}
-        %p {% trans "Text bellow is merely page filling, don't keep in mind" %}
-        %ul.nav.nav-pills
-            - include 'doppler/shift/catalog/snippets/breadcrumbs/catalog.haml'
-    - include 'lorem-ipsum.html'
+- block main_container_class
+    home
+
+- block footer_class
+    home
+
+- block inner_breadcrumbs
+    - include 'doppler/shift/catalog/snippets/breadcrumbs/catalog.haml'
+
+- block catalog_tree
+    - block picture
+        %img{:src => '/media/images/men.jpg', :width => '992px'}

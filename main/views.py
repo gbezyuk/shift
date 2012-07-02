@@ -47,3 +47,10 @@ def contacts(request, template_name='contacts.haml'):
         {},
         context_instance=RequestContext(request)
     )
+
+def home(request, template_name='home.haml'):
+    return render_to_response(
+        template_name,
+        {},
+        context_instance=RequestContext(request)
+    )
