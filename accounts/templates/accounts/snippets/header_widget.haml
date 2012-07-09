@@ -13,6 +13,9 @@
                     = request.user.username
             %ul.dropdown-menu
                 %li
+                    %a{'href': '{% url doppler_shift_orders %}'}
+                        {% trans "My Orders" %}
+                %li
                     %a{'href': '{% url profile %}'}
                         {% trans "Profile" %}
                 %li

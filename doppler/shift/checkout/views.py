@@ -58,7 +58,10 @@ def orders(request, template_name='doppler/shift/checkout/orders.haml'):
     """
     Order list view
     """
-    orders = Order.objects.filter(user=request.user)
+    if not request.user.is_superuser:
+        orders = Order.objects.filter(user=request.user)
+    else:
+        orders = Order.objects.all()
     return render_to_response(template_name, {'orders': orders }, context_instance=RequestContext(request))
 
 @login_required

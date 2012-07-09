@@ -25,3 +25,7 @@ $(function () {
             event.stopPropagation();
         });
 });
+
+$(function () {
+    $('.dropdown-toggle').attr('href', '#');
+});
