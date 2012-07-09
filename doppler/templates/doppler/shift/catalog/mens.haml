@@ -15,7 +15,7 @@
 
         - if category.has_active_children
             - with categories=category.active_children
-                - include 'category_tree_snippet.html'
+                - include 'category_tree_snippet.haml'
     .rest
         - block picture
             %img{:src => '/media/images/men.jpg', :width => '805px'}
