@@ -17,7 +17,7 @@ $(function () {
 
 // catalog widget categories expanding/collapsing
 $(function () {
-    $('.catalog_widget ul li.expandable.collapsing_toggler').click(function () {
+    $('ul.category_tree li.expandable.collapsing_toggler').click(function () {
         var $li = $(this);
         $li.toggleClass('expanded').toggleClass('collapsed');
         return false;

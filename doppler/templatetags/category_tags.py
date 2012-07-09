@@ -46,12 +46,12 @@ def do_iscategorychild(parser, token, negate):
 	val2 = parser.compile_filter(bits[2])
 	return IsCategoryChildNode(val1, val2, nodelist_true, nodelist_false, negate)
 
-#@register.tag
+@register.tag
 def iscategorychild(parser, token):
 	return do_iscategorychild(parser, token, False)
-iscategorychild = register.tag(iscategorychild)
+#iscategorychild = register.tag(iscategorychild)
 
-#@register.tag
+@register.tag
 def isnotcategorychild(parser, token):
 	return do_iscategorychild(parser, token, True)
-isnotcategorychild = register.tag(isnotcategorychild)
+#isnotcategorychild = register.tag(isnotcategorychild)

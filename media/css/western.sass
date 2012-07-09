@@ -447,13 +447,16 @@ label
 
 ul.category_tree
   padding: 0
-  margin: 10px 0 0 10px
+  margin: 10px
   list-style: none
 
   li
     margin: 0
     padding: 0
     list-style: none
+
+    > a
+      text-transform: capitalize
 
     ul
       list-style: none
@@ -474,3 +477,23 @@ ul.category_tree
 
     &.active > a
       font-weight: bold
+
+  &.root
+    > li
+      border-bottom: 1px solid #634E39
+      padding: 10px 0
+      > a
+        font-weight: bold
+        display: block
+      &.expandable
+        padding-left: 0
+        background: none
+      &.expandable.expanded
+        padding-left: 0
+        background: none
+      &.expandable.collapsed
+        padding-left: 0
+        background: none
+
+      > ul
+        display: block

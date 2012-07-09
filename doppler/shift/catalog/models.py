@@ -85,6 +85,17 @@ class Category(MPTTModel):
     def enabled_products(self):
         return self.products.filter(enabled=True)
 
+    @property
+    def enabled_children(self):
+        return self.children.filter(enabled=True)
+
+    @property
+    def topmost_parent(self):
+        parent = self.parent
+        while parent.parent:
+            parent = parent.parent
+        return parent
+
     def __unicode__(self):
         return self.name
 

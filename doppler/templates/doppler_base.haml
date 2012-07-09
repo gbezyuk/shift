@@ -1,4 +1,4 @@
--#- extends 'western-layout-base.html'
+-#- extends 'western-layout-base.haml'
 - extends 'base.haml'
 - load i18n
 
@@ -8,8 +8,16 @@
 - block content
     - block catalog_tree
         .catalog_widget
-            %h4
-                {% trans "Catalog" %}
-            - include 'category_tree_snippet.html'
+            - if category and category.topmost_parent
+                - with top_category=category.topmost_parent
+                    %a{:href => '{{ top_category.get_absolute_url }}'}
+                        %h4= top_category.name
+                    - with categories=top_category.enabled_children
+                        - include 'category_tree_snippet.haml'
+            - else
+                %a{:href => '{% url doppler_shift_catalog_index %}'}
+                    %h4 {% trans "Catalog" %}
+                - with categories=category.enabled_siblings
+                - include 'category_tree_snippet.haml'
         .rest
             - block doppler_content
