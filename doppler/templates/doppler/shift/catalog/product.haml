@@ -15,33 +15,70 @@
     - include 'doppler/shift/catalog/snippets/breadcrumbs/product.haml'
 
 - block doppler_content
-    .hero-unit
-        %h1
-            = product.name
-        - if product.price
-            {% trans "Price" %}:
-            %strong
-                = product.price
-            - if product.remainder
-                {% trans "Remains in stock" %}:
-                %strong
-                    = product.remainder
-                %em
-                    {% trans "Last updated" %}
-                    = product.remainder_update_time
-                - include 'doppler/shift/checkout/snippets/add_to_cart_form.haml'
-            - else
-                {% trans "Not available now" %}
-                - if product.reserved
-                    = product.reserved
-                    {% trans "reserved" %}
-        - else
-            %em
-                {% trans "Not available now" %}
-        - if product.description
-            = product.description|safe
+    .product_container
+        .main_information
+            .images
+                .main_image
+                    - if product.main_image
+                        - with image=product.main_image
+                            - with thumbnail_version="300x300"
+                                - include 'doppler/shift/catalog/snippets/image.haml'
+                    - else
+                        {% trans "No image yet" %}
+                .additional_images
+                    - if product.enabled_images
+                        %ul.thumbnails
+                            - for image in product.enabled_images
+                                %li.thumbnail
+                                    - with thumbnail_version="80x80"
+                                        - include 'doppler/shift/catalog/snippets/image.haml'
+            .text
+                %h1
+                    = product.name
+                - if product.description
+                    .description
+                        = product.description|safe
+            .shopping
+                .stock_status
+                    .remainder
+                        - if product.remainder
+                            {% trans "Remains in stock" %}:
+                            %strong
+                                = product.remainder
+                            %em
+                                {% trans "Last updated" %}
+                                = product.remainder_update_time
+                        - else
+                            {% trans "Not available now" %}
+                            - if product.reserved
+                                = product.reserved
+                                {% trans "reserved" %}
+                    - if product.price
+                        .price
+                            .label
+                                {% trans "Price" %}:
+                            %strong
+                                = product.price
+                .add_to_cart_form
+                    - if product.price and product.remainder
+                        - include 'doppler/shift/checkout/snippets/add_to_cart_form.haml'
+
+
         - if product.enabled_images
-            %ul.thumbnails
-                - for image in product.enabled_images
-                    %li.thumbnail
-                        - include 'doppler/shift/catalog/snippets/image.haml'
+            .additional_info
+                - if product.enabled_images
+                    .you_might_be_interested
+                        %p {% trans "You might be interested:" %}
+                        %ul.thumbnails
+                            - for image in product.enabled_images
+                                %li.thumbnail
+                                    - with thumbnail_version="40x40"
+                                        - include 'doppler/shift/catalog/snippets/image.haml'
+                - if product.enabled_images
+                    .also_they_buy
+                        %p {% trans "Also they buy with this product:" %}
+                        %ul.thumbnails
+                            - for image in product.enabled_images
+                                %li.thumbnail
+                                    - with thumbnail_version="40x40"
+                                        - include 'doppler/shift/catalog/snippets/image.haml'

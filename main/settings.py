@@ -157,6 +157,12 @@ FILEBROWSER_VERSIONS = {
 		'height':           200,
 		'opts':             'crop',
 	},
+    '300x300': {
+        'verbose_name':     u'300x300',
+        'width':            300,
+        'height':           300,
+        'opts':             '',
+        },
 	'800x800': {
 		'verbose_name':     u'800x800',
 		'width':            800,

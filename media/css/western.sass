@@ -269,3 +269,158 @@ footer
 
 label
   color: #310000
+
+
+.product_container
+  overflow: hidden
+  background-position: 321px top
+  background-repeat: repeat-y
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVQImWO4ceMGAAUUAokpzu7XAAAAAElFTkSuQmCC)
+  min-height: 400px
+  padding-bottom: 140px
+
+  .images
+    float: left
+    width: 320px
+    min-height: 320px
+
+    .main_image
+      padding: 10px
+      width: 300px
+      height: 300px
+      background-color: #FFF
+      display: table-cell
+      text-align: center
+      vertical-align: middle
+
+    .additional_images
+      padding: 10px 0
+      width: 320px
+      height: 90px
+
+      ul
+        margin: 0
+
+        li
+          margin: 0
+          margin-right: 10px
+
+
+  .text
+    float: right
+    height: 400px
+    width: 420px
+    padding-left: 20px
+    margin-bottom: 20px
+    overflow: auto
+
+    h1
+
+    .description
+      padding-right: 10px
+      text-align: justify
+
+  .shopping
+    float: right
+    width: 420px
+    padding-left: 20px
+
+    .stock_status
+      width: 150px
+      float: left
+      padding-right: 10px
+
+      .remainder
+        em
+          display: none
+        strong:after
+          content: 'шт. '
+
+      .price
+        padding-top: 10px
+        .label
+          display: none
+
+        strong
+          font-size: 2em
+          font-weight: bold
+
+          &:after
+            font-weight: bold
+            content: ' руб.'
+
+    .add_to_cart_form
+      width: 250px
+      float: right
+      position: relative
+
+      label
+        float: left
+        width: 96px
+        height: 18px
+        line-height: 18px
+        padding: 5px 16px 5px 5px
+        text-align: right
+
+      input
+        float: left
+        width: 120px
+        padding: 5px
+
+      button
+        width: 250px
+        border: 1px solid #552A19
+        border-radius: 10px
+        -moz-border-radius: 10px
+        -webkit-border-radius: 10px
+        padding: 10px 0
+        text-align: center
+        background-color: #552A19
+        background-image: -moz-linear-gradient(center top, #552A19, lighten(#552A19, 30%))
+        color: #FFF
+        text-decoration: underline
+        font-weight: bold
+
+        &:hover
+          background-image: -moz-linear-gradient(center top, lighten(#552A19, 30%), lighten(#552A19, 50%))
+          border-color: lighten(#552A19, 30%)
+
+
+  .additional_info
+    padding: 10px 0
+    position: absolute
+    overflow: hidden
+    bottom: 0
+    left: 0
+    width: 100%
+    height: 100px
+
+    .you_might_be_interested
+      border-top: 1px solid #D8D8D8
+      float: left
+      width: 300px
+      margin: 0 10px
+      padding: 10px 0
+      height: 80px
+
+      ul
+        margin: 0
+
+        li
+          margin: 0
+          margin-right: 10px
+
+    .also_they_buy
+      border-top: 1px solid #D8D8D8
+      float: right
+      width: 440px
+      margin: 0 10px
+      padding: 10px 0
+      height: 80px
+
+      ul
+        margin: 0
+
+        li
+          margin: 0
+          margin-right: 10px
