@@ -308,7 +308,7 @@ label
 
   .text
     float: right
-    height: 400px
+    height: 300px
     width: 420px
     padding-left: 20px
     margin-bottom: 20px
@@ -356,19 +356,29 @@ label
 
       label
         float: left
-        width: 96px
+        width: 80px
         height: 18px
         line-height: 18px
-        padding: 5px 16px 5px 5px
+        padding: 5px
         text-align: right
+
+        &:after
+          content: ':'
 
       input
         float: left
-        width: 120px
+        width: 40px
         padding: 5px
+        text-align: center
+
+      fieldset
+        float: left
+        width: 145px
+        padding-top: 15px
 
       button
-        width: 250px
+        float: right
+        width: 100px
         border: 1px solid #552A19
         border-radius: 10px
         -moz-border-radius: 10px
