@@ -443,3 +443,34 @@ label
         li
           margin: 0
           margin-right: 10px
+
+
+ul.category_tree
+  padding: 0
+  margin: 10px 0 0 10px
+  list-style: none
+
+  li
+    margin: 0
+    padding: 0
+    list-style: none
+
+    ul
+      list-style: none
+      margin: 0
+      padding: 0
+      margin-left: 10px
+
+    &.expandable
+      padding-left: 20px
+      background: left top no-repeat url('/media/images/expand_16x16.png')
+
+    &.expanded
+      background: left top no-repeat url('/media/images/collapse_16x16.png')
+
+    &.collapsed
+      > ul
+        display: none
+
+    &.active > a
+      font-weight: bold

@@ -4,12 +4,12 @@
 	{% recursetree categories %}
 	<li class="level_{{ node.level }}
 			{% if node.has_active_children %}
-				extendable collapsing_toggler
+				expandable collapsing_toggler
 				{% iscategorychild node category %}
-					extended
+					expanded
 				{% else %}
 					{% ifequal category.id node.id %}
-						extended
+						expanded
 					{% else %}
 						collapsed
 					{% endifequal %}

@@ -15,11 +15,11 @@ $(function () {
     );
 });
 
-// catalog widget categories extending/collapsing
+// catalog widget categories expanding/collapsing
 $(function () {
-    $('.catalog_widget ul li.extendable.collapsing_toggler').click(function () {
+    $('.catalog_widget ul li.expandable.collapsing_toggler').click(function () {
         var $li = $(this);
-        $li.toggleClass('extended').toggleClass('collapsed');
+        $li.toggleClass('expanded').toggleClass('collapsed');
         return false;
     }).find('a').click(function (event) {
             event.stopPropagation();
