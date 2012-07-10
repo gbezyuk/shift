@@ -1,5 +1,5 @@
 body
-  background: #BCAD82 url('/media/images/body_background_diminished.jpg') 50% 0% no-repeat
+  background: #BCAD82 url('/media/images/body_background_diminished.jpg') 50% 0% no-repeat fixed
   color: #310000
 
   a
@@ -115,6 +115,13 @@ body
   background-image: -moz-linear-gradient(center top, #3B0F04, #6A1B0E)
   background-repeat: repeat-x
   position: relative
+
+  &:hover
+    -webkit-box-shadow: 0 0 40px lighten(#E0600F, 30%)
+    -moz-box-shadow: 0 0 40px lighten(#E0600F, 30%)
+    box-shadow: 0 0 40px lighten(#E0600F, 30%)
+    background-color: lighten(#310000, 20%)
+    background-image: -moz-linear-gradient(center top, lighten(#3B0F04, 20%), lighten(#6A1B0E, 20%))
 
   span
     display: block
