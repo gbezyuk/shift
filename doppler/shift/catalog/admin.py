@@ -53,6 +53,7 @@ class ProductAdmin(TinyMCEAdmin, TranslationAdmin):
     list_editable = ('enabled',)
     list_display_links = ('lot', 'name', 'html_description',)
     inlines = [ImageTabularInline, get_inline(MyMetadata)]
+    prepopulated_fields = {"slug": ("name",)}
 
     def lot(self, object):
         return object.id
@@ -101,6 +102,7 @@ class ProductAdmin(TinyMCEAdmin, TranslationAdmin):
 class CategoryAdmin(tree_editor.TreeEditor, TinyMCEAdmin, TranslationAdmin):
     list_display = ('__unicode__', 'enabled_toggle', 'main_image', 'other_images', 'html_description')
     enabled_toggle = tree_editor.ajax_editable_boolean('enabled', _('enabled'))
+    prepopulated_fields = {"slug": ("name",)}
 
     def html_description(self, object):
         return object.description

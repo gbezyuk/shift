@@ -2,6 +2,11 @@
 - load i18n
 - load seo
 
+- block main_container_class
+    with_sidebar
+    - ifequal category.level 0
+        promo
+
 - block title
     - get_metadata as metadata
     - if not metadata.title.value
@@ -14,16 +19,20 @@
     - include 'doppler/shift/catalog/snippets/breadcrumbs/category.haml'
 
 - block doppler_content
-    .hero-unit
-        %h1
-            = category.name
-        - if category.description
-            = category.description|safe
-    - if subcategories
-        - with categories=subcategories
-            - include 'doppler/shift/catalog/snippets/category_list.haml'
-    - if products
-        - include 'doppler/shift/catalog/snippets/product_list.haml'
-    - if not products and not subcategories
-        %p.alert.alert-info
-            {% trans "This category is empty" %}
+    - ifequal category.level 0
+        - block picture
+            %img{:src => '{{ category.main_image.image.url }}', :width => '805px'}
+    - else
+        .hero-unit
+            %h1
+                = category.name
+            - if category.description
+                = category.description|safe
+        - if subcategories
+            - with categories=subcategories
+                - include 'doppler/shift/catalog/snippets/category_list.haml'
+        - if products
+            - include 'doppler/shift/catalog/snippets/product_list.haml'
+        - if not products and not subcategories
+            %p.alert.alert-info
+                {% trans "This category is empty" %}

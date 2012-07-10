@@ -51,6 +51,7 @@ eggs =
         BeautifulSoup
 
 	querystring-parser
+	pytils
 
 project = main
 

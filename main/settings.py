@@ -79,6 +79,8 @@ MIDDLEWARE_CLASSES = (
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
     'session_cart.middleware.SimpleCartMiddleware',
+    'doppler.shift.catalog.middleware.ProductFallbackMiddleware',
+    'doppler.shift.catalog.middleware.CategoryFallbackMiddleware',
 )
 
 STATICFILES_FINDERS = (

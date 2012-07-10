@@ -42,3 +42,5 @@ pip install BeautifulSoup
 pip install django_compressor
 
 pip install querystring-parser
+
+pip install pytils

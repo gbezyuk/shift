@@ -38,15 +38,10 @@
                     -#.nav-collapse
                     .main_navigation
                         %ul.nav
-                            %li
-                                %a{'href': '/mens-wear/'}
-                                    Мужская
-                            %li
-                                %a{'href': '/womens-wear/'}
-                                    Женская
-                            %li
-                                %a{'href': '/children-wear/'}
-                                    Детская
+                            - for cat in categories
+                                %li{:class => '{% ifequal category.topmost_parent.pk cat.pk %}active{% endifequal %} {% ifequal category.pk cat.pk %}active{% endifequal %}'}
+                                    %a{:href => '{{ cat.get_absolute_url }}'}
+                                        = cat.name
                             %li
                                 %a{'href': '/to-customer/'}
                                     Покупателю

@@ -8,12 +8,19 @@
 - block content
     - block catalog_tree
         .catalog_widget
-            - if category and category.topmost_parent
-                - with top_category=category.topmost_parent
-                    %a{:href => '{{ top_category.get_absolute_url }}'}
-                        %h4= top_category.name
-                    - with categories=top_category.enabled_children
-                        - include 'category_tree_snippet.haml'
+            - if category
+                - if category.topmost_parent
+                    - with top_category=category.topmost_parent
+                        %a{:href => '{{ top_category.get_absolute_url }}'}
+                            %h4= top_category.name
+                        - with categories=top_category.enabled_children
+                            - include 'category_tree_snippet.haml'
+                - else
+                    - with top_category=category
+                        %a{:href => '{{ top_category.get_absolute_url }}'}
+                            %h4= top_category.name
+                        - with categories=top_category.enabled_children
+                            - include 'category_tree_snippet.haml'
             - else
                 %a{:href => '{% url doppler_shift_catalog_index %}'}
                     %h4 {% trans "Catalog" %}

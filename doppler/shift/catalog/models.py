@@ -14,6 +14,7 @@ from .managers import EnabledTreeManager, EnabledRootManager
 from django.conf import settings
 from filebrowser.fields import FileBrowseField
 from django.forms import ValidationError
+from pytils.translit import slugify
 
 try:
     MULTIPLE_CATEGORIES = settings.DOPPLER_SHIFT_CATALOG_PRODUCT_MULTIPLE_CATEGORIES
@@ -61,6 +62,8 @@ class Category(MPTTModel):
     enabled = models.BooleanField(default=True, verbose_name=_('enabled'))
     parent = models.ForeignKey('self', null=True, blank=True, related_name='children', verbose_name=_('parent'))
     images = generic.GenericRelation(Image, verbose_name=_('images'), blank=True, null=True)
+    slug = models.SlugField(max_length=255, unique=True, verbose_name=_('slug'))
+
     @property
     def main_image(self):
         self_main = Image.get_main_image_for_object(self)
@@ -92,16 +95,33 @@ class Category(MPTTModel):
     @property
     def topmost_parent(self):
         parent = self.parent
+        if not parent:
+            return None
         while parent.parent:
             parent = parent.parent
         return parent
 
+    @property
+    def is_inside_disabled_parent(self):
+        parent = self.parent
+        while parent:
+            if not parent.enabled:
+                return True
+            parent = parent.parent
+        return False
+
     def __unicode__(self):
         return self.name
 
-    @models.permalink
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super(Category, self).save(*args, **kwargs)
+
+#    @models.permalink
     def get_absolute_url(self):
-        return 'doppler_shift_catalog_category', (), {'category_id': self.pk}
+#        return 'doppler_shift_catalog_category', (), {'category_id': self.pk}
+        return '/%s/' % self.slug
 
     def has_active_children(self):
         return Category.objects.filter(parent=self, enabled=True).exists()
@@ -122,6 +142,8 @@ class Product(models.Model):
     description = models.TextField(null=True, blank=True, verbose_name=_('description'))
     enabled = models.BooleanField(default=True, verbose_name=_('enabled'))
     images = generic.GenericRelation(Image, verbose_name=_('images'), blank=True, null=True)
+    slug = models.SlugField(unique=True, verbose_name=_('slug'), max_length=255)
+
     @property
     def enabled_images(self):
         return self.images.filter(enabled=True)
@@ -138,6 +160,12 @@ class Product(models.Model):
     else:
         category = models.ForeignKey(to=Category, blank=True, null=True,
             verbose_name=_('category'), related_name='products')
+
+        @property
+        def is_inside_disabled_parent(self):
+            if not self.category:
+                return False
+            return (not self.category.enabled) or self.category.is_inside_disabled_parent
 
     # pricing strategy may differ depending on current store
     if MULTIPLE_PRICES:
@@ -165,9 +193,15 @@ class Product(models.Model):
     def __unicode__(self):
         return self.name
 
-    @models.permalink
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super(Product, self).save(*args, **kwargs)
+
+#    @models.permalink
     def get_absolute_url(self):
-        return 'doppler_shift_catalog_product', (), {'product_id': self.pk}
+#        return 'doppler_shift_catalog_product', (), {'product_id': self.pk}
+        return '/%s/' % self.slug
 
 # pricing strategy may differ depending on current store
 if MULTIPLE_PRICES:
