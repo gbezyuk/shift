@@ -143,6 +143,8 @@ class Product(models.Model):
     enabled = models.BooleanField(default=True, verbose_name=_('enabled'))
     images = generic.GenericRelation(Image, verbose_name=_('images'), blank=True, null=True)
     slug = models.SlugField(unique=True, verbose_name=_('slug'), max_length=255)
+    you_might_be_interested = models.ManyToManyField(to='self', verbose_name=_('You might be interested'), null=True, blank=True)
+    also_they_buy_with_this_product = models.ManyToManyField(to='self', verbose_name=_('Also they buy with this product'), null=True, blank=True)
 
     @property
     def enabled_images(self):
@@ -189,6 +191,12 @@ class Product(models.Model):
         @property
         def remainder_update_time(self):
             return self.modified
+
+    def you_might_be_interested_enabled_products(self):
+        return self.you_might_be_interested.filter(enabled=True)
+
+    def also_they_buy_with_this_product_enabled_products(self):
+        return self.also_they_buy_with_this_product.filter(enabled=True)
 
     def __unicode__(self):
         return self.name

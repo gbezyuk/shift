@@ -64,21 +64,27 @@
                         - include 'doppler/shift/checkout/snippets/add_to_cart_form.haml'
 
 
-        - if product.enabled_images
+        - if product.you_might_be_interested_enabled_products or product.also_they_buy_with_this_product_enabled_products
             .additional_info
-                - if product.enabled_images
+                - if product.you_might_be_interested_enabled_products
                     .you_might_be_interested
                         %p {% trans "You might be interested:" %}
                         %ul.thumbnails
-                            - for image in product.enabled_images
+                            - for p in product.you_might_be_interested_enabled_products
                                 %li.thumbnail
-                                    - with thumbnail_version="40x40"
-                                        - include 'doppler/shift/catalog/snippets/image.haml'
-                - if product.enabled_images
+                                    %a{:href => '{{ p.get_absolute_url }}'}
+                                        - with thumbnail_version="40x40"
+                                            - with image=p.main_image
+                                                - with no_link=1
+                                                    - include 'doppler/shift/catalog/snippets/image.haml'
+                - if product.also_they_buy_with_this_product_enabled_products
                     .also_they_buy
                         %p {% trans "Also they buy with this product:" %}
                         %ul.thumbnails
-                            - for image in product.enabled_images
+                            - for p in product.also_they_buy_with_this_product_enabled_products
                                 %li.thumbnail
-                                    - with thumbnail_version="40x40"
-                                        - include 'doppler/shift/catalog/snippets/image.haml'
+                                    %a{:href => '{{ p.get_absolute_url }}'}
+                                        - with thumbnail_version="40x40"
+                                            - with image=p.main_image
+                                                - with no_link=1
+                                                    - include 'doppler/shift/catalog/snippets/image.haml'
