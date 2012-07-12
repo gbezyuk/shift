@@ -42,12 +42,17 @@
                                 %li{:class => '{% ifequal category.topmost_parent.pk cat.pk %}active{% endifequal %} {% ifequal category.pk cat.pk %}active{% endifequal %}'}
                                     %a{:href => '{{ cat.get_absolute_url }}'}
                                         = cat.name
-                            %li
-                                %a{'href': '/to-customer/'}
-                                    Покупателю
-                            %li
-                                %a{'href': '/contacts/'}
-                                    Контакты
+
+                            - for p in root_pages
+                                %li{:class => '{% ifequal page p %}active{% endifequal %}'}
+                                    %a{:href => '{{ p.get_absolute_url }}'}
+                                        = p.title
+                            -#%li
+                            -#    %a{'href': '/to-customer/'}
+                            -#        Покупателю
+                            -#%li
+                            -#    %a{'href': '/contacts/'}
+                            -#        Контакты
                             -#- include 'home_link.haml'
                             -#- block catalog_header_widget
                             -#    - include 'doppler/shift/catalog/snippets/header_widget.haml'

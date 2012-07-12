@@ -1,0 +1,26 @@
+- if root.enabled_children.exists
+    %ul.mptt_tree
+        - for node in root.enabled_children
+            %li{:class => "level_{{ node.level }} {% ifequal page node %}active{% endifequal %}"}
+                %a{:href => "{{ node.get_absolute_url }}"}
+                    = node.title
+                - if node.enabled_children.exists
+                    %ul.chidlren
+                        - for child1 in node.enabled_children
+                            %li{:class => "level_{{ child1.level }} {% ifequal page child1 %}active{% endifequal %}"}
+                                %a{:href => "{{ child1.get_absolute_url }}"}
+                                    = child1.title
+                                - if child1.enabled_children.exists
+                                    %ul.chidlren
+                                        - for child2 in node.enabled_children
+                                            %li{:class => "level_{{ child2.level }} {% ifequal child2 page %}active{% endifequal %}"}
+                                                %a{:href => "{{ child2.get_absolute_url }}"}
+                                                    = child2.title
+                                                - if child1.enabled_children.exists
+                                                    %ul.chidlren
+                                                        - for child3 in node.enabled_children
+                                                            %li{:class => "level_{{ child3.level }} {% ifequal child3 page %}active{% endifequal %}"}
+                                                                %a{:href => "{{ child3.get_absolute_url }}"}
+                                                                    = child3.title
+                                                                - if child3.enabled_children.exists
+                                                                    = children

@@ -58,6 +58,7 @@ INSTALLED_APPS = (
     'accounts',
     'compressor',
     'mptt',
+    'pagetree',
     'main',
     'doppler',
     'doppler.shift.catalog',
@@ -81,6 +82,7 @@ MIDDLEWARE_CLASSES = (
     'session_cart.middleware.SimpleCartMiddleware',
     'doppler.shift.catalog.middleware.ProductFallbackMiddleware',
     'doppler.shift.catalog.middleware.CategoryFallbackMiddleware',
+    'pagetree.middleware.PageFallbackMiddleware',
 )
 
 STATICFILES_FINDERS = (
@@ -107,6 +109,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'main.context_processors.default_avatar_url',
     'doppler.shift.catalog.context_processors.categories',
     'session_cart.context_processors.carts',
+    'pagetree.context_processors.root_pages',
 )
 
 LOGGING = {

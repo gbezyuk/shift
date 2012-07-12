@@ -15,11 +15,7 @@ urlpatterns = patterns('',
     url(r'^auth/', include('doppler.auth.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('accounts.urls')),
-#    url(r'^$', HomeView.as_view(), name='home'),
-#    url(r'^$', redirect_to, {'url': '/mens-wear/', 'permanent': False}),
     url(r'^$', home),
-    url(r'^to-customer/$', to_customer),
-    url(r'^contacts/$', contacts),
     url(r'^', include('doppler.shift.urls')),
 )
 

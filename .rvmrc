@@ -1,0 +1,3 @@
+# If you have Ruby RVM installed, this configuration file will automatically activate virtualenv for this project
+# Pity there's no native support for this extremely useful feature in python
+source ./env/bin/activate
