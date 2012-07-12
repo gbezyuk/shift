@@ -29,20 +29,20 @@
                     %td
                         %a{'href': '{{ item.item.product.get_absolute_url }}'}
                             = item.item.product
-                    %td
+                    %td.price
                         = item.item.value
                     %td
                         - if cart_mode
                             = form|cart_form_item_quantity_input:item.item.id
                         - else
                             = item.quantity
-                    %td
+                    %td.price
                         = item.total_price
             %tr
                 %th{'colspan': '{% if cart_mode %}4{% else %}3{% endif %}'}
                 %th
                     = cart.total_quantity
-                %th
+                %th.price
                     = cart.total_price
         - else
             %tr

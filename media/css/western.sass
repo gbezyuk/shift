@@ -353,7 +353,7 @@ label
         strong:after
           content: 'шт. '
 
-      .price
+      .price_block
         padding-top: 10px
         .label
           display: none
@@ -361,10 +361,6 @@ label
         strong
           font-size: 2em
           font-weight: bold
-
-          &:after
-            font-weight: bold
-            content: ' руб.'
 
     .add_to_cart_form
       width: 250px
@@ -505,3 +501,13 @@ ul.category_tree
 
       > ul
         display: block
+
+.price:after
+  font-weight: bold
+  content: ' руб.'
+
+.order_list
+  .status,
+  tr:hover .status
+    background-color: #d2691e
+    color: #fff

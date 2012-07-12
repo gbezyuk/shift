@@ -25,15 +25,15 @@
                 %td
                     %a{'href': '{{ item.product.get_absolute_url }}'}
                         = item.product
-                %td
+                %td.price
                     = item.price
                 %td
                     = item.quantity
-                %td
+                %td.price
                     = item.total_price
         %tr
             %th{'colspan': '4'}
             %th
                 = order.total_quantity
-            %th
+            %th.price
                 = order.total_price

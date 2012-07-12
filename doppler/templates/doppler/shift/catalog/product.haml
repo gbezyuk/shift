@@ -54,10 +54,10 @@
                                 = product.reserved
                                 {% trans "reserved" %}
                     - if product.price
-                        .price
+                        .price_block
                             .label
                                 {% trans "Price" %}:
-                            %strong
+                            %strong.price
                                 = product.price
                 .add_to_cart_form
                     - if product.price and product.remainder

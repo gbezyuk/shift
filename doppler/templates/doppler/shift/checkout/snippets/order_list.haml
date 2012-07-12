@@ -1,5 +1,5 @@
 - load i18n
-%table.table
+%table.table.order_list
     %thead
         %tr
             %th
@@ -25,9 +25,9 @@
                     %th
                         %a{'href': '{{ order.get_absolute_url }}'}
                             = order
-                    %th
+                    %th.price
                         = order.total_price
-                    %th
+                    %th.status{:class => '{{ order.status }}'}
                         = order.status
                     %th
                         = order.created
