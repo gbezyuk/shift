@@ -228,8 +228,17 @@ if MULTIPLE_PRICES:
             verbose_name = _('color')
             verbose_name_plural = _('color')
             ordering = ['title']
-        title = models.CharField(max_length=100, unique=False, blank=True, null=True, verbose_name=_('title'))
-        code = models.CharField(max_length=100, unique=False, blank=True, null=True, verbose_name=_('code'))
+        title = models.CharField(max_length=100, unique=True, blank=True, null=True, verbose_name=_('title'), default='black')
+        code = models.CharField(max_length=100, unique=False, blank=True, null=True, verbose_name=_('code'), default='#000')
+
+        @property
+        def inverted_code(self):
+            if self.code:
+                import string
+                table = string.maketrans('0123456789abcdef', 'fedcba9876543210').decode("latin-1")
+                return self.code.lower().translate(table)
+            else:
+                return '#000'
 
         def __unicode__(self):
             return self.title

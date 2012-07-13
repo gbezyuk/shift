@@ -42,14 +42,20 @@
                 - if product.colors_available
                     .colors_available
                         %h4 {% trans "Colors available: " %}
-                        - for color in product.colors_available
-                            = color
+                        %ul.compact_color_list
+                            - for color in product.colors_available
+                                %li{:style => '{% if color.code %}background-color: {{ color.code }}; color: {{ color.inverted_code }}; border-color: {{ color.inverted_code }}{% endif %}'}
+                                    = color.title
+                                -#( here if sizes_available complex description else simple count of available items )
+                                -#DRONEZ BETTER. I mean, a table is defenitely better.
 
                 - if product.sizes_available
                     .sizes_available
                         %h4 {% trans "Sizes available: " %}
                         - for size in product.sizes_available
                             = size
+                            -#( here if colors_available complex description else simple count of available items )
+                            -#DRONEZ BETTER. I mean, a table is defenitely better.
             .shopping
                 .stock_status
                     .remainder
