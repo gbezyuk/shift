@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^auth/', include('doppler.auth.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('accounts.urls')),
+    url(r'^accounts/', include('social_auth.urls')),
     url(r'^$', home),
     url(r'^', include('doppler.shift.urls')),
 )

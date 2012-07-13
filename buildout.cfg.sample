@@ -50,6 +50,9 @@ eggs =
         django-tastypie
         BeautifulSoup
 
+        python-openid
+        oauth2
+
 	querystring-parser
 	pytils
 

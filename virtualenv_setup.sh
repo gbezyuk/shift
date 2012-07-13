@@ -44,3 +44,6 @@ pip install django_compressor
 pip install querystring-parser
 
 pip install pytils
+
+pip install python-openid
+pip install oauth2

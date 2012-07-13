@@ -63,6 +63,8 @@ INSTALLED_APPS = (
     'doppler',
     'doppler.shift.catalog',
     'doppler.shift.checkout',
+    'social_auth',
+    'registration',
 )
 
 # django_jenkins apps list
@@ -110,6 +112,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'doppler.shift.catalog.context_processors.categories',
     'session_cart.context_processors.carts',
     'pagetree.context_processors.root_pages',
+    'social_auth.context_processors.social_auth_by_type_backends',
 )
 
 LOGGING = {
@@ -130,14 +133,14 @@ LOGGING = {
     }
 }
 
-ACCOUNT_ACTIVATION_DAYS = 2
+ACCOUNT_ACTIVATION_DAYS = 7
 EMAIL_HOST = 'localhost'
 DEFAULT_FROM_EMAIL = 'gbezyuk@gmail.com'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/accounts/auth/login/'
 
 # grappelli settings
-GRAPPELLI_ADMIN_TITLE = "Admin site area"
+GRAPPELLI_ADMIN_TITLE = _("WesternUnit.Ru Shop Administration")
 #GRAPPELLI_INDEX_DASHBOARD = 'tulius.grappelli_dashboard.CustomIndexDashboard'
 
 # filebrowser settings
@@ -202,3 +205,24 @@ COMPRESS_PRECOMPILERS = (
     )
 
 CART_MODEL = 'doppler.shift.catalog.models.Price'
+
+AUTHENTICATION_BACKENDS = (
+    'social_auth.backends.twitter.TwitterBackend',
+    'social_auth.backends.facebook.FacebookBackend',
+    'social_auth.backends.google.GoogleOAuthBackend',
+    'social_auth.backends.contrib.vkontakte.VKontakteOAuth2Backend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
+SOCIAL_AUTH_UUID_LENGTH = 16
+SOCIAL_AUTH_EXTRA_DATA = True
+
+VKONTAKTE_APP_ID = 3035044   # see http://vk.com/app3035044
+VKONTAKTE_APP_SECRET = 'lh0BfIdOw2AYnKBB8KBb'
+TWITTER_CONSUMER_KEY = '7Qk1hrbqcYPuzJng0IDMw' # contact gbezyuk@gmail.com if neccessary
+TWITTER_CONSUMER_SECRET = 'c4NEx3qunxwuwIYsWDzZZmSByX7buVu3isF4IQjh8'
+#FACEBOOK_APP_ID = # see https://developers.facebook.com/apps/N/
+#FACEBOOK_API_SECRET = ''
+#GOOGLE_CONSUMER_KEY = '' # contact gbezyuk@gmail.com if neccessary
+#GOOGLE_CONSUMER_SECRET = ''

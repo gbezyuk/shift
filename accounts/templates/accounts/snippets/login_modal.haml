@@ -1,6 +1,19 @@
 - load i18n
 - block login_modal
     %form#login-modal.modal.hide.fade.in.well{'method': 'POST', 'action': '{{ LOGIN_URL }}'}
+        %ul.social_auth_providers
+            %li.twitter
+                %a{:href => "/accounts/login/twitter/"}
+                    %span {% trans "Log in using Twitter" %}
+            -#%li.google
+            -#    %a{:href => "/accounts/login/google-oauth/"}
+            -#        %span {% trans "Log in using Google" %}
+            -#%li.facebook
+            -#    %a{:href => "/accounts/login/facebook/"}
+            -#        %span {% trans "Log in using Facebook" %}
+            %li.vkontakte
+                %a{:href => "/accounts/login/vkontakte-oauth2/"}
+                    %span {% trans "Log in using Vkontakte" %}
         - csrf_token
         .modal-header
             %a.close{'data-dismiss': "modal"}×
