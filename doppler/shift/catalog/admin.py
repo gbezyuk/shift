@@ -17,7 +17,9 @@ from filebrowser.base import FileObject
 from rollyourown.seo.admin import get_inline
 from main.seo import MyMetadata
 if MULTIPLE_PRICES:
-    from .models import Price
+    from .models import Price, Color, Size
+    admin.site.register(Color)
+    admin.site.register(Size)
 
 def get_image_thumbnail_html(image):
     if image:

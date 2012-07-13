@@ -38,6 +38,18 @@
                 - if product.description
                     .description
                         = product.description|safe
+
+                - if product.colors_available
+                    .colors_available
+                        %h4 {% trans "Colors available: " %}
+                        - for color in product.colors_available
+                            = color
+
+                - if product.sizes_available
+                    .sizes_available
+                        %h4 {% trans "Sizes available: " %}
+                        - for size in product.sizes_available
+                            = size
             .shopping
                 .stock_status
                     .remainder

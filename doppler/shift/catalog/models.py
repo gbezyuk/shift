@@ -185,6 +185,15 @@ class Product(models.Model):
         def remainder_update_time(self):
             price_obj = self.get_minimal_enabled_price()
             return price_obj.modified if price_obj else None
+
+        @property
+        def colors_available(self):
+            return Color.objects.filter(prices__product = self)
+
+        @property
+        def sizes_available(self):
+            return Size.objects.filter(prices__product = self)
+
     else:
         price = models.PositiveIntegerField(verbose_name=_('price'), default=0)
         remainder = models.PositiveIntegerField(verbose_name=_('remainder'), default=0)
@@ -213,6 +222,28 @@ class Product(models.Model):
 
 # pricing strategy may differ depending on current store
 if MULTIPLE_PRICES:
+
+    class Color(models.Model):
+        class Meta:
+            verbose_name = _('color')
+            verbose_name_plural = _('color')
+            ordering = ['title']
+        title = models.CharField(max_length=100, unique=False, blank=True, null=True, verbose_name=_('title'))
+        code = models.CharField(max_length=100, unique=False, blank=True, null=True, verbose_name=_('code'))
+
+        def __unicode__(self):
+            return self.title
+
+    class Size(models.Model):
+        class Meta:
+            verbose_name = _('size')
+            verbose_name_plural = _('size')
+            ordering = ['title']
+        title = models.CharField(max_length=100, unique=False, blank=True, null=True, verbose_name=_('title'))
+
+        def __unicode__(self):
+            return self.title
+
     class Price(models.Model):
         """
         A Shipment model for advanced pricing strategy
@@ -221,9 +252,11 @@ if MULTIPLE_PRICES:
             verbose_name = _('shipment')
             verbose_name_plural = _('shipments')
             ordering = ['product', 'enabled', 'value']
-            unique_together = [('product', 'value',),]
+            unique_together = [('product', 'value', 'size', 'color'),]
 
         product = models.ForeignKey(to=Product, verbose_name=_('product'), related_name='prices')
+        color = models.ForeignKey(to=Color, verbose_name=_('color'), related_name='prices', blank=True, null=True)
+        size = models.ForeignKey(to=Size, verbose_name=_('size'), related_name='prices', blank=True, null=True)
         enabled = models.BooleanField(default=True, verbose_name=_('enabled'))
         remainder = models.PositiveIntegerField(verbose_name=_('remainder'), default=0)
         value = models.PositiveIntegerField(verbose_name=_('price'))
