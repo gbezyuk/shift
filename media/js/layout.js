@@ -29,3 +29,14 @@ $(function () {
 $(function () {
     $('.dropdown-toggle').attr('href', '#');
 });
+
+$(function handle_color_list_hovering () {
+    function swap_colors () {
+        var $node = $(this);
+        var tmp = $node.css('color');
+        $node.css('color', $node.css('background-color'));
+        $node.css('background-color', tmp);
+        $node.css('border-color', tmp);
+    }
+    $('.compact_color_list li').hover(swap_colors, swap_colors)
+});
