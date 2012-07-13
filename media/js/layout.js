@@ -28,6 +28,7 @@ $(function () {
 
 $(function () {
     $('.dropdown-toggle').attr('href', '#');
+    $('#login-modal-toggler').attr('href', '#login-modal');
 });
 
 $(function handle_color_list_hovering () {
