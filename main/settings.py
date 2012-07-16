@@ -224,5 +224,5 @@ TWITTER_CONSUMER_KEY = '7Qk1hrbqcYPuzJng0IDMw' # contact gbezyuk@gmail.com if ne
 TWITTER_CONSUMER_SECRET = 'c4NEx3qunxwuwIYsWDzZZmSByX7buVu3isF4IQjh8'
 FACEBOOK_APP_ID = '308278985935273' # see https://developers.facebook.com/apps/308278985935273/
 FACEBOOK_API_SECRET = 'ba31d528427aada31eb841bd764815d3'
-#GOOGLE_CONSUMER_KEY = '' # contact gbezyuk@gmail.com if neccessary
-#GOOGLE_CONSUMER_SECRET = ''
+GOOGLE_CONSUMER_KEY = 'westernunit.ru' # contact gbezyuk@gmail.com if neccessary
+GOOGLE_CONSUMER_SECRET = 'vuhwjp1IWmdwUYWQWQgcBeDV'
