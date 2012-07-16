@@ -92,6 +92,17 @@ body
               a
                 background-color: lighten(#D67E3E, 25%)
 
+        .social_auth_providers
+          float: right
+
+          li
+
+            padding: 6px
+            margin: 0
+
+            &:hover
+              background-color: rgba(255, 255, 255, 0.3)
+
         .auth_widget
           li
             a
@@ -526,3 +537,52 @@ ul.category_tree
     line-height: 3em
     list-style: none
     font-weight: bold
+      
+      
+.social_auth_providers
+
+  list-style: none
+  overflow: hidden
+  margin: 0
+  padding: 0
+
+  li
+    list-style: none
+    float: left
+
+    a
+      line-height: 16px
+      display: block
+      width: 16px
+      height: 16px
+      float: left
+      margin-right: 6px
+      background-repeat: no-repeat
+      background-image: url("/media/img/ico_social.png")
+      border-radius: 3px 
+
+      span
+        text-indent: -9999px
+        display: block
+        width: 16px
+        height: 16px
+
+    &.vkontakte a
+      background-position: -64px -128px
+    &.vkontakte a:hover
+      background-position: -64px -144px
+
+    &.facebook a
+      background-position: -144px -128px
+    &.facebook a:hover
+      background-position: -144px -144px
+
+    &.twitter a
+      background-position: -48px -128px
+    &.twitter a:hover
+      background-position: -48px -144px
+
+    &.google a
+      background-position: -160px -128px
+    &.google a:hover
+      background-position: -160px -144px

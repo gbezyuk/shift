@@ -41,3 +41,13 @@ $(function handle_color_list_hovering () {
     }
     $('.compact_color_list li').hover(swap_colors, swap_colors)
 });
+
+$(function handle_social_auth_widget () {
+    $('.social_auth_providers li a span').each(function () {
+        var $span = $(this);
+        var $a = $span.parent('a');
+        var span_text = $span.text();
+        $a.attr('title', span_text);
+        $a.attr('alt', span_text);
+    });
+});

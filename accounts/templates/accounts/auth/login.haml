@@ -10,19 +10,9 @@
                 {% trans "Login" %}
 
 - block content
-    %ul.social_auth_providers
-        -#%li.twitter
-        -#    %a{:href => "/accounts/login/twitter/"}
-        -#        %span {% trans "Log in using Twitter" %}
-        %li.google
-            %a{:href => "/accounts/login/google-oauth/"}
-                %span {% trans "Log in using Google" %}
-        %li.facebook
-            %a{:href => "/accounts/login/facebook/"}
-                %span {% trans "Log in using Facebook" %}
-        %li.vkontakte
-            %a{:href => "/accounts/login/vkontakte-oauth2/"}
-                %span {% trans "Log in using Vkontakte" %}
+    %h3 {% trans "You can login with your favorite social network account:" %}
+    - include 'snippets/social_auth_providers.haml'
 
+    %h3 {% trans "Or using login/password form bellow:" %}
     {% trans "Login" as form_submit_title %}
     - include 'snippets/form.haml'

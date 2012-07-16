@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-09 20:54+0400\n"
-"PO-Revision-Date: 2012-07-09 20:54\n"
+"POT-Creation-Date: 2012-07-16 13:58+0400\n"
+"PO-Revision-Date: 2012-07-16 14:01\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -173,11 +173,40 @@ msgstr "Пользователь"
 msgid "no users available"
 msgstr "Нет пользователей"
 
-#: templates/accounts/auth/login.haml:10 templates/accounts/auth/login.haml:13
-#: templates/accounts/snippets/login_modal.haml:8
-#: templates/accounts/snippets/login_modal.haml:19
+#: templates/accounts/auth/login.haml:10 templates/accounts/auth/login.haml:28
+#: templates/accounts/snippets/login_modal.haml:39
 msgid "Login"
 msgstr "Войти"
+
+#: templates/accounts/auth/login.haml:13
+#: templates/accounts/snippets/login_modal.haml:9
+msgid "You can login with your favorite social network account:"
+msgstr "Вы можете войти, используя учетную запись социальной сети"
+
+#: templates/accounts/auth/login.haml:17
+#: templates/accounts/snippets/login_modal.haml:16
+msgid "Log in using Twitter"
+msgstr "Войти через Twitter"
+
+#: templates/accounts/auth/login.haml:20
+#: templates/accounts/snippets/login_modal.haml:19
+msgid "Log in using Google"
+msgstr "Войти через Google"
+
+#: templates/accounts/auth/login.haml:23
+#: templates/accounts/snippets/login_modal.haml:22
+msgid "Log in using Facebook"
+msgstr "Войти через Facebook"
+
+#: templates/accounts/auth/login.haml:26
+#: templates/accounts/snippets/login_modal.haml:25
+msgid "Log in using Vkontakte"
+msgstr "Войти через Vkontakte"
+
+#: templates/accounts/auth/login.haml:27
+#: templates/accounts/snippets/login_modal.haml:27
+msgid "Or using login/password form bellow:"
+msgstr "Или используя форму с логином и паролем, расположенную ниже:"
 
 #: templates/accounts/snippets/header_widget.haml:6
 msgid "login / register"
@@ -191,11 +220,11 @@ msgstr "Добро пожаловать,"
 msgid "My Orders"
 msgstr "Мои заказы"
 
-#: templates/accounts/snippets/login_modal.haml:11
+#: templates/accounts/snippets/login_modal.haml:30
 msgid "Username"
 msgstr "имя пользователя"
 
-#: templates/accounts/snippets/login_modal.haml:14
+#: templates/accounts/snippets/login_modal.haml:33
 msgid "Password"
 msgstr "пароль"
 
