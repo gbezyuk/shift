@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('social_auth.urls')),
     url(r'^$', home),
     url(r'^', include('doppler.shift.urls')),
+    url(r'^googleca70414f1dff2fd9.html$', google_site_verification),
 )
 
 if settings.DEBUG:

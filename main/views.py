@@ -24,3 +24,6 @@ def handler500(request, template_name='500.haml'):
             {},
         context_instance=RequestContext(request)
     )
+
+def google_site_verification(request):
+    return HttpResponse('google-site-verification: googleca70414f1dff2fd9.html')
