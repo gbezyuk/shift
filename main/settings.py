@@ -220,8 +220,9 @@ SOCIAL_AUTH_EXTRA_DATA = True
 
 VKONTAKTE_APP_ID = 3035044   # see http://vk.com/app3035044
 VKONTAKTE_APP_SECRET = 'lh0BfIdOw2AYnKBB8KBb'
-TWITTER_CONSUMER_KEY = '7Qk1hrbqcYPuzJng0IDMw' # contact gbezyuk@gmail.com if neccessary
-TWITTER_CONSUMER_SECRET = 'c4NEx3qunxwuwIYsWDzZZmSByX7buVu3isF4IQjh8'
+#Twitter is buggy, so disabled yet
+#TWITTER_CONSUMER_KEY = '7Qk1hrbqcYPuzJng0IDMw' # contact gbezyuk@gmail.com if neccessary
+#TWITTER_CONSUMER_SECRET = 'c4NEx3qunxwuwIYsWDzZZmSByX7buVu3isF4IQjh8'
 FACEBOOK_APP_ID = '308278985935273' # see https://developers.facebook.com/apps/308278985935273/
 FACEBOOK_API_SECRET = 'ba31d528427aada31eb841bd764815d3'
 GOOGLE_CONSUMER_KEY = 'westernunit.ru' # contact gbezyuk@gmail.com if neccessary
