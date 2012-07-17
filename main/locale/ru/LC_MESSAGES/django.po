@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-17 18:55+0400\n"
+"POT-Creation-Date: 2012-07-17 19:16+0400\n"
 "PO-Revision-Date: 2012-07-17 18:46\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,111 +60,6 @@ msgstr "Магазин Western"
 msgid "Successfully logged out!"
 msgstr "Вы успешно вышли из системы!"
 
-#: templates/registration/password_change_done.html:3
-msgid "Password changed"
-msgstr "Пароль изменён"
-
-#: templates/registration/password_change_done.html:5
-msgid "Password successfully changed!"
-msgstr "Пароль успешно изменен"
-
-#: templates/registration/password_change_form.html:3
-#: templates/registration/password_change_form.html:8
-msgid "Change password"
-msgstr "Изменить пароль"
-
-#: templates/registration/password_reset_complete.html:3
-msgid "Password reset complete"
-msgstr "Сброс пароля завершён"
-
-#: templates/registration/password_reset_complete.html:5
-#, python-format
-msgid ""
-"\n"
-"Your password has been reset!  You may now <a href=\"%(login_url)s\">log in</"
-"a>.\n"
-msgstr ""
-"\n"
-"Ваш пароль был сброшен! Теперь вы можете <a href=\"%(login_url)s\">войти</"
-"a>.\n"
-
-#: templates/registration/password_reset_confirm.html:3
-msgid "Confirm password reset"
-msgstr "Подтвердите сброс пароля"
-
-#: templates/registration/password_reset_confirm.html:5
-msgid "Enter your new password below to reset your password:"
-msgstr "Введите новый пароль ниже, чтобы сбросить пароль"
-
-#: templates/registration/password_reset_confirm.html:9
-msgid "Set password"
-msgstr "Установить пароль"
-
-#: templates/registration/password_reset_done.html:3
-msgid "Password reset"
-msgstr "Сброс пароля"
-
-#: templates/registration/password_reset_done.html:6
-msgid ""
-"We have sent you an email with a link to reset your password.  Please check "
-"your email and click the link to continue."
-msgstr ""
-"Мы послали вам e-mail со ссылкой, которая позволит вам сбросить пароль. "
-"Пожалуйста, проверьте свой почтовый ящик и перейдите по полученной ссылке "
-"чтобы продолжить."
-
-#: templates/registration/password_reset_email.html:3
-msgid "Greetings"
-msgstr "Приветствуем,"
-
-#: templates/registration/password_reset_email.html:4
-#, python-format
-msgid ""
-"\n"
-"You are receiving this email because you (or someone pretending to be you)\n"
-"requested that your password be reset on the %(domain)s site.  If you do "
-"not \n"
-"wish to reset your password, please ignore this message.\n"
-"\n"
-"To reset your password, please click the following link, or copy and paste "
-"it\n"
-"into your web browser:\n"
-msgstr ""
-"\n"
-"Вы получили это письмо потому что вы (или кто-то, выдающий себя за вас) "
-"запросил сброс пароля для вашего пользователя на сайте %(domain)s. Если вы "
-"не хотите изменять свой пароль, просто игнорируйте это сообщение.\n"
-"Для сброса пароля кликните по ссылке (или скопируйте её в адресную строку "
-"вашего браузера):\n"
-
-#: templates/registration/password_reset_email.html:14
-msgid "Your username, in case you've forgotten"
-msgstr "Ваш логин (на случай если вы забыли)"
-
-#: templates/registration/password_reset_email.html:16
-#, python-format
-msgid ""
-"\n"
-"Best regards,\n"
-"%(site_name)s Management\n"
-msgstr ""
-"\n"
-"С наилучшими пожеланиями,\n"
-"команда сайта %(site_name)s\n"
-
-#: templates/registration/password_reset_form.html:3
-#: templates/registration/password_reset_form.html:9
-msgid "Reset password"
-msgstr "Сбросить пароль"
-
-#: templates/registration/password_reset_form.html:5
-msgid ""
-"Forgot your password?  Enter your email in the form below and we'll send you "
-"instructions for creating a new one."
-msgstr ""
-"Забыли пароль? Введите свой e-mail в форму ниже и мы пришлём вам инструкции "
-"по его восстановлению."
-
 #: templates/registration/registration_complete.html:3
 msgid "Activation email sent"
 msgstr "Письмо с активационной ссылкой ушло вам на почту"
@@ -212,6 +107,91 @@ msgstr "Войти используя Facebook"
 #: templates/snippets/social_auth_providers.haml:15
 msgid "Log in using Vkontakte"
 msgstr "Войти используя VKontakte"
+
+#~ msgid "Password changed"
+#~ msgstr "Пароль изменён"
+
+#~ msgid "Password successfully changed!"
+#~ msgstr "Пароль успешно изменен"
+
+#~ msgid "Change password"
+#~ msgstr "Изменить пароль"
+
+#~ msgid "Password reset complete"
+#~ msgstr "Сброс пароля завершён"
+
+#~ msgid ""
+#~ "\n"
+#~ "Your password has been reset!  You may now <a href=\"%(login_url)s\">log "
+#~ "in</a>.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Ваш пароль был сброшен! Теперь вы можете <a href=\"%(login_url)s\">войти</"
+#~ "a>.\n"
+
+#~ msgid "Confirm password reset"
+#~ msgstr "Подтвердите сброс пароля"
+
+#~ msgid "Enter your new password below to reset your password:"
+#~ msgstr "Введите новый пароль ниже, чтобы сбросить пароль"
+
+#~ msgid "Set password"
+#~ msgstr "Установить пароль"
+
+#~ msgid "Password reset"
+#~ msgstr "Сброс пароля"
+
+#~ msgid ""
+#~ "We have sent you an email with a link to reset your password.  Please "
+#~ "check your email and click the link to continue."
+#~ msgstr ""
+#~ "Мы послали вам e-mail со ссылкой, которая позволит вам сбросить пароль. "
+#~ "Пожалуйста, проверьте свой почтовый ящик и перейдите по полученной ссылке "
+#~ "чтобы продолжить."
+
+#~ msgid "Greetings"
+#~ msgstr "Приветствуем,"
+
+#~ msgid ""
+#~ "\n"
+#~ "You are receiving this email because you (or someone pretending to be "
+#~ "you)\n"
+#~ "requested that your password be reset on the %(domain)s site.  If you do "
+#~ "not \n"
+#~ "wish to reset your password, please ignore this message.\n"
+#~ "\n"
+#~ "To reset your password, please click the following link, or copy and "
+#~ "paste it\n"
+#~ "into your web browser:\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Вы получили это письмо потому что вы (или кто-то, выдающий себя за вас) "
+#~ "запросил сброс пароля для вашего пользователя на сайте %(domain)s. Если "
+#~ "вы не хотите изменять свой пароль, просто игнорируйте это сообщение.\n"
+#~ "Для сброса пароля кликните по ссылке (или скопируйте её в адресную строку "
+#~ "вашего браузера):\n"
+
+#~ msgid "Your username, in case you've forgotten"
+#~ msgstr "Ваш логин (на случай если вы забыли)"
+
+#~ msgid ""
+#~ "\n"
+#~ "Best regards,\n"
+#~ "%(site_name)s Management\n"
+#~ msgstr ""
+#~ "\n"
+#~ "С наилучшими пожеланиями,\n"
+#~ "команда сайта %(site_name)s\n"
+
+#~ msgid "Reset password"
+#~ msgstr "Сбросить пароль"
+
+#~ msgid ""
+#~ "Forgot your password?  Enter your email in the form below and we'll send "
+#~ "you instructions for creating a new one."
+#~ msgstr ""
+#~ "Забыли пароль? Введите свой e-mail в форму ниже и мы пришлём вам "
+#~ "инструкции по его восстановлению."
 
 #~ msgid "Home page"
 #~ msgstr "Главная страница"
