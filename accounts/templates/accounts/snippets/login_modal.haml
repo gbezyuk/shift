@@ -22,6 +22,10 @@
             %input#id_password{'name': 'password', 'maxlength': '100', 'type': 'password'}
             %input#id_next{'name': 'next', 'maxlength': '100', 'type': 'hidden', 'value': '{{ request.get_full_path }}'}
 
+            %h3 {% trans "Want to register old-school way? No problem, click the link bellow" %}
+            %a.btn.{:href => '/accounts/register/'}
+                {% trans "Register" %}
+
         .modal-footer
             %button.btn.btn-primary{'type': 'submit'}
                 {% trans "Login" %}

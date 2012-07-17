@@ -14,5 +14,13 @@
     - include 'snippets/social_auth_providers.haml'
 
     %h3 {% trans "Or using login/password form bellow:" %}
+
     {% trans "Login" as form_submit_title %}
     - include 'snippets/form.haml'
+
+    %h3 {% trans "Want to register old-school way? No problem, click the link bellow" %}
+    %a.btn.{:href => '/accounts/register/'}
+        {% trans "Register" %}
+
+    %br
+    %br

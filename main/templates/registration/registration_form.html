@@ -1,0 +1,26 @@
+{% extends "registration/registration_base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Registration" %}{% endblock %}
+{% block content %}
+	<h1>{% trans "Registration" %}</h1>
+
+    {% trans "Register" as form_submit_title %}
+    {% include 'snippets/form.haml' %}
+
+{#	<form method="POST" action="" class="registration_form">#}
+{#		{% csrf_token %}#}
+{#		{% include 'snippets/form.haml' %}#}
+{#		<ul class="registration_form buttons">#}
+{#			<li>#}
+{#				<button type="submit" class="register">{% trans "Register" %}</button>#}
+{#			</li>#}
+{#		</ul>#}
+{#	</form>#}
+
+{#	<table>#}
+{#	    <form method='post' action=''>{% csrf_token %}#}
+{#	        {{ form }}#}
+{#	        <tr><td></td><td><input type="submit" value="{% trans "Register" %}" /></td>#}
+{#	    </form>#}
+{#	</table>#}
+{% endblock %}
