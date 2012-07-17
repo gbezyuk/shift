@@ -22,5 +22,8 @@
                     %a{'href': '{% url profile %}'}
                         {% trans "Profile" %}
                 %li
+                    %a{:href => '{% url auth_password_change %}'}
+                        {% trans "Change password" %}
+                %li
                     %a{'href': '{% url auth_logout %}'}
                         {% trans "Logout" %}

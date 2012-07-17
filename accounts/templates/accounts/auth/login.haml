@@ -15,6 +15,9 @@
 
     %h3 {% trans "Or using login/password form bellow:" %}
 
+    %a{:href => '{% url auth_password_reset %}'}
+        {% trans "Forgot password?" %}
+
     {% trans "Login" as form_submit_title %}
     - include 'snippets/form.haml'
 

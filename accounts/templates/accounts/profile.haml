@@ -17,8 +17,10 @@
                 .form-actions
                     %a.btn.btn-primary{'href': '{% url edit_profile %}'}
                         {% trans "Edit Profile" %}
-                    %a.btn.btn-primary{'href': '{% url change_avatar %}'}
+                    %a.btn{'href': '{% url change_avatar %}'}
                         {% trans "Change avatar" %}
+                    %a.btn{:href => '{% url auth_password_change %}'}
+                        {% trans "Change password" %}
     - with avatar=request.user.profile.avatar
         - include 'accounts/snippets/user_profile_avatar.haml'
     - include 'accounts/snippets/user_profile.haml'
