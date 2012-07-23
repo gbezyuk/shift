@@ -5,8 +5,7 @@ Module: Catalog
 Part: Model factories for tests
 """
 import factory
-from doppler.shift.catalog.models import Image
-from ..models import Category, Product, MULTIPLE_PRICES
+from ..models import Image, Category, Product, Color, Size, MULTIPLE_PRICES
 
 class CategoryFactory(factory.Factory):
     """
@@ -17,6 +16,7 @@ class CategoryFactory(factory.Factory):
     description = '<p>Simple <em>HTML-formatted</em> category description</p>'
     enabled = True
     parent = None
+    slug = 'sample-category'
 
 class ProductFactory(factory.Factory):
     """
@@ -24,10 +24,26 @@ class ProductFactory(factory.Factory):
     """
     FACTORY_FOR = Product
     name = 'sample product'
+    slug = 'sample-product'
     description = '<p>Simple <em>HTML-formatted</em> product description</p>'
     enabled = True
     if not MULTIPLE_PRICES:
         price = 100
+
+class ColorFactory(factory.Factory):
+    """
+    Color model factory
+    """
+    FACTORY_FOR = Color
+    title = 'sample color'
+    code = '#000000'
+
+class SizeFactory(factory.Factory):
+    """
+    Size model factory
+    """
+    FACTORY_FOR = Size
+    title = 'sample size'
 
 class ImageFactory(factory.Factory):
     """

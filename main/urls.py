@@ -17,7 +17,7 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('accounts.urls')),
     url(r'^accounts/', include('social_auth.urls')),
     url(r'^accounts/', include('registration.backends.default.urls')),
-    url(r'^$', home),
+    url(r'^$', home, name='home'),
     url(r'^', include('doppler.shift.urls')),
     url(r'^googleca70414f1dff2fd9.html$', google_site_verification),
 )

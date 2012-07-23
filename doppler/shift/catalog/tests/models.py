@@ -6,7 +6,7 @@ Part: Model-related Tests
 """
 from django.db.utils import IntegrityError
 from django.test import TestCase
-from .factories import CategoryFactory, ProductFactory, ImageFactory
+from .factories import CategoryFactory, ProductFactory, ImageFactory, ColorFactory, SizeFactory
 from ..models import Category, Image, MULTIPLE_PRICES
 
 class CategoryTestCase(TestCase):
@@ -18,10 +18,10 @@ class CategoryTestCase(TestCase):
         """
         Initialization with a factory-provided set of models
         """
-        self.root_category_enabled = CategoryFactory()
-        self.child_category_enabled = CategoryFactory(parent=self.root_category_enabled)
-        self.root_category_disabled= CategoryFactory(enabled=False)
-        self.child_category_disabled = CategoryFactory(parent=self.root_category_disabled, enabled=False)
+        self.root_category_enabled = CategoryFactory(slug='c1')
+        self.child_category_enabled = CategoryFactory(parent=self.root_category_enabled, slug='c2')
+        self.root_category_disabled= CategoryFactory(enabled=False, slug='c3')
+        self.child_category_disabled = CategoryFactory(parent=self.root_category_disabled, enabled=False, slug='c4')
 
     def test_enabled_tree(self):
         """
@@ -41,8 +41,8 @@ class CategoryTestCase(TestCase):
         """
         Testing enabled products filtering property
         """
-        p1 = ProductFactory(category=self.root_category_enabled, enabled=True)
-        p2 = ProductFactory(category=self.root_category_enabled, enabled=True)
+        p1 = ProductFactory(category=self.root_category_enabled, enabled=True, slug='p1')
+        p2 = ProductFactory(category=self.root_category_enabled, enabled=True, slug='p2')
         ProductFactory(category=self.root_category_enabled, enabled=False)
         self.assertEqual([p1.pk, p2.pk], [product.id for product in self.root_category_enabled.enabled_products])
 
@@ -138,8 +138,12 @@ if MULTIPLE_PRICES:
             """
             Make sure IntegrityError is thrown where necessary on unique_together constraint
             """
+            c = ColorFactory()
+            s = SizeFactory()
             PriceFactory(product=self.sample_product, value=1)
-            self.assertRaises(IntegrityError, PriceFactory, product=self.sample_product, value=1)
+            PriceFactory(product=self.sample_product, value=1, color=c)
+            PriceFactory(product=self.sample_product, value=1, color=c, size=s)
+            self.assertRaises(IntegrityError, PriceFactory, product=self.sample_product, value=1, color=c, size=s)
 
         def test_product_with_no_prices(self):
             """

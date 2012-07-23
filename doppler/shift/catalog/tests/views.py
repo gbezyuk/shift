@@ -17,12 +17,12 @@ class CatalogTestCase(TestCase):
     """
 
     def setUp(self):
-        self.root_category_enabled = CategoryFactory()
-        self.child_category_enabled = CategoryFactory(parent=self.root_category_enabled)
-        self.root_category_disabled= CategoryFactory(enabled=False)
-        self.child_category_disabled = CategoryFactory(parent=self.root_category_disabled, enabled=False)
-        self.child_category_product = ProductFactory(category=self.child_category_enabled)
-        self.root_category_product = ProductFactory(category=self.root_category_enabled)
+        self.root_category_enabled = CategoryFactory(slug='c1', enabled=True)
+        self.child_category_enabled = CategoryFactory(parent=self.root_category_enabled, slug='c2')
+        self.root_category_disabled= CategoryFactory(enabled=False, slug='c3')
+        self.child_category_disabled = CategoryFactory(parent=self.root_category_disabled, enabled=False, slug='c4')
+        self.child_category_product = ProductFactory(category=self.child_category_enabled, slug='c5')
+        self.root_category_product = ProductFactory(category=self.root_category_enabled, slug='c6')
 
     def test_index_page(self):
         """
@@ -38,8 +38,10 @@ class CatalogTestCase(TestCase):
         """
         Test enabled root category details pages
         """
-        resp = self.client.get(reverse('doppler_shift_catalog_category',
-            kwargs={'category_id': self.root_category_enabled.id}))
+#        resp = self.client.get(reverse('doppler_shift_catalog_category',
+#            kwargs={'category_id': self.root_category_enabled.id}))
+        resp = self.client.get('/' + self.root_category_enabled.slug + '/')
+
         self.assertEqual(resp.status_code, 200)
         self.assertTrue('category' in resp.context)
         self.assertEqual(resp.context['category'], self.root_category_enabled)
@@ -50,8 +52,9 @@ class CatalogTestCase(TestCase):
         """
         Test enabled child category details pages
         """
-        resp = self.client.get(reverse('doppler_shift_catalog_category',
-            kwargs={'category_id': self.child_category_enabled.id}))
+#        resp = self.client.get(reverse('doppler_shift_catalog_category',
+#            kwargs={'category_id': self.child_category_enabled.id}))
+        resp = self.client.get('/' + self.child_category_enabled.slug + '/')
         self.assertEqual(resp.status_code, 200)
         self.assertTrue('category' in resp.context)
         self.assertEqual(resp.context['category'], self.child_category_enabled)
@@ -62,20 +65,23 @@ class CatalogTestCase(TestCase):
         """
         Test disabled category details pages
         """
-        #TODO: figure out why 404 status checks doesn't work
-        resp = self.client.get(reverse('doppler_shift_catalog_category',
-            kwargs={'category_id': self.root_category_disabled.id}))
-        self.assertEqual(resp.context, None)
-        resp = self.client.get(reverse('doppler_shift_catalog_category',
-            kwargs={'category_id': self.child_category_disabled.id}))
-        self.assertEqual(resp.context, None)
+#        resp = self.client.get(reverse('doppler_shift_catalog_category',
+#            kwargs={'category_id': self.root_category_disabled.id}))
+        resp = self.client.get('/' + self.root_category_disabled.slug + '/')
+        self.assertEqual(resp.status_code, 404)
+
+        resp = self.client.get('/' + self.child_category_disabled.slug + '/')
+#        resp = self.client.get(reverse('doppler_shift_catalog_category',
+#            kwargs={'category_id': self.child_category_disabled.id}))
+        self.assertEqual(resp.status_code, 404)
 
     def test_product_details_page(self):
         """
         Test product details page
         """
-        resp = self.client.get(reverse('doppler_shift_catalog_product',
-            kwargs={'product_id': self.root_category_product.id}))
+#        resp = self.client.get(reverse('doppler_shift_catalog_product',
+#            kwargs={'product_id': self.root_category_product.id}))
+        resp = self.client.get('/' + self.root_category_product.slug + '/')
         self.assertEqual(resp.status_code, 200)
         self.assertTrue('category' in resp.context)
         self.assertEqual(resp.context['category'].pk, self.root_category_product.category.pk)
