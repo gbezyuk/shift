@@ -107,5 +107,5 @@ class AuthAcceptanceTest(WebTest):
         """
         Test logout view works fine and redirects to correct url
         """
-        page = self._get_page(reverse('auth_logout'), user=self.user).follow()
+        page = self._get_page(reverse('auth_logout'), user=self.user) #why don't I need add a 'follow()' here?
         self.assertTrue(page.context['user'].is_anonymous())
