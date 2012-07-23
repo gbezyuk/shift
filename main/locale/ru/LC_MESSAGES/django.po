@@ -2,22 +2,21 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-17 19:16+0400\n"
-"PO-Revision-Date: 2012-07-17 18:46\n"
+"POT-Creation-Date: 2012-07-23 19:37+0400\n"
+"PO-Revision-Date: 2012-07-23 19:37\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Language: \n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 "X-Translated-Using: django-rosetta 0.6.6\n"
 
 #: seo.py:15 seo.py:16
@@ -35,6 +34,14 @@ msgstr "Русский"
 #: settings.py:143
 msgid "WesternUnit.Ru Shop Administration"
 msgstr "Администрирование магазина WesternUnit.Ru"
+
+#: templates/404.haml:5
+msgid "Oops. Error 404"
+msgstr "Ой! Нет такой страницы, ошибка 404."
+
+#: templates/500.haml:5
+msgid "Oops. Error 500"
+msgstr "Ой-ой. Внутренняя ошибка сервера (код 500)."
 
 #: templates/base.haml:37
 msgid "Western Unit"
@@ -66,12 +73,12 @@ msgstr "Письмо с активационной ссылкой ушло ва�
 
 #: templates/registration/registration_complete.html:5
 msgid ""
-"An activation email has been sent.  Please check your email and click on the "
-"link to activate your account."
+"An activation email has been sent.  Please check your email and click on the"
+" link to activate your account."
 msgstr ""
-"Мы послали вам письмо с активационной ссылкой. Пожалуйста, проверьте почту и "
-"кликните по ссылке чтобы подтвердить ваш адрес e-mail и активировать учётную "
-"запись."
+"Мы послали вам письмо с активационной ссылкой. Пожалуйста, проверьте почту и"
+" кликните по ссылке чтобы подтвердить ваш адрес e-mail и активировать "
+"учётную запись."
 
 #: templates/registration/registration_form.html:3
 #: templates/registration/registration_form.html:5
@@ -122,12 +129,10 @@ msgstr "Войти используя VKontakte"
 
 #~ msgid ""
 #~ "\n"
-#~ "Your password has been reset!  You may now <a href=\"%(login_url)s\">log "
-#~ "in</a>.\n"
+#~ "Your password has been reset!  You may now <a href=\"%(login_url)s\">log in</a>.\n"
 #~ msgstr ""
 #~ "\n"
-#~ "Ваш пароль был сброшен! Теперь вы можете <a href=\"%(login_url)s\">войти</"
-#~ "a>.\n"
+#~ "Ваш пароль был сброшен! Теперь вы можете <a href=\"%(login_url)s\">войти</a>.\n"
 
 #~ msgid "Confirm password reset"
 #~ msgstr "Подтвердите сброс пароля"
@@ -142,8 +147,8 @@ msgstr "Войти используя VKontakte"
 #~ msgstr "Сброс пароля"
 
 #~ msgid ""
-#~ "We have sent you an email with a link to reset your password.  Please "
-#~ "check your email and click the link to continue."
+#~ "We have sent you an email with a link to reset your password.  Please check "
+#~ "your email and click the link to continue."
 #~ msgstr ""
 #~ "Мы послали вам e-mail со ссылкой, которая позволит вам сбросить пароль. "
 #~ "Пожалуйста, проверьте свой почтовый ящик и перейдите по полученной ссылке "
@@ -154,22 +159,16 @@ msgstr "Войти используя VKontakte"
 
 #~ msgid ""
 #~ "\n"
-#~ "You are receiving this email because you (or someone pretending to be "
-#~ "you)\n"
-#~ "requested that your password be reset on the %(domain)s site.  If you do "
-#~ "not \n"
+#~ "You are receiving this email because you (or someone pretending to be you)\n"
+#~ "requested that your password be reset on the %(domain)s site.  If you do not \n"
 #~ "wish to reset your password, please ignore this message.\n"
 #~ "\n"
-#~ "To reset your password, please click the following link, or copy and "
-#~ "paste it\n"
+#~ "To reset your password, please click the following link, or copy and paste it\n"
 #~ "into your web browser:\n"
 #~ msgstr ""
 #~ "\n"
-#~ "Вы получили это письмо потому что вы (или кто-то, выдающий себя за вас) "
-#~ "запросил сброс пароля для вашего пользователя на сайте %(domain)s. Если "
-#~ "вы не хотите изменять свой пароль, просто игнорируйте это сообщение.\n"
-#~ "Для сброса пароля кликните по ссылке (или скопируйте её в адресную строку "
-#~ "вашего браузера):\n"
+#~ "Вы получили это письмо потому что вы (или кто-то, выдающий себя за вас) запросил сброс пароля для вашего пользователя на сайте %(domain)s. Если вы не хотите изменять свой пароль, просто игнорируйте это сообщение.\n"
+#~ "Для сброса пароля кликните по ссылке (или скопируйте её в адресную строку вашего браузера):\n"
 
 #~ msgid "Your username, in case you've forgotten"
 #~ msgstr "Ваш логин (на случай если вы забыли)"
@@ -187,11 +186,11 @@ msgstr "Войти используя VKontakte"
 #~ msgstr "Сбросить пароль"
 
 #~ msgid ""
-#~ "Forgot your password?  Enter your email in the form below and we'll send "
-#~ "you instructions for creating a new one."
+#~ "Forgot your password?  Enter your email in the form below and we'll send you"
+#~ " instructions for creating a new one."
 #~ msgstr ""
-#~ "Забыли пароль? Введите свой e-mail в форму ниже и мы пришлём вам "
-#~ "инструкции по его восстановлению."
+#~ "Забыли пароль? Введите свой e-mail в форму ниже и мы пришлём вам инструкции "
+#~ "по его восстановлению."
 
 #~ msgid "Home page"
 #~ msgstr "Главная страница"
@@ -209,5 +208,5 @@ msgstr "Войти используя VKontakte"
 
 #~ msgid "Text bellow is merely page filling, don't keep in mind"
 #~ msgstr ""
-#~ "Нижеследующий текст - всего лишь \"рыба\", заливка страницы для "
-#~ "тестирования отображения текста в различных режимах. Не берите в голову."
+#~ "Нижеследующий текст - всего лишь \"рыба\", заливка страницы для тестирования"
+#~ " отображения текста в различных режимах. Не берите в голову."

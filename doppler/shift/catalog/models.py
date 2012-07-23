@@ -299,7 +299,14 @@ if MULTIPLE_PRICES:
             return None
 
         def __unicode__(self):
-            return "%r - %s" % (self.product.name, self.value)
+            if self.color and self.size:
+                return _("%(color)s, %(size)s - %(value)d roubles") % {'color': self.color.title, 'size': self.size.title, 'value': self.value}
+            elif self.color:
+                return _("%(color)s - %(value)d roubles") % {'color': self.color.title, 'value': self.value}
+            elif self.size:
+                return _("%(size)s - %(value)d roubles") % {'size': self.size.title, 'value': self.value}
+            else:
+                return _("%(value)d roubles") % {'value': self.value}
 
         def decrease_remainer(self, quantity):
             assert quantity <= self.remainder
