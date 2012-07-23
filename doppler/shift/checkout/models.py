@@ -8,7 +8,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from model_utils import Choices
 from session_cart.cart import CartItem, Cart
-from doppler.shift.catalog.models import Product
+from doppler.shift.catalog.models import Product, MULTIPLE_PRICES
+if MULTIPLE_PRICES:
+    from doppler.shift.catalog.models import Price
 
 CartItem.total_price = lambda self: self.item.value * self.quantity
 Cart.total_price = lambda self: reduce(lambda res, x: res + x, [item.total_price() for item in self])
@@ -66,6 +68,8 @@ class OrderItem(models.Model):
 
     order = models.ForeignKey(to=Order, verbose_name=_('order'), related_name='items')
     product = models.ForeignKey(to=Product, verbose_name=_('product'), related_name='orders')
+    if MULTIPLE_PRICES:
+        shipment = models.ForeignKey(to=Price, verbose_name=_('shipment'), related_name='orders', null=True, blank=True)
     quantity = models.PositiveIntegerField(verbose_name=_('quantity'))
     price = models.PositiveIntegerField(verbose_name=_('price'))
     created = models.DateTimeField(auto_now_add = True, verbose_name = _('created'))

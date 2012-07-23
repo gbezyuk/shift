@@ -1,0 +1,7 @@
+- load i18n
+%form{'method': 'POST', 'action': ''}
+    - csrf_token
+    - for field in form
+        - include 'snippets/form_field.haml'
+    %button{'type': 'submit'}
+        {% trans "Add to cart" %}

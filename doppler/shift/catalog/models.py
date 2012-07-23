@@ -179,8 +179,9 @@ class Product(models.Model):
             return price_obj.value if price_obj else None
         @property
         def remainder(self):
-            price_obj = self.get_minimal_enabled_price()
-            return price_obj.remainder if price_obj else None
+#            price_obj = self.get_minimal_enabled_price()
+#            return price_obj.remainder if price_obj else None
+            return sum(self.prices.filter(remainder__gt=0).values_list('remainder', flat=True))
         @property
         def remainder_update_time(self):
             price_obj = self.get_minimal_enabled_price()
@@ -188,11 +189,23 @@ class Product(models.Model):
 
         @property
         def colors_available(self):
-            return Color.objects.filter(prices__product = self)
+            return Color.objects.filter(prices__product = self, prices__remainder__gt=0)
 
         @property
         def sizes_available(self):
-            return Size.objects.filter(prices__product = self)
+            return Size.objects.filter(prices__product = self, prices__remainder__gt=0)
+
+        @property
+        def sizes_and_colors_available(self):
+            return self.prices.filter(remainder__gt=0).values_list('size__title', 'color__title', 'remainder')
+
+        @property
+        def shipments_available(self):
+            return self.prices.filter(remainder__gt=0)
+
+        @property
+        def has_colors_or_sizes_specified(self):
+            return self.prices.filter(remainder__gt=0, size__isnull=False, color__isnull=False).exists()
 
     else:
         price = models.PositiveIntegerField(verbose_name=_('price'), default=0)

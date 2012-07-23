@@ -25,6 +25,17 @@
                 %td
                     %a{'href': '{{ item.product.get_absolute_url }}'}
                         = item.product
+                        - if item.shipment.color or item.shipment.size
+                            - if item.shipment.color
+                                %br
+                                {% trans "Color: " %}
+                                %span.color
+                                    = item.shipment.color
+                            - if item.shipment.size
+                                %br
+                                {% trans "Size: " %}
+                                %span.size
+                                    = item.shipment.size
                 %td.price
                     = item.price
                 %td

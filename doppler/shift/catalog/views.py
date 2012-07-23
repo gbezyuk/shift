@@ -15,7 +15,7 @@ from django.contrib import messages
 from django.template.context import RequestContext
 from django.utils.translation import ugettext_lazy as _
 from .models import Category, Product
-from ..checkout.forms import AddProductToCartForm
+from ..checkout.forms import AddProductToCartForm, AdvancedAddProductToCartForm
 
 def index(request, template_name='doppler/shift/catalog/index.haml'):
     """
@@ -108,7 +108,10 @@ def render_product(request, product, template_name='doppler/shift/catalog/produc
     Catalog product details page view. Contains product details
     """
     category = product.category
-    form = AddProductToCartForm(data=request.POST or None, shipment=product.get_minimal_enabled_price())
+    if product.has_colors_or_sizes_specified:
+        form = AdvancedAddProductToCartForm(data=request.POST or None, product=product)
+    else:
+        form = AddProductToCartForm(data=request.POST or None, shipment=product.get_minimal_enabled_price())
     if form.is_valid():
         form.save(request)
         messages.success(request, AddProductToCartForm.success_message)

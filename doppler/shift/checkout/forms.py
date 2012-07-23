@@ -8,7 +8,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from querystring_parser import parser
 from .models import Order, OrderItem
-from doppler.shift.catalog.models import ProductNotAvailableError
+from doppler.shift.catalog.models import ProductNotAvailableError, MULTIPLE_PRICES
 
 class AddProductToCartForm(forms.Form):
     """To be used with product model"""
@@ -36,6 +36,41 @@ class AddProductToCartForm(forms.Form):
         request.cart.append(self.shipment, self.cleaned_data['quantity'])
 
     success_message = _('product was successfully added to your cart')
+
+
+if MULTIPLE_PRICES:
+    from doppler.shift.catalog.models import Price
+
+    class AdvancedAddProductToCartForm(forms.Form):
+        """To be used with product model"""
+        quantity = forms.IntegerField(initial=1, min_value=1, label=_("quantity"))
+        shipment = forms.ModelChoiceField(label=_("color and size"), queryset=Price.objects.all(), required=True, initial=0)
+
+        def __init__(self, product, **kwargs):
+            """Overloaded constructor"""
+            super(AdvancedAddProductToCartForm, self).__init__(**kwargs)
+            self.product = product
+            self.fields['shipment'].queryset = product.shipments_available
+            self.fields['shipment'].initial = product.shipments_available[0]
+
+        def is_valid(self):
+            """Buying nothing is always invalid =)"""
+            if not self.product:
+                return False
+            return super(AdvancedAddProductToCartForm, self).is_valid()
+
+        def clean(self):
+            """No more than shop can offer can be added to cart"""
+#TODO: fix, it's broken now
+#            if self.cleaned_data['quantity'] > self.cleaned_data['shipment'].remainder:
+#                raise forms.ValidationError(_('%d is maximum quantity we can offer for this product') % self.shipment.remainder)
+            return self.cleaned_data
+
+        def save(self, request):
+            """put shipment to cart using session_cart interface"""
+            request.cart.append(self.cleaned_data['shipment'], self.cleaned_data['quantity'])
+
+        success_message = _('product was successfully added to your cart')
 
 class UpdateCartForm(forms.Form):
     """
@@ -105,6 +140,7 @@ class OrderForm(forms.ModelForm):
                 cart_position.item.decrease_remainer(cart_position.quantity)
                 OrderItem(order=order,
                     product=cart_position.item.product,
+                    shipment = cart_position.item,
                     quantity=cart_position.quantity,
                     price=cart_position.item.value,
                 ).save()
