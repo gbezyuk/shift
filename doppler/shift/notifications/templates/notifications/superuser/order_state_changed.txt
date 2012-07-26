@@ -4,8 +4,8 @@
 {% with id=order.id %}
 {% with text_status=order.text_status %}
 {% blocktrans %}
-Order #{{ id }} is now in "{{ order.text_status }}" state
-{% endtrans %}
+Order #{{ id }} is now in "{{ text_status }}" state
+{% endblocktrans %}
 {% endwith %}
 {% endwith %}
 

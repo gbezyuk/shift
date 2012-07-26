@@ -48,6 +48,10 @@ class Order(models.Model):
         return _('Order #%d') % self.id
 
     @property
+    def text_status(self):
+        return dict([i for i in self.STATUS])[self.status]
+
+    @property
     def total_price(self):
         return reduce(lambda res, x: res+x, [item.total_price for item in self.items.all()])
 

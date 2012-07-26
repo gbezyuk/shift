@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-23 19:36+0400\n"
-"PO-Revision-Date: 2012-07-23 19:38\n"
+"POT-Creation-Date: 2012-07-26 16:36+0400\n"
+"PO-Revision-Date: 2012-07-26 16:40\n"
 "Last-Translator:   <admin@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -74,7 +74,7 @@ msgid "other images"
 msgstr "прочие изображения"
 
 #: shift/catalog/admin.py:90 shift/catalog/models.py:211
-#: shift/catalog/models.py:284 shift/checkout/models.py:74
+#: shift/catalog/models.py:284 shift/checkout/models.py:93
 msgid "price"
 msgstr "цена"
 
@@ -127,19 +127,19 @@ msgid "slug"
 msgstr "slug"
 
 #: shift/catalog/models.py:81 shift/catalog/models.py:155
-#: shift/catalog/models.py:288 shift/checkout/models.py:27
-#: shift/checkout/models.py:75
+#: shift/catalog/models.py:288 shift/checkout/models.py:28
+#: shift/checkout/models.py:94
 msgid "created"
 msgstr "создано"
 
 #: shift/catalog/models.py:82 shift/catalog/models.py:156
-#: shift/catalog/models.py:289 shift/checkout/models.py:28
-#: shift/checkout/models.py:76
+#: shift/catalog/models.py:289 shift/checkout/models.py:29
+#: shift/checkout/models.py:95
 msgid "modified"
 msgstr "изменено"
 
 #: shift/catalog/models.py:137 shift/catalog/models.py:279
-#: shift/checkout/models.py:70
+#: shift/checkout/models.py:89
 msgid "product"
 msgstr "товар"
 
@@ -173,7 +173,7 @@ msgstr "код"
 msgid "size"
 msgstr "размер"
 
-#: shift/catalog/models.py:274 shift/checkout/models.py:72
+#: shift/catalog/models.py:274 shift/checkout/models.py:91
 msgid "shipment"
 msgstr "поставка"
 
@@ -214,7 +214,7 @@ msgid "%(value)d roubles"
 msgstr "%(value)d руб."
 
 #: shift/checkout/forms.py:15 shift/checkout/forms.py:46
-#: shift/checkout/models.py:73
+#: shift/checkout/models.py:92
 msgid "quantity"
 msgstr "количество"
 
@@ -255,72 +255,72 @@ msgstr ""
 msgid "Your order is successfully made!"
 msgstr "Ваш заказ успешно отравлен!"
 
-#: shift/checkout/models.py:22 shift/checkout/models.py:69
+#: shift/checkout/models.py:23 shift/checkout/models.py:88
 msgid "order"
 msgstr "заказ"
 
-#: shift/checkout/models.py:23
+#: shift/checkout/models.py:24
 msgid "orders"
 msgstr "заказы"
 
-#: shift/checkout/models.py:26
+#: shift/checkout/models.py:27
 msgid "user"
 msgstr "пользователь"
 
-#: shift/checkout/models.py:31
+#: shift/checkout/models.py:32
 msgid "new"
 msgstr "новый"
 
-#: shift/checkout/models.py:32
+#: shift/checkout/models.py:33
 msgid "processing"
 msgstr "обработка"
 
-#: shift/checkout/models.py:33
+#: shift/checkout/models.py:34
 msgid "awaits shipping"
 msgstr "ожидается поставка"
 
-#: shift/checkout/models.py:34
+#: shift/checkout/models.py:35
 msgid "shipped"
 msgstr "отгружен"
 
-#: shift/checkout/models.py:35
+#: shift/checkout/models.py:36
 msgid "cancelled"
 msgstr "отменён"
 
-#: shift/checkout/models.py:39
+#: shift/checkout/models.py:40
 msgid "customer name"
 msgstr "контактное лицо"
 
-#: shift/checkout/models.py:40
+#: shift/checkout/models.py:41
 msgid "customer phone"
 msgstr "контактный телефон покупателя"
 
-#: shift/checkout/models.py:41
+#: shift/checkout/models.py:42
 msgid "customer e-mail"
 msgstr "e-mail покупателя"
 
-#: shift/checkout/models.py:42
+#: shift/checkout/models.py:43
 msgid "delivery address"
 msgstr "адрес доставки"
 
-#: shift/checkout/models.py:43
+#: shift/checkout/models.py:44
 msgid "comment"
 msgstr "комментарий"
 
-#: shift/checkout/models.py:44
+#: shift/checkout/models.py:45
 msgid "IP adress"
 msgstr "IP-адрес"
 
-#: shift/checkout/models.py:47
+#: shift/checkout/models.py:48
 #, python-format
 msgid "Order #%d"
 msgstr "Заказ #%d"
 
-#: shift/checkout/models.py:65
+#: shift/checkout/models.py:84
 msgid "order item"
 msgstr "позиция заказа"
 
-#: shift/checkout/models.py:66
+#: shift/checkout/models.py:85
 msgid "order items"
 msgstr "позиции заказов"
 
@@ -332,6 +332,91 @@ msgid ""
 msgstr ""
 "К сожалению, мы можем предложить лишь %(available)d единиц по позиции "
 "%(product). %(requested)d же в наличии нет. "
+
+#: shift/notifications/templates/notifications/superuser/new_order.txt:6
+#, python-format
+msgid ""
+"\n"
+"Yaaaahoooo! We've got a new order\n"
+"\n"
+"Order #%(order.pk)s is made by user %(user)s\n"
+"\n"
+"Order total value is %(total_price)s roubles\n"
+"Order contains %(total_quantity)s positions\n"
+"\n"
+msgstr ""
+"\n"
+"Ура! У нас новый заказ под номером #%(order.pk)s от пользователя %(user)s\n"
+"Сумма заказа %(total_price)s руб.\n"
+"Всего %(total_quantity)s позиций\n"
+
+#: shift/notifications/templates/notifications/superuser/new_order.txt:21
+msgid "User has attached this comment to his order:"
+msgstr "К заказу пользователь оставил комментарий:"
+
+#: shift/notifications/templates/notifications/superuser/new_order.txt:25
+#: shift/notifications/templates/notifications/superuser/order_state_changed.txt:12
+msgid "Admin interface order permalink: "
+msgstr "Постоянная ссылка на этот заказ в админке:"
+
+#: shift/notifications/templates/notifications/superuser/new_order_subject.txt:2
+msgid "New order on site"
+msgstr "Новый заказ на сайте!"
+
+#: shift/notifications/templates/notifications/superuser/order_state_changed.txt:2
+#: shift/notifications/templates/notifications/superuser/order_state_changed_subject.txt:2
+#: shift/notifications/templates/notifications/user/order_state_changed_subject.txt:2
+msgid "Order state change"
+msgstr "Изменение состояния заказа"
+
+#: shift/notifications/templates/notifications/superuser/order_state_changed.txt:6
+#: shift/notifications/templates/notifications/user/order_state_changed.txt:6
+#, python-format
+msgid ""
+"\n"
+"Order #%(id)s is now in \"%(text_status)s\" state\n"
+msgstr ""
+"\n"
+"Заказ #%(id)s перешёл в состояние \"%(text_status)s\"\n"
+
+#: shift/notifications/templates/notifications/user/new_order.txt:5
+#, python-format
+msgid ""
+"\n"
+"Thank you for your order!\n"
+"\n"
+"Your order ID is %(order.pk)s.\n"
+"\n"
+"Order total value is %(total_price)s roubles\n"
+"Order contains %(total_quantity)s positions\n"
+"\n"
+msgstr ""
+"\n"
+"Спасибо за заказ!\n"
+"Идентификатор вашего заказа -  %(order.pk)s.\n"
+"Общая сумма заказа составляет %(total_price)s руб.\n"
+"Заказ включает %(total_quantity)s позиций\n"
+
+#: shift/notifications/templates/notifications/user/new_order.txt:19
+msgid "You've attached this comment to your order:"
+msgstr "Ваш комментарий к заказу:"
+
+#: shift/notifications/templates/notifications/user/new_order.txt:23
+#: shift/notifications/templates/notifications/user/order_state_changed.txt:12
+msgid ""
+"You can check your order and its state in any moment through your dashboard "
+"or by following direct link:"
+msgstr ""
+"Вы можете в любое время просмотреть состояние заказа в своём личном кабинете"
+" на сайте, или перейдя по ссылке ниже:"
+
+#: shift/notifications/templates/notifications/user/new_order_subject.txt:2
+msgid "Your order approvement"
+msgstr "Спасибо за заказ!"
+
+#: shift/notifications/templates/notifications/user/order_state_changed.txt:2
+msgid "Your order state is changed"
+msgstr "Состояние вашего заказа обновлено"
 
 #: templates/doppler_base.haml:26
 #: templates/doppler/shift/catalog/snippets/header_widget.haml:4
