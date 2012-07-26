@@ -1,0 +1,8 @@
+Ваш менеджер на сайте http://{{ site }} изменён
+{% if user.manager %}
+Установлен новый менеджер - {{ user.manager }}
+{% else %}
+Сейчас менеджер не установлен.
+{% endif %}
+
+Ваш личный кабинет: http://{{ site }}{% url dashboard:dashboard %}

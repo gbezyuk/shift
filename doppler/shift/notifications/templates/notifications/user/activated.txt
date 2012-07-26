@@ -1,0 +1,3 @@
+Ваша учётная запись на сайте http://{{ site }} активирована
+Форма входа: http://{{ site }}{% url auth:login %}
+Ваш личный кабинет: http://{{ site }}{% url dashboard:dashboard %}

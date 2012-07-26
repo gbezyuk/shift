@@ -1,0 +1,26 @@
+{% load i18n %}
+{% with id=order.pk %}
+{% with total_price=order.total_price %}
+{% with total_quantity=order.total_quantity %}
+{% with user=order.user %}
+{% blocktrans %}
+"Yaaaahoooo! We've got a new order"
+
+Order #{{ order.pk }} is made by user {{ user }}
+
+Order total value is {{ total_price }} roubles
+Order contains {{ total_quantity }} positions
+
+{% endblocktrans %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+
+{%if order.comment %}
+    {% trans "User has attached this comment to his order:" %}
+    {{ order.comment }}
+{% endif %}
+
+{% trans "Admin interface order permalink: " %}
+http://{{ site }}/admin/checkout/order/{{ order.id }}/

@@ -1,0 +1,18 @@
+Новый заказ от вашего клиента!
+
+Заказу присвоен номер {{ order.id }}.
+
+Общая сумма заказа - {{ order.total }} рублей
+Количество позиций - {{ order.items_count }}
+
+Пользователь - {{ order.user }}
+
+{%if order.comment %}
+Комментарий к заказу:
+{{ order.comment }}
+{% endif %}
+
+Самое время рассмотреть заказ повнимательнее в личном кабинете менеджера:
+http://{{ site }}{% url dashboard:manager_client_order order.user.id order.id %}
+
+

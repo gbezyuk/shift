@@ -1,0 +1,3 @@
+Ваш клиент, пользователь {{ user }} зарегистрирован и ожидает активации
+Посмотреть в личном кабинете: http://{{ site }}{% url dashboard:manager_client_orders user.id %}
+Посмотреть в административной части: http://{{ site }}/admin/auth/user/{{ user.id }}

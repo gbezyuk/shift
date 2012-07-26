@@ -1,0 +1,13 @@
+{% load i18n %}
+{% trans "Your order state is changed" %}
+
+{% with id=order.id %}
+{% with text_status=order.text_status %}
+{% blocktrans %}
+Order #{{ id }} is now in "{{ order.text_status }}" state
+{% endtrans %}
+{% endwith %}
+{% endwith %}
+
+{% trans "You can check your order and its state in any moment through your dashboard or by following direct link:" %}
+http://{{ site }}{% url doppler_shift_order order.id %}

@@ -1,0 +1,26 @@
+{% load i18n %}
+{% with id=order.pk %}
+{% with total_price=order.total_price %}
+{% with total_quantity=order.total_quantity %}
+{% blocktrans %}
+Thank you for your order!
+
+Your order ID is {{ order.pk }}.
+
+Order total value is {{ total_price }} roubles
+Order contains {{ total_quantity }} positions
+
+{% endblocktrans %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+
+{%if order.comment %}
+    {% trans "You've attached this comment to your order:" %}
+    {{ order.comment }}
+{% endif %}
+
+{% trans "You can check your order and its state in any moment through your dashboard or by following direct link:" %}
+http://{{ site }}{% url doppler_shift_order order.id %}
+
+

@@ -1,0 +1,12 @@
+Новое сообщение обратной связи от вашего клиента на сайте http://{{ site }}
+
+Текст сообщения:
+{{ feedback_message.body }}
+
+Автор сообщения:
+{{ feedback_message.author }}
+
+{% if feedback_message.author.manager %}
+    Менеджер клиента:
+    {{ feedback_message.author.manager }}
+{% endif %}

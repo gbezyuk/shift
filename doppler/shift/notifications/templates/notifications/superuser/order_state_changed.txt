@@ -1,0 +1,15 @@
+{% load i18n %}
+{% trans "Order state change" %}
+
+{% with id=order.id %}
+{% with text_status=order.text_status %}
+{% blocktrans %}
+Order #{{ id }} is now in "{{ order.text_status }}" state
+{% endtrans %}
+{% endwith %}
+{% endwith %}
+
+{% trans "Admin interface order permalink: " %}
+http://{{ site }}/admin/checkout/order/{{ order.id }}/
+
+

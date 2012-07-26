@@ -63,6 +63,7 @@ INSTALLED_APPS = (
     'doppler',
     'doppler.shift.catalog',
     'doppler.shift.checkout',
+    'doppler.shift.notifications',
     'social_auth',
     'registration',
 )

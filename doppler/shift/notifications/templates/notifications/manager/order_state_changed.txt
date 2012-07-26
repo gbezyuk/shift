@@ -1,0 +1,8 @@
+Состояние заказа от клиента изменено!
+
+Заказ #{{ order.id }} теперь находится в состоянии {{ order.text_status }}
+
+Вы можете рассмотреть заказ повнимательнее в личном кабинете менеджера:
+http://{{ site }}{% url dashboard:manager_client_order order.user.id order.id %}
+
+
