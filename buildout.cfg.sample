@@ -53,8 +53,9 @@ eggs =
         python-openid
         oauth2
 
-	querystring-parser
-	pytils
+	    querystring-parser
+	    pytils
+        django_flatblocks
 
 project = main
 

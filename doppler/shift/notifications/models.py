@@ -36,7 +36,6 @@ from django.contrib.sites.models import Site
 
 @receiver(order_created)
 def order_created_notification (sender, order, **kwargs):
-
     ctx_dict = {
         'order': order,
         'site': Site.objects.get(id=settings.SITE_ID)

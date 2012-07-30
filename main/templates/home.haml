@@ -13,3 +13,7 @@
 - block catalog_tree
     - block picture
         %img{:src => '/media/images/men2.jpg', :width => '992px'}
+        - block intro_message
+            .intro_message
+                - load flatblock_tags
+                - flatblock "homepage_intro"

@@ -66,6 +66,7 @@ INSTALLED_APPS = (
     'doppler.shift.notifications',
     'social_auth',
     'registration',
+    'flatblocks',
 )
 
 # django_jenkins apps list
