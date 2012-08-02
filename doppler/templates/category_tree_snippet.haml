@@ -5,33 +5,34 @@
         %li{:class => "level_{{ node.level }}{% if node.has_active_children %} expandable collapsing_toggler{% iscategorychild node category %} expanded{% else %}{% ifequal category.id node.id %} expanded{% else %} collapsed{% endifequal %}{% endiscategorychild %}{% else %} empty{% endif %}{% ifequal category.id node.id %} active{% endifequal %}"}
             %a{:href => "{{ node.get_absolute_url }}"}
                 = node.name
-            - if not node.is_leaf_node
-                %ul.children
-                    - for node_2 in node.enabled_children
-                        %li{:class => "level_{{ node_2.level }}{% if node_2.has_active_children %} expandable collapsing_toggler{% iscategorychild node_2 category %} expanded{% else %}{% ifequal category.id node_2.id %} expanded{% else %} collapsed{% endifequal %}{% endiscategorychild %}{% else %} empty{% endif %}{% ifequal category.id node_2.id %} active{% endifequal %}"}
-                            %a{:href => "{{ node_2.get_absolute_url }}"}
-                                = node_2.name
-                            - if not node_2.is_leaf_node
-                                %ul.children
-                                    - for node_3 in node_2.enabled_children
-                                        %li{:class => "level_{{ node_3.level }}{% if node_3.has_active_children %} expandable collapsing_toggler{% iscategorychild node_3 category %} expanded{% else %}{% ifequal category.id node_3.id %} expanded{% else %} collapsed{% endifequal %}{% endiscategorychild %}{% else %} empty{% endif %}{% ifequal category.id node_3.id %} active{% endifequal %}"}
-                                            %a{:href => "{{ node_3.get_absolute_url }}"}
-                                                = node_3.name
-                                            - if not node_3.is_leaf_node
-                                                %ul.children
-                                                    - for node_4 in node_3.enabled_children
-                                                        %li{:class => "level_{{ node_4.level }}{% if node_4.has_active_children %} expandable collapsing_toggler{% iscategorychild node_4 category %} expanded{% else %}{% ifequal category.id node_4.id %} expanded{% else %} collapsed{% endifequal %}{% endiscategorychild %}{% else %} empty{% endif %}{% ifequal category.id node_4.id %} active{% endifequal %}"}
-                                                            %a{:href => "{{ node_4.get_absolute_url }}"}
-                                                                = node_4.name
-                                                            - if not node_4.is_leaf_node
-                                                                %ul.children
-                                                                    - for node_5 in node_4.enabled_children
-                                                                        %li{:class => "level_{{ node_5.level }}{% if node_5.has_active_children %} expandable collapsing_toggler{% iscategorychild node_5 category %} expanded{% else %}{% ifequal category.id node_5.id %} expanded{% else %} collapsed{% endifequal %}{% endiscategorychild %}{% else %} empty{% endif %}{% ifequal category.id node_5.id %} active{% endifequal %}"}
-                                                                            %a{:href => "{{ node_5.get_absolute_url }}"}
-                                                                                = node_5.name
-                                                                            - if not node_5.is_leaf_node
-                                                                                %ul.children
-                                                                                    - for node_6 in node_5.enabled_children
-                                                                                        %li{:class => "level_{{ node_6.level }}{% if node_6.has_active_children %} expandable collapsing_toggler{% iscategorychild node_6 category %} expanded{% else %}{% ifequal category.id node_6.id %} expanded{% else %} collapsed{% endifequal %}{% endiscategorychild %}{% else %} empty{% endif %}{% ifequal category.id node_6.id %} active{% endifequal %}"}
-                                                                                            %a{:href => "{{ node_6.get_absolute_url }}"}
-                                                                                                = node_6.name
+            - if not dont_go_deep
+                - if not node.is_leaf_node
+                    %ul.children
+                        - for node_2 in node.enabled_children
+                            %li{:class => "level_{{ node_2.level }}{% if node_2.has_active_children %} expandable collapsing_toggler{% iscategorychild node_2 category %} expanded{% else %}{% ifequal category.id node_2.id %} expanded{% else %} collapsed{% endifequal %}{% endiscategorychild %}{% else %} empty{% endif %}{% ifequal category.id node_2.id %} active{% endifequal %}"}
+                                %a{:href => "{{ node_2.get_absolute_url }}"}
+                                    = node_2.name
+                                - if not node_2.is_leaf_node
+                                    %ul.children
+                                        - for node_3 in node_2.enabled_children
+                                            %li{:class => "level_{{ node_3.level }}{% if node_3.has_active_children %} expandable collapsing_toggler{% iscategorychild node_3 category %} expanded{% else %}{% ifequal category.id node_3.id %} expanded{% else %} collapsed{% endifequal %}{% endiscategorychild %}{% else %} empty{% endif %}{% ifequal category.id node_3.id %} active{% endifequal %}"}
+                                                %a{:href => "{{ node_3.get_absolute_url }}"}
+                                                    = node_3.name
+                                                - if not node_3.is_leaf_node
+                                                    %ul.children
+                                                        - for node_4 in node_3.enabled_children
+                                                            %li{:class => "level_{{ node_4.level }}{% if node_4.has_active_children %} expandable collapsing_toggler{% iscategorychild node_4 category %} expanded{% else %}{% ifequal category.id node_4.id %} expanded{% else %} collapsed{% endifequal %}{% endiscategorychild %}{% else %} empty{% endif %}{% ifequal category.id node_4.id %} active{% endifequal %}"}
+                                                                %a{:href => "{{ node_4.get_absolute_url }}"}
+                                                                    = node_4.name
+                                                                - if not node_4.is_leaf_node
+                                                                    %ul.children
+                                                                        - for node_5 in node_4.enabled_children
+                                                                            %li{:class => "level_{{ node_5.level }}{% if node_5.has_active_children %} expandable collapsing_toggler{% iscategorychild node_5 category %} expanded{% else %}{% ifequal category.id node_5.id %} expanded{% else %} collapsed{% endifequal %}{% endiscategorychild %}{% else %} empty{% endif %}{% ifequal category.id node_5.id %} active{% endifequal %}"}
+                                                                                %a{:href => "{{ node_5.get_absolute_url }}"}
+                                                                                    = node_5.name
+                                                                                - if not node_5.is_leaf_node
+                                                                                    %ul.children
+                                                                                        - for node_6 in node_5.enabled_children
+                                                                                            %li{:class => "level_{{ node_6.level }}{% if node_6.has_active_children %} expandable collapsing_toggler{% iscategorychild node_6 category %} expanded{% else %}{% ifequal category.id node_6.id %} expanded{% else %} collapsed{% endifequal %}{% endiscategorychild %}{% else %} empty{% endif %}{% ifequal category.id node_6.id %} active{% endifequal %}"}
+                                                                                                %a{:href => "{{ node_6.get_absolute_url }}"}
+                                                                                                    = node_6.name

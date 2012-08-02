@@ -24,7 +24,7 @@
             - else
                 %a{:href => '{% url doppler_shift_catalog_index %}'}
                     %h4 {% trans "Catalog" %}
-                - with categories=category.enabled_siblings
-                - include 'category_tree_snippet.haml'
+                - with dont_go_deep=1
+                    - include 'category_tree_snippet.haml'
         .rest
             - block doppler_content
