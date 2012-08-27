@@ -67,12 +67,14 @@ INSTALLED_APPS = (
     'social_auth',
     'registration',
     'flatblocks',
+    'django_crowd',
 )
 
 # django_jenkins apps list
 PROJECT_APPS = (
     'accounts',
     'main',
+    'django_crowd',
     'doppler.shift.catalog',
     'doppler.shift.checkout',
 )
@@ -214,7 +216,15 @@ AUTHENTICATION_BACKENDS = (
     'social_auth.backends.google.GoogleOAuthBackend',
     'social_auth.backends.contrib.vkontakte.VKontakteOAuth2Backend',
     'django.contrib.auth.backends.ModelBackend',
+    'django_crowd.CrowdBackend'
 )
+
+CROWD = {
+    'url': 'http://crowd.co-de.org:8095/crowd/rest',
+    'app_name': 'western',
+    'password': '3MYBdyjKRA',
+    'superuser': True,
+    }
 
 SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
 SOCIAL_AUTH_UUID_LENGTH = 16
