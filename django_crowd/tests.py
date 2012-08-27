@@ -9,7 +9,7 @@ class CrowdBackendAuthTest(TestCase):
     """
     def setUp(self):
         """
-        initialization
+        Initialization
         """
         self.backend = CrowdBackend()
         self.username = 'gbezyuk'
@@ -52,9 +52,9 @@ class CrowdBackendAuthTest(TestCase):
         CROWD API returns an XML with user information. Mocking this result, testing that we can parse it properely
         """
         parse_result = self.backend._parse_crowd_response(self.test_crowd_xml_response)
-        self.assertEqual(parse_result['email'], 'gbezyuk@gmail.com')
-        self.assertEqual(parse_result['first_name'], 'Grigoriy')
-        self.assertEqual(parse_result['last_name'], 'Beziuk')
+        self.assertEqual(parse_result['email'], self.email)
+        self.assertEqual(parse_result['first_name'], self.first_name)
+        self.assertEqual(parse_result['last_name'], self.last_name)
 
     def test_creating_new_user_from_provided_crowd_response(self):
         """
@@ -65,9 +65,9 @@ class CrowdBackendAuthTest(TestCase):
             password=self.password, content=self.test_crowd_xml_response, crowd_config={})
         self.assertEqual(users_existed + 1, User.objects.all().count())
         self.assertEqual(user_created.username, self.username)
-        self.assertEqual(user_created.email, 'gbezyuk@gmail.com')
-        self.assertEqual(user_created.first_name, 'Grigoriy')
-        self.assertEqual(user_created.last_name, 'Beziuk')
+        self.assertEqual(user_created.email, self.email)
+        self.assertEqual(user_created.first_name, self.first_name)
+        self.assertEqual(user_created.last_name, self.last_name)
 
     def find_existing_user(self):
         """
@@ -75,5 +75,5 @@ class CrowdBackendAuthTest(TestCase):
         """
         self.assertEqual(self.backend._find_existing_user(self.username), None)
         user = User.objects.create_user(username=self.username, email=self.email, password=self.password)
-        self.assertNotEqual(self.backend._find_existing_user('not_a_' + self.username), None)
+        self.assertNotEqual(self.backend._find_existing_user('not_a_' + self.username   ), None)
         self.assertEqual(self.backend._find_existing_user(self.username).pk, user.pk)
