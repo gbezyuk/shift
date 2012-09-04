@@ -49,3 +49,4 @@ pip install python-openid
 pip install oauth2
 
 pip install django_flatblocks
+pip install django-crowd

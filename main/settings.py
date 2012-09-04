@@ -67,14 +67,14 @@ INSTALLED_APPS = (
     'social_auth',
     'registration',
     'flatblocks',
-    'django_crowd',
+    'crowd',
 )
 
 # django_jenkins apps list
 PROJECT_APPS = (
     'accounts',
     'main',
-    'django_crowd',
+    'crowd',
     'doppler.shift.catalog',
     'doppler.shift.checkout',
 )
@@ -216,7 +216,7 @@ AUTHENTICATION_BACKENDS = (
     'social_auth.backends.google.GoogleOAuthBackend',
     'social_auth.backends.contrib.vkontakte.VKontakteOAuth2Backend',
     'django.contrib.auth.backends.ModelBackend',
-    'django_crowd.CrowdBackend'
+    'crowd.backends.CrowdBackend'
 )
 
 CROWD = {
