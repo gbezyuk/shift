@@ -10,7 +10,7 @@
     - else
         %li.dropdown
             %a#auth-dropdown-toggler.dropdown-toggle{'href': "{% url profile %}", 'data-toggle': "dropdown"}
-                {% trans "Welcome, " %}
+                {% trans "Hi, " %}
                 %i.icon-user
                 %strong
                     = request.user.username
