@@ -51,7 +51,7 @@ class ImageTabularInline(generic.GenericTabularInline):
     model = Image
 
 class ProductAdmin(TinyMCEAdmin, TranslationAdmin):
-    list_display = ('lot', 'name', 'main_image', 'other_images', 'html_description', 'enabled', 'price', 'category', )
+    list_display = ('lot', 'name', 'base_price', 'main_image', 'other_images', 'html_description', 'enabled', 'category', )
     list_editable = ('enabled',)
     list_display_links = ('lot', 'name', 'html_description',)
     inlines = [ImageTabularInline, get_inline(MyMetadata)]
@@ -80,11 +80,11 @@ class ProductAdmin(TinyMCEAdmin, TranslationAdmin):
     other_images.short_description= _('other images')
 
     if MULTIPLE_CATEGORIES:
-        list_display = ('lot', 'name', 'main_image', 'other_images', 'html_description', 'enabled', 'price', )
+        list_display = ('lot', 'name', 'main_image', 'other_images', 'html_description', 'enabled', 'base_price', )
 
     if MULTIPLE_PRICES:
         list_display = ('lot', 'name', 'main_image', 'other_images', 'html_description', 'enabled',
-                        'price', 'other_prices','category', )
+                        'base_price','category', )
         def price(self, object):
             return object.price
         price.short_description= _('price')

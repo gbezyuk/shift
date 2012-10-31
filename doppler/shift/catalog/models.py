@@ -140,6 +140,7 @@ class Product(models.Model):
 
     name = models.CharField(max_length=255, verbose_name=_('name'))
     description = models.TextField(null=True, blank=True, verbose_name=_('description'))
+    base_price = models.PositiveIntegerField(verbose_name=_('price'))
     enabled = models.BooleanField(default=True, verbose_name=_('enabled'))
     images = generic.GenericRelation(Image, verbose_name=_('images'), blank=True, null=True)
     slug = models.SlugField(unique=True, verbose_name=_('slug'), max_length=255)
@@ -175,6 +176,7 @@ class Product(models.Model):
             return Price.get_minimal_enabled_price_for_product(self)
         @property
         def price(self):
+            return self.base_price
             price_obj = self.get_minimal_enabled_price()
             return price_obj.value if price_obj else None
         @property
@@ -273,30 +275,37 @@ if MULTIPLE_PRICES:
         class Meta:
             verbose_name = _('shipment')
             verbose_name_plural = _('shipments')
-            ordering = ['product', 'enabled', 'value']
-            unique_together = [('product', 'value', 'size', 'color'),]
+            ordering = ['product', 'enabled', 'specific_value']
+            unique_together = [('product', 'specific_value', 'size', 'color'),]
 
         product = models.ForeignKey(to=Product, verbose_name=_('product'), related_name='prices')
         color = models.ForeignKey(to=Color, verbose_name=_('color'), related_name='prices', blank=True, null=True)
         size = models.ForeignKey(to=Size, verbose_name=_('size'), related_name='prices', blank=True, null=True)
         enabled = models.BooleanField(default=True, verbose_name=_('enabled'))
         remainder = models.PositiveIntegerField(verbose_name=_('remainder'), default=0)
-        value = models.PositiveIntegerField(verbose_name=_('price'))
+        specific_value = models.PositiveIntegerField(verbose_name=_('specific price'), blank=True, null=True)
         added_to_cart_times = models.PositiveIntegerField(verbose_name=_('added to cart times'), default=0)
         ordered_times = models.PositiveIntegerField(verbose_name=_('ordered times'), default=0)
         note = models.CharField(max_length=255, verbose_name=_('note'), blank=True, null=True)
         created = models.DateTimeField(auto_now_add = True, verbose_name = _('created'))
         modified = models.DateTimeField(auto_now = True, verbose_name = _('modified'))
 
+        @property
+        def value(self):
+            if self.specific_value:
+                return self.specific_value
+            else:
+                return self.product.base_price
+
         @classmethod
         def get_minimal_enabled_price_for_product(cls, product):
             """
             Returns minimal enabled price value on set of prices related to provided product
             """
-            min_value = product.prices.filter(enabled=True).aggregate(Min('value'))['value__min']
-            if min_value:
-                return product.prices.filter(enabled=True, value=min_value)[0]
-            return None
+            min_value = product.prices.filter(enabled=True).aggregate(Min('specific_value'))['specific_value__min']
+            if min_value and min_value < product.base_price:
+                return product.prices.filter(enabled=True, specific_value=min_value)[0]
+            return {'value': product.base_price}
 
         def __unicode__(self):
             if self.color and self.size:
