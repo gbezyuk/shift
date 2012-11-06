@@ -1,7 +1,7 @@
 - load i18n
 %ul.products.thumbnails{'style': "margin-left: -22px;"}
     - for product in products
-        %li.thumbnail.position-thumbnail{'style': "margin-left: 20px; min-width: 296px; min-height: 260px"}
+        %li.thumbnail.position-thumbnail{'style': "margin-left: 17px; min-width: 296px; min-height: 260px"}
             %a{'href': '{{ product.get_absolute_url }}'}
                 .version.version300x186
                     - with image=product.main_image no_link=1 thumbnail_version="300x186"
