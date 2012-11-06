@@ -47,7 +47,7 @@ def make_order(request, template_name='doppler/shift/checkout/make_order.haml'):
         if form.is_valid():
             order = form.save()
             messages.success(request, OrderForm.success_message)
-            return redirect_to(request, order.get_absolute_url())
+            return redirect_to(request, order.get_payment_url())
     except ProductNotAvailableError, e:
         messages.error(request, _('Execuse us, %(requested)d is too much for %(product)s, only %(available)d available')
             % {'requested': e.requested_quantity, 'product': e.product, 'available': e.maximal_available_quantity})
@@ -70,4 +70,14 @@ def order(request, order_id, template_name='doppler/shift/checkout/order.haml'):
     Order details view
     """
     order = get_object_or_404(Order, user=request.user, pk=order_id)
-    return render_to_response(template_name, {'order': order }, context_instance=RequestContext(request))
+    if not order.is_paid:
+        from robokassa.forms import RobokassaForm
+        form = RobokassaForm(initial={
+           'OutSum': order.total_price,
+           'InvId': order.id,
+           'Desc': order.customer_name + ' ' + str(order.created),
+           'Email': request.user.email,
+           # 'IncCurrLabel': '',
+           # 'Culture': 'ru'
+        })
+    return render_to_response(template_name, locals(), context_instance=RequestContext(request))

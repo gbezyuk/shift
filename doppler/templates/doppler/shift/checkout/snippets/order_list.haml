@@ -11,6 +11,8 @@
             %th
                 {% trans "Status" %}
             %th
+                {% trans "Is Paid" %}
+            %th
                 {% trans "Created" %}
             %th
                 {% trans "Modified" %}
@@ -29,6 +31,8 @@
                         = order.total_price
                     %th.status{:class => '{{ order.status }}'}
                         = order.status
+                    %th.status{:class => '{% if order.is_paid %}paid{% else %}not_paid{% endif %}'}
+                        {% if order.is_paid %}paid{% else %}not paid{% endif %}
                     %th
                         = order.created
                     %th

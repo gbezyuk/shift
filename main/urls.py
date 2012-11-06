@@ -20,6 +20,8 @@ urlpatterns = patterns('',
     url(r'^$', home, name='home'),
     url(r'^', include('doppler.shift.urls')),
     url(r'^googleca70414f1dff2fd9.html$', google_site_verification),
+
+    url(r'^robokassa/', include('robokassa.urls')),
 )
 
 if settings.DEBUG:

@@ -28,6 +28,9 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add = True, verbose_name = _('created'))
     modified = models.DateTimeField(auto_now = True, verbose_name = _('modified'))
 
+    is_paid = models.BooleanField(default=False, verbose_name = _('is paid'))
+    paid_sum = models.PositiveIntegerField(verbose_name=_('paid sum'), default=0)
+
     STATUS = Choices(
         ('new', _('new')),
         ('processing', _('processing')),
@@ -62,6 +65,10 @@ class Order(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return 'doppler_shift_order', (), {'order_id': self.pk}
+
+    @models.permalink
+    def get_payment_url(self):
+        return 'doppler_shift_order_pay_with_robokassa', (), {'order_id': self.pk}
 
     #TODO: save method override for remainder updates basing on status change; and also status change notifications
     def save(self, *args, **kwargs):
@@ -101,3 +108,14 @@ class OrderItem(models.Model):
     def save(self, **kwargs):
         super(OrderItem, self).save(**kwargs)
         self.order.save() # updating parent order entity modified timestamp
+
+
+from robokassa.signals import result_received
+
+def payment_received(sender, **kwargs):
+    order = Order.objects.get(id=kwargs['InvId'])
+    order.is_paid = True
+    order.paid_sum = kwargs['OutSum']
+    order.save()
+
+result_received.connect(payment_received)

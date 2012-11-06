@@ -10,4 +10,8 @@
             = order
 
 - block doppler_content
+    - if not order.is_paid
+       - include 'doppler/shift/checkout/pay_with_robokassa.html'
+    - else
+        {% trans "Order is already paid" %}
     - include 'doppler/shift/checkout/snippets/order_details.haml'
