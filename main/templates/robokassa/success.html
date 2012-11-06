@@ -1,4 +1,10 @@
 {% extends 'base.haml' %}
 {% block content %}
-robokassa/success.html
+Ваш платёж прошёл успешно
+<form action="{{ form.target }}" method="POST">
+    <p>{{ form.as_p }}</p>
+    <p><input type="submit"></p>
+</form>
+{{ InvId }}
+{{ OutSum }}
 {% endblock %}
