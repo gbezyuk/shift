@@ -66,10 +66,6 @@ class Order(models.Model):
     def get_absolute_url(self):
         return 'doppler_shift_order', (), {'order_id': self.pk}
 
-    @models.permalink
-    def get_payment_url(self):
-        return 'doppler_shift_order_pay_with_robokassa', (), {'order_id': self.pk}
-
     #TODO: save method override for remainder updates basing on status change; and also status change notifications
     def save(self, *args, **kwargs):
         if not self.id:
