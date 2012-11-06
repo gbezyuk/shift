@@ -1,10 +1,12 @@
 {% extends 'base.haml' %}
 {% block content %}
 Ваш платёж прошёл успешно
-{# <form action="{{ form.target }}" method="POST">
+{% comment %}
+<form action="{{ form.\target }}" method="POST">
     <p>{{ form.as_p }}</p>
     <p><input type="submit"></p>
-</form> #}
+</form>
+{% endcomment %}
 ID заказа: {{ InvId }}
 <br/>
 Сумма платежа: {{ OutSum }}

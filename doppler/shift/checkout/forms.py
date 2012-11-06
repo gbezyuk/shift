@@ -105,7 +105,7 @@ class OrderForm(forms.ModelForm):
     """
     class Meta:
         model = Order
-        exclude = ['user', 'ip_address', 'status']
+        exclude = ['user', 'ip_address', 'status', 'is_paid', 'paid_sum']
 
     def __init__(self, request, **kwargs):
         super(OrderForm, self).__init__(**kwargs)

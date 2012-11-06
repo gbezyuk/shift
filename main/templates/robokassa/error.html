@@ -1,10 +1,12 @@
 {% extends 'base.haml' %}
 {% block content %}
 При обработке вашего платежа произошла ошибка
-{# <form action="{{ form.target }}" method="POST">
+{% comment %}
+<form action="{{ form.target }}" method="POST">
     <p>{{ form.as_p }}</p>
     <p><input type="submit"></p>
 </form>
 {{ InvId }}
-{{ OutSum }} #}
+{{ OutSum }}
+{% endcomment %}
 {% endblock %}
