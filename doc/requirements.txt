@@ -32,3 +32,4 @@ querystring-parser
 pytils
 django_flatblocks
 django-crowd
+django-robokassa
