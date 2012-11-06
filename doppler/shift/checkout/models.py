@@ -67,20 +67,20 @@ class Order(models.Model):
         return 'doppler_shift_order', (), {'order_id': self.pk}
 
     #TODO: save method override for remainder updates basing on status change; and also status change notifications
-    def save(self, *args, **kwargs):
-        if not self.id:
-            super(Order, self).save(*args, **kwargs)
-            order_created.send(sender=self, order=self)
-        else:
-            try:
-                existed_order = Order.objects.get(id=self.id)
-                existed_order_status = existed_order.status
-                if existed_order_status != self.status:
-                    super(Order, self).save(*args, **kwargs)
-                    order_state_changed.send(sender=self, order=self)
-            except Order.DoesNotExist:
-                super(Order, self).save(*args, **kwargs)
-                order_created.send(sender=self, order=self)
+    # def save(self, *args, **kwargs):
+    #     if not self.id:
+    #         super(Order, self).save(*args, **kwargs)
+    #         order_created.send(sender=self, order=self)
+    #     else:
+    #         try:
+    #             existed_order = Order.objects.get(id=self.id)
+    #             existed_order_status = existed_order.status
+    #             if existed_order_status != self.status:
+    #                 super(Order, self).save(*args, **kwargs)
+    #                 order_state_changed.send(sender=self, order=self)
+    #         except Order.DoesNotExist:
+    #             super(Order, self).save(*args, **kwargs)
+    #             order_created.send(sender=self, order=self)
 
 class OrderItem(models.Model):
     class Meta:
