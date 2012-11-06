@@ -18,7 +18,7 @@
 
 -#- block doppler_content
 - block catalog_tree
-    .product_container
+    .product_container{'style': 'position: relative;'}
         .main_information
             .images
                 .main_image
@@ -69,7 +69,8 @@
                                 {% trans "Last updated" %}
                                 = product.remainder_update_time
                         - else
-                            {% trans "Not available now" %}
+                            {% trans "<a href='mailto:zakaz@westernunit.ru'>Not in stock,<br/>available on request</a>" %}
+                            / {% trans "Not available now" %}
                             - if product.reserved
                                 = product.reserved
                                 {% trans "reserved" %}

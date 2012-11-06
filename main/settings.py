@@ -151,39 +151,57 @@ GRAPPELLI_ADMIN_TITLE = _("WesternUnit.Ru Shop Administration")
 FILEBROWSER_DIRECTORY = 'uploads/'
 FILEBROWSER_VERSIONS_BASEDIR = 'uploads_versions/'
 FILEBROWSER_VERSIONS = {
-	'40x40': {
-		'verbose_name':     u'40x40',
-		'width':            40,
-		'height':           40,
-		'opts':             'crop',
-	},
-	'80x80': {
-		'verbose_name':     u'80x80',
-		'width':            80,
-		'height':           80,
-		'opts':             'crop',
-	},
-	'200x200': {
-		'verbose_name':     u'200x200',
-		'width':            200,
-		'height':           200,
-		'opts':             'crop',
-	},
+    '40x40': {
+        'verbose_name':     u'40x40',
+        'width':            40,
+        'height':           40,
+        'opts':             'crop',
+    },
+    '80x80': {
+        'verbose_name':     u'80x80',
+        'width':            80,
+        'height':           80,
+        'opts':             'crop',
+    },
+    '200x200': {
+        'verbose_name':     u'200x200',
+        'width':            200,
+        'height':           200,
+        'opts':             'crop',
+    },
     '300x300': {
         'verbose_name':     u'300x300',
         'width':            300,
         'height':           300,
         'opts':             '',
         },
-	'800x800': {
-		'verbose_name':     u'800x800',
-		'width':            800,
-		'height':           800,
-		'opts':             '',
-	},
+    '800x800': {
+        'verbose_name':     u'800x800',
+        'width':            800,
+        'height':           800,
+        'opts':             '',
+    },
+    '420x260': {
+        'verbose_name':     u'420x260',
+        'width':            420,
+        'height':           260,
+        'opts':             '',
+        },
+    '300x186': {
+        'verbose_name':     u'300x186',
+        'width':            300,
+        'height':           186,
+        'opts':             '',
+        },
+    '150x93': {
+        'verbose_name':     u'150x93',
+        'width':            150,
+        'height':           93,
+        'opts':             '',
+        },
 }
-FILEBROWSER_ADMIN_VERSIONS = ['40x40', '80x80', '200x200', '800x800',]
-FILEBROWSER_ADMIN_THUMBNAIL = '80x80'
+FILEBROWSER_ADMIN_VERSIONS = ['40x40', '80x80', '150x93', '300x186', '420x260', '200x200', '800x800',]
+FILEBROWSER_ADMIN_THUMBNAIL = '150x93'
 FILEBROWSER_STRICT_PIL = True
 FILEBROWSER_SEARCH_TRAVERSE = True
 FILEBROWSER_DEFAULT_PERMISSIONS = 0755

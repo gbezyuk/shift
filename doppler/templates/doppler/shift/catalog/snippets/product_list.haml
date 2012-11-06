@@ -1,12 +1,12 @@
 - load i18n
-%ul.products.thumbnails
+%ul.products.thumbnails{'style': "margin-left: -22px;"}
     - for product in products
-        %li.thumbnail.position-thumbnail
+        %li.thumbnail.position-thumbnail{'style': "margin-left: 20px;"}
             %a{'href': '{{ product.get_absolute_url }}'}
-                .version.version200x200
-                    - with image=product.main_image no_link=1 thumbnail_version="200x200"
+                .version.version300x186
+                    - with image=product.main_image no_link=1 thumbnail_version="300x186"
                         - include 'doppler/shift/catalog/snippets/image.haml'
-                %h3
+                %h3{'style': 'max-width: 292px;'}
                     = product.name
                 .pull-right
                     - if product.price
@@ -16,7 +16,7 @@
                             %em
                                 = product.remainder
                         - else
-                            {% trans "N/A" %}
+                            {% trans "<a href='mailto:zakaz@westernunit.ru'>On request</a>" %}
                     - else
                         %em
-                            {% trans "N/A" %}
+                            {% trans "<a href='mailto:zakaz@westernunit.ru'>On request</a>" %}
