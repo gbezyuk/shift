@@ -7,7 +7,7 @@ Part: Django-admin configuration
 import os
 from django.contrib.contenttypes import generic
 from django.utils.translation import ugettext_lazy as _, ugettext as __
-from .models import Product, Category, Image, MULTIPLE_PRICES, MULTIPLE_CATEGORIES
+from .models import *
 from modeltranslation.admin import TranslationAdmin
 from doppler.base.admin import TinyMCEAdmin
 from feincms.admin import tree_editor
@@ -16,10 +16,7 @@ from django.conf import settings
 from filebrowser.base import FileObject
 from rollyourown.seo.admin import get_inline
 from main.seo import MyMetadata
-if MULTIPLE_PRICES:
-    from .models import Price, Color, Size
-    admin.site.register(Color)
-    admin.site.register(Size)
+admin.site.register(Size)
 
 def get_image_thumbnail_html(image):
     if image:
@@ -42,10 +39,8 @@ def get_object_thumbnails_html(obj):
         return '<ul style="margin: 0; padding: 0; overflow: hidden; min-width: 168px; max-width: 336px;">' + ''.join(html_bits) + '</ul>'
     return _('no images')
 
-if MULTIPLE_PRICES:
-    class PriceTabularInline(admin.TabularInline):
-        model = Price
-        readonly_fields = ['added_to_cart_times', 'ordered_times',]
+class ShipmentTabularInline(admin.TabularInline):
+    model = Shipment
 
 class ImageTabularInline(generic.GenericTabularInline):
     model = Image
@@ -79,27 +74,23 @@ class ProductAdmin(TinyMCEAdmin, TranslationAdmin):
     other_images.allow_tags = True
     other_images.short_description= _('other images')
 
-    if MULTIPLE_CATEGORIES:
-        list_display = ('lot', 'name', 'main_image', 'other_images', 'html_description', 'enabled', 'base_price', )
-
-    if MULTIPLE_PRICES:
-        list_display = ('lot', 'name', 'main_image', 'other_images', 'html_description', 'enabled',
-                        'base_price','category', )
-        def price(self, object):
-            return object.price
-        price.short_description= _('price')
-        def other_prices(self, object):
-            prices = object.prices.all()
-            if not prices:
-                return _('not set')
-            html_chunk = '<ul>'
-            for price in prices:
-                html_chunk += '<li>%d %s %s</li>' % (price.value, __('on') if price.enabled else __('off'), price.note)
-            html_chunk += '</ul>'
-            return html_chunk
-        other_prices.short_description= _('other prices')
-        other_prices.allow_tags = True
-        inlines = [PriceTabularInline, ImageTabularInline, get_inline(MyMetadata)]
+    list_display = ('lot', 'name', 'main_image', 'other_images', 'html_description', 'enabled',
+                    'base_price','category', )
+    def price(self, object):
+        return object.price
+    price.short_description= _('price')
+    def other_prices(self, object):
+        prices = object.prices.all()
+        if not prices:
+            return _('not set')
+        html_chunk = '<ul>'
+        for price in prices:
+            html_chunk += '<li>%d %s %s</li>' % (price.value, __('on') if price.enabled else __('off'), price.note)
+        html_chunk += '</ul>'
+        return html_chunk
+    other_prices.short_description= _('other prices')
+    other_prices.allow_tags = True
+    inlines = [ShipmentTabularInline, ImageTabularInline, get_inline(MyMetadata)]
 
 class CategoryAdmin(tree_editor.TreeEditor, TinyMCEAdmin, TranslationAdmin):
     list_display = ('__unicode__', 'enabled_toggle', 'main_image', 'other_images', 'html_description')

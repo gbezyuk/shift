@@ -6,7 +6,7 @@ Part: Model factories for tests
 """
 import factory
 from django.contrib.auth.models import User
-from doppler.shift.catalog.tests.factories import ProductFactory, PriceFactory
+from doppler.shift.catalog.tests.factories import ProductFactory, ShipmentFactory
 
 class UserFactory(factory.Factory):
     """

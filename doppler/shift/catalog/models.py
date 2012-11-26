@@ -7,7 +7,7 @@ Part: Models implementation
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from django.db.models.aggregates import Min
+from django.db.models.aggregates import Min, Max
 from django.utils.translation import ugettext_lazy as _
 from mptt.models import MPTTModel
 from .managers import EnabledTreeManager, EnabledRootManager
@@ -15,15 +15,6 @@ from django.conf import settings
 from filebrowser.fields import FileBrowseField
 from django.forms import ValidationError
 from pytils.translit import slugify
-
-try:
-    MULTIPLE_CATEGORIES = settings.DOPPLER_SHIFT_CATALOG_PRODUCT_MULTIPLE_CATEGORIES
-except AttributeError:
-    MULTIPLE_CATEGORIES = False
-try:
-    MULTIPLE_PRICES = settings.DOPPLER_SHIFT_CATALOG_PRODUCT_MULTIPLE_PRICES
-except AttributeError:
-    MULTIPLE_PRICES = False
 
 class Image(models.Model):
     title = models.CharField(max_length=500, unique=False, blank=True, null=True, verbose_name=_('title'))
@@ -139,6 +130,7 @@ class Product(models.Model):
         ordering = ['name']
 
     name = models.CharField(max_length=255, verbose_name=_('name'))
+    category = models.ForeignKey(to=Category, blank=True, null=True, verbose_name=_('category'), related_name='products')
     description = models.TextField(null=True, blank=True, verbose_name=_('description'))
     base_price = models.PositiveIntegerField(verbose_name=_('price'))
     enabled = models.BooleanField(default=True, verbose_name=_('enabled'))
@@ -150,71 +142,38 @@ class Product(models.Model):
     @property
     def enabled_images(self):
         return self.images.filter(enabled=True)
+
     @property
     def main_image(self):
         return Image.get_main_image_for_object(self)
     created = models.DateTimeField(auto_now_add = True, verbose_name = _('created'))
     modified = models.DateTimeField(auto_now = True, verbose_name = _('modified'))
 
-    # categorization may differ depending on current store
-    if MULTIPLE_CATEGORIES:
-        categories = models.ManyToManyField(to=Category, blank=True, null=True,
-            verbose_name=_('categories'), related_name='products')
-    else:
-        category = models.ForeignKey(to=Category, blank=True, null=True,
-            verbose_name=_('category'), related_name='products')
+    @property
+    def is_inside_disabled_parent(self):
+        if not self.category:
+            return False
+        return (not self.category.enabled) or self.category.is_inside_disabled_parent
 
-        @property
-        def is_inside_disabled_parent(self):
-            if not self.category:
-                return False
-            return (not self.category.enabled) or self.category.is_inside_disabled_parent
-
-    # pricing strategy may differ depending on current store
-    if MULTIPLE_PRICES:
-        def get_minimal_enabled_price(self):
-            return Price.get_minimal_enabled_price_for_product(self)
-        @property
-        def price(self):
+    @property
+    def price(self):
+        min_value = self.shipments_available.aggregate(Min('special_price'))['special_price__min']
+        if min_value and min_value < self.base_price:
+            return min_value
+        else:
             return self.base_price
-            price_obj = self.get_minimal_enabled_price()
-            return price_obj.value if price_obj else None
-        @property
-        def remainder(self):
-#            price_obj = self.get_minimal_enabled_price()
-#            return price_obj.remainder if price_obj else None
-            return sum(self.prices.filter(remainder__gt=0).values_list('remainder', flat=True))
-        @property
-        def remainder_update_time(self):
-            price_obj = self.get_minimal_enabled_price()
-            return price_obj.modified if price_obj else None
 
-        @property
-        def colors_available(self):
-            return Color.objects.filter(prices__product = self, prices__remainder__gt=0)
+    @property
+    def shipments_available(self):
+        return self.shipments.filter(enabled=True, remainder__gt=0)
 
-        @property
-        def sizes_available(self):
-            return Size.objects.filter(prices__product = self, prices__remainder__gt=0)
+    @property
+    def remainder(self):
+        return sum(self.shipments_available.values_list('remainder', flat=True))
 
-        @property
-        def sizes_and_colors_available(self):
-            return self.prices.filter(remainder__gt=0).values_list('size__title', 'color__title', 'remainder')
-
-        @property
-        def shipments_available(self):
-            return self.prices.filter(remainder__gt=0)
-
-        @property
-        def has_colors_or_sizes_specified(self):
-            return self.prices.filter(remainder__gt=0, size__isnull=False, color__isnull=False).exists()
-
-    else:
-        price = models.PositiveIntegerField(verbose_name=_('price'), default=0)
-        remainder = models.PositiveIntegerField(verbose_name=_('remainder'), default=0)
-        @property
-        def remainder_update_time(self):
-            return self.modified
+    @property
+    def remainder_update_time(self):
+        return self.shipments_available.aggregate(Max('modified'))['modified__max']
 
     def you_might_be_interested_enabled_products(self):
         return self.you_might_be_interested.filter(enabled=True)
@@ -230,97 +189,55 @@ class Product(models.Model):
             self.slug = slugify(self.name)
         return super(Product, self).save(*args, **kwargs)
 
-#    @models.permalink
     def get_absolute_url(self):
-#        return 'doppler_shift_catalog_product', (), {'product_id': self.pk}
         return '/%s/' % self.slug
 
-# pricing strategy may differ depending on current store
-if MULTIPLE_PRICES:
+class Size(models.Model):
+    class Meta:
+        verbose_name = _('size')
+        verbose_name_plural = _('size')
+        ordering = ['title']
+    title = models.CharField(max_length=100, unique=False, blank=True, null=True, verbose_name=_('title'))
 
-    class Color(models.Model):
-        class Meta:
-            verbose_name = _('color')
-            verbose_name_plural = _('color')
-            ordering = ['title']
-        title = models.CharField(max_length=100, unique=True, blank=True, null=True, verbose_name=_('title'), default='black')
-        code = models.CharField(max_length=100, unique=False, blank=True, null=True, verbose_name=_('code'), default='#000')
+    def __unicode__(self):
+        return self.title
 
-        @property
-        def inverted_code(self):
-            if self.code:
-                import string
-                table = string.maketrans('0123456789abcdef', 'fedcba9876543210').decode("latin-1")
-                return self.code.lower().translate(table)
-            else:
-                return '#000'
+class Shipment(models.Model):
+    """
+    A Shipment model for advanced pricing strategy
+    """
+    class Meta:
+        verbose_name = _('shipment')
+        verbose_name_plural = _('shipments')
+        ordering = ['product', 'enabled', 'special_price']
+        unique_together = [('product', 'special_price', 'size'),]
 
-        def __unicode__(self):
-            return self.title
+    product = models.ForeignKey(to=Product, verbose_name=_('product'), related_name='shipments')
+    size = models.ForeignKey(to=Size, verbose_name=_('size'), related_name='shipments')
+    enabled = models.BooleanField(default=True, verbose_name=_('enabled'))
+    remainder = models.PositiveIntegerField(verbose_name=_('remainder'), default=0)
+    special_price = models.PositiveIntegerField(verbose_name=_('special price'), blank=True, null=True)
+    created = models.DateTimeField(auto_now_add = True, verbose_name = _('created'))
+    modified = models.DateTimeField(auto_now = True, verbose_name = _('modified'))
 
-    class Size(models.Model):
-        class Meta:
-            verbose_name = _('size')
-            verbose_name_plural = _('size')
-            ordering = ['title']
-        title = models.CharField(max_length=100, unique=False, blank=True, null=True, verbose_name=_('title'))
+    @property
+    def value(self):
+        if self.special_price:
+            return self.special_price
+        else:
+            return self.product.base_price
 
-        def __unicode__(self):
-            return self.title
+    def __unicode__(self):
+        if self.special_price:
+            return _("%(size)s - %(special_price)d roubles [in_stock: %(remainder)s]") % \
+                   {'size': self.size.title, 'special_price': self.special_price, 'remainder': self.remainder}
+        else:
+            return _("%(size)s [in_stock: %(remainder)s]") % {'size': self.size.title, 'remainder': self.remainder}
 
-    class Price(models.Model):
-        """
-        A Shipment model for advanced pricing strategy
-        """
-        class Meta:
-            verbose_name = _('shipment')
-            verbose_name_plural = _('shipments')
-            ordering = ['product', 'enabled', 'specific_value']
-            unique_together = [('product', 'specific_value', 'size', 'color'),]
-
-        product = models.ForeignKey(to=Product, verbose_name=_('product'), related_name='prices')
-        color = models.ForeignKey(to=Color, verbose_name=_('color'), related_name='prices', blank=True, null=True)
-        size = models.ForeignKey(to=Size, verbose_name=_('size'), related_name='prices', blank=True, null=True)
-        enabled = models.BooleanField(default=True, verbose_name=_('enabled'))
-        remainder = models.PositiveIntegerField(verbose_name=_('remainder'), default=0)
-        specific_value = models.PositiveIntegerField(verbose_name=_('specific price'), blank=True, null=True)
-        added_to_cart_times = models.PositiveIntegerField(verbose_name=_('added to cart times'), default=0)
-        ordered_times = models.PositiveIntegerField(verbose_name=_('ordered times'), default=0)
-        note = models.CharField(max_length=255, verbose_name=_('note'), blank=True, null=True)
-        created = models.DateTimeField(auto_now_add = True, verbose_name = _('created'))
-        modified = models.DateTimeField(auto_now = True, verbose_name = _('modified'))
-
-        @property
-        def value(self):
-            if self.specific_value:
-                return self.specific_value
-            else:
-                return self.product.base_price
-
-        @classmethod
-        def get_minimal_enabled_price_for_product(cls, product):
-            """
-            Returns minimal enabled price value on set of prices related to provided product
-            """
-            min_value = product.prices.filter(enabled=True).aggregate(Min('specific_value'))['specific_value__min']
-            if min_value and min_value < product.base_price:
-                return product.prices.filter(enabled=True, specific_value=min_value)[0]
-            return {'value': product.base_price}
-
-        def __unicode__(self):
-            if self.color and self.size:
-                return _("%(color)s, %(size)s - %(value)d roubles") % {'color': self.color.title, 'size': self.size.title, 'value': self.value}
-            elif self.color:
-                return _("%(color)s - %(value)d roubles") % {'color': self.color.title, 'value': self.value}
-            elif self.size:
-                return _("%(size)s - %(value)d roubles") % {'size': self.size.title, 'value': self.value}
-            else:
-                return _("%(value)d roubles") % {'value': self.value}
-
-        def decrease_remainer(self, quantity):
-            assert quantity <= self.remainder
-            self.remainder -= quantity
-            self.save()
+    def decrease_remainder(self, quantity):
+        assert quantity <= self.remainder
+        self.remainder -= quantity
+        self.save()
 
 class ProductNotAvailableError(ValidationError):
     """

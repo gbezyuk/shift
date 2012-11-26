@@ -25,6 +25,9 @@
     %script{'type': 'text/javascript', 'src': '{{ MEDIA_URL }}js/global.js'}
     %script{'type': 'text/javascript', 'src': '{{ MEDIA_URL }}js/layout.js'}
 
+- block page_scripts
+    %script{'type': 'text/javascript', 'src': '{{ MEDIA_URL }}js/add_to_cart_form.js'}
+
 - block body
     - block navbar
         .navbar.navbar-fixed-top

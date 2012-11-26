@@ -7,7 +7,7 @@ Part: Model-related Tests
 from django.db.utils import IntegrityError
 from django.test import TestCase
 from .factories import CategoryFactory, ProductFactory, ImageFactory, ColorFactory, SizeFactory
-from ..models import Category, Image, MULTIPLE_PRICES
+from ..models import Category, Image
 
 class CategoryTestCase(TestCase):
     """
@@ -121,71 +121,70 @@ class ImagesTestCase(TestCase):
         self.assert_(self.sample_product.main_image)
         self.assert_(Image.get_main_image_for_object(self.sample_product))
 
-if MULTIPLE_PRICES:
-    from .factories import PriceFactory
-    
-    class AdvancedPricingStrategyTestCase(TestCase):
-        """
-        Advanced pricing strategy test case
-        """
-        def setUp(self):
-            """
-            Initialization with a factory-provided set of models
-            """
-            self.sample_product = ProductFactory()
+from .factories import ShipmentFactory
 
-        def test_product_price_values_unique(self):
-            """
-            Make sure IntegrityError is thrown where necessary on unique_together constraint
-            """
-            c = ColorFactory()
-            s = SizeFactory()
-            PriceFactory(product=self.sample_product, value=1)
-            PriceFactory(product=self.sample_product, value=1, color=c)
-            PriceFactory(product=self.sample_product, value=1, color=c, size=s)
-            self.assertRaises(IntegrityError, PriceFactory, product=self.sample_product, value=1, color=c, size=s)
+class AdvancedPricingStrategyTestCase(TestCase):
+    """
+    Advanced pricing strategy test case
+    """
+    def setUp(self):
+        """
+        Initialization with a factory-provided set of models
+        """
+        self.sample_product = ProductFactory()
 
-        def test_product_with_no_prices(self):
-            """
-            Product with no prices should return None as price
-            """
-            self.assertEqual(self.sample_product.price, None)
-    
-        def test_product_with_single_disabled_price(self):
-            """
-            Product with single disabled price should return None as price
-            """
-            PriceFactory(product=self.sample_product, enabled=False)
-            self.assertEqual(self.sample_product.price, None)
-    
-        def test_product_with_many_disabled_prices(self):
-            """
-            Product with many disabled prices should return None as price
-            """
-            PriceFactory(product=self.sample_product, enabled=False, value=1)
-            PriceFactory(product=self.sample_product, enabled=False, value=2)
-            self.assertEqual(self.sample_product.price, None)
-    
-        def test_product_with_single_enabled_price(self):
-            """
-            Product with single enabled price should return that price's value as product price
-            """
-            price = PriceFactory(product=self.sample_product, enabled=True)
-            self.assertEqual(self.sample_product.price, price.value)
-    
-        def test_product_with_many_enabled_prices(self):
-            """
-            Product with many enabled prices should return minimal price value as product price
-            """
-            min_price = PriceFactory(product=self.sample_product, enabled=True, value=100)
-            PriceFactory(product=self.sample_product, enabled=True, value=1000)
-            self.assertEqual(self.sample_product.price, min_price.value)
-    
-        def test_product_with_mixed_prices(self):
-            """
-            Product should return minimal enabled price value as product price
-            """
-            PriceFactory(product=self.sample_product, enabled=False, value=100)
-            min_price = PriceFactory(product=self.sample_product, enabled=True, value=300)
-            PriceFactory(product=self.sample_product, enabled=True, value=1000)
-            self.assertEqual(self.sample_product.price, min_price.value)
+    def test_product_price_values_unique(self):
+        """
+        Make sure IntegrityError is thrown where necessary on unique_together constraint
+        """
+        c = ColorFactory()
+        s = SizeFactory()
+        ShipmentFactory(product=self.sample_product, value=1)
+        ShipmentFactory(product=self.sample_product, value=1, color=c)
+        ShipmentFactory(product=self.sample_product, value=1, color=c, size=s)
+        self.assertRaises(IntegrityError, ShipmentFactory, product=self.sample_product, value=1, color=c, size=s)
+
+    def test_product_with_no_prices(self):
+        """
+        Product with no prices should return None as price
+        """
+        self.assertEqual(self.sample_product.price, None)
+
+    def test_product_with_single_disabled_price(self):
+        """
+        Product with single disabled price should return None as price
+        """
+        ShipmentFactory(product=self.sample_product, enabled=False)
+        self.assertEqual(self.sample_product.price, None)
+
+    def test_product_with_many_disabled_prices(self):
+        """
+        Product with many disabled prices should return None as price
+        """
+        ShipmentFactory(product=self.sample_product, enabled=False, value=1)
+        ShipmentFactory(product=self.sample_product, enabled=False, value=2)
+        self.assertEqual(self.sample_product.price, None)
+
+    def test_product_with_single_enabled_price(self):
+        """
+        Product with single enabled price should return that price's value as product price
+        """
+        price = ShipmentFactory(product=self.sample_product, enabled=True)
+        self.assertEqual(self.sample_product.price, price.value)
+
+    def test_product_with_many_enabled_prices(self):
+        """
+        Product with many enabled prices should return minimal price value as product price
+        """
+        min_price = ShipmentFactory(product=self.sample_product, enabled=True, value=100)
+        ShipmentFactory(product=self.sample_product, enabled=True, value=1000)
+        self.assertEqual(self.sample_product.price, min_price.value)
+
+    def test_product_with_mixed_prices(self):
+        """
+        Product should return minimal enabled price value as product price
+        """
+        ShipmentFactory(product=self.sample_product, enabled=False, value=100)
+        min_price = ShipmentFactory(product=self.sample_product, enabled=True, value=300)
+        ShipmentFactory(product=self.sample_product, enabled=True, value=1000)
+        self.assertEqual(self.sample_product.price, min_price.value)

@@ -211,9 +211,6 @@ DEFAULT_AVATAR_URL = MEDIA_URL + 'img/default-avatar.gif'
 AVATAR_STORAGE_PATH_REL = FILEBROWSER_DIRECTORY + 'avatars/'
 AVATAR_STORAGE_PATH = MEDIA_ROOT + AVATAR_STORAGE_PATH_REL
 
-DOPPLER_SHIFT_CATALOG_PRODUCT_MULTIPLE_PRICES = True
-DOPPLER_SHIFT_CATALOG_PRODUCT_MULTIPLE_CATEGORIES = False
-
 COMPRESS_URL = '/'
 COMPRESS_ROOT = PROJECT_ROOT_PATH
 COMPRESS_ENABLED = True
@@ -225,7 +222,7 @@ COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'sass --scss {infile} {outfile}'),
     )
 
-CART_MODEL = 'doppler.shift.catalog.models.Price'
+CART_MODEL = 'doppler.shift.catalog.models.Shipment'
 
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.twitter.TwitterBackend',

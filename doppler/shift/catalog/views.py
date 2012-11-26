@@ -15,7 +15,8 @@ from django.contrib import messages
 from django.template.context import RequestContext
 from django.utils.translation import ugettext_lazy as _
 from .models import Category, Product
-from ..checkout.forms import AddProductToCartForm, AdvancedAddProductToCartForm
+from ..checkout.forms import AddProductToCartForm
+
 
 def index(request, template_name='doppler/shift/catalog/index.haml'):
     """
@@ -24,42 +25,9 @@ def index(request, template_name='doppler/shift/catalog/index.haml'):
     return render_to_response(
         template_name,
         {'root_categories': Category.enabled_root.all()},
-        context_instance=RequestContext(request))
-#
-#def category(request, category_id, template_name='doppler/shift/catalog/category.haml'):
-#    """
-#    Catalog category details page view. Contains category details and its subcategories and products.
-#    """
-#    category = get_object_or_404(Category, pk=category_id, enabled=True)
-#    products = category.enabled_products
-#    subcategories = category.children.filter(enabled=True)
-#    return render_to_response(
-#        template_name,
-#        {
-#            'category': category,
-#            'products': products,
-#            'subcategories': subcategories,
-#        },
-#        context_instance=RequestContext(request))
-#
-#def product(request, product_id, template_name='doppler/shift/catalog/product.haml'):
-#    """
-#    Catalog product details page view. Contains product details
-#    """
-#    product = get_object_or_404(Product, pk=product_id, category__isnull=False, category__enabled=True, enabled=True)
-#    category = product.category
-#    form = AddProductToCartForm(data=request.POST or None, shipment=product.get_minimal_enabled_price())
-#    if form.is_valid():
-#        form.save(request)
-#        messages.success(request, AddProductToCartForm.success_message)
-#    return render_to_response(
-#        template_name,
-#            {
-#            'category': category,
-#            'product': product,
-#            'form': form,
-#            },
-#        context_instance=RequestContext(request))
+        context_instance=RequestContext(request)
+    )
+
 
 def product_fallback(request, url):
     if not url.startswith('/'):
@@ -75,6 +43,7 @@ def product_fallback(request, url):
         raise Http404
     return render_product(request, product)
 
+
 def category_fallback(request, url):
     if not url.startswith('/'):
         url = '/' + url
@@ -89,18 +58,21 @@ def category_fallback(request, url):
         raise Http404
     return render_category(request, category)
 
+
 @csrf_protect
 def render_category(request, category, template_name='doppler/shift/catalog/category.haml'):
     products = category.enabled_products
     subcategories = category.children.filter(enabled=True)
     return render_to_response(
         template_name,
-            {
-            'category': category,
-            'products': products,
-            'subcategories': subcategories,
-            },
-        context_instance=RequestContext(request))
+        {
+        'category': category,
+        'products': products,
+        'subcategories': subcategories,
+        },
+        context_instance=RequestContext(request)
+    )
+
 
 @csrf_protect
 def render_product(request, product, template_name='doppler/shift/catalog/product.haml'):
@@ -108,18 +80,16 @@ def render_product(request, product, template_name='doppler/shift/catalog/produc
     Catalog product details page view. Contains product details
     """
     category = product.category
-    if product.has_colors_or_sizes_specified:
-        form = AdvancedAddProductToCartForm(data=request.POST or None, product=product)
-    else:
-        form = AddProductToCartForm(data=request.POST or None, shipment=product.get_minimal_enabled_price())
+    form = AddProductToCartForm( data = request.POST or None, product = product )
     if form.is_valid():
         form.save(request)
         messages.success(request, AddProductToCartForm.success_message)
     return render_to_response(
         template_name,
-            {
-            'category': category,
-            'product': product,
-            'form': form,
-            },
-        context_instance=RequestContext(request))
+        {
+        'category': category,
+        'product': product,
+        'form': form,
+        },
+        context_instance=RequestContext(request)
+    )

@@ -5,7 +5,7 @@ Module: Catalog
 Part: Model factories for tests
 """
 import factory
-from ..models import Image, Category, Product, Color, Size, MULTIPLE_PRICES
+from ..models import Image, Category, Product, Color, Size
 
 class CategoryFactory(factory.Factory):
     """
@@ -27,8 +27,6 @@ class ProductFactory(factory.Factory):
     slug = 'sample-product'
     description = '<p>Simple <em>HTML-formatted</em> product description</p>'
     enabled = True
-    if not MULTIPLE_PRICES:
-        price = 100
 
 class ColorFactory(factory.Factory):
     """
@@ -54,15 +52,13 @@ class ImageFactory(factory.Factory):
     enabled = True
     priority = False
 
-if MULTIPLE_PRICES:
-    from ..models import Price
+from ..models import Shipment
 
-    class PriceFactory(factory.Factory):
-        """
-        Price model factory
-        """
-        FACTORY_FOR = Price
-        note = 'sample price'
-        value = 100
-        remainder = 100
-        enabled = True
+class ShipmentFactory(factory.Factory):
+    """
+    Shipment model factory
+    """
+    FACTORY_FOR = Shipment
+    special_price = 100
+    remainder = 100
+    enabled = True
