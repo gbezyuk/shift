@@ -20,11 +20,12 @@ class AddProductToCartForm(forms.Form):
         super(AddProductToCartForm, self).__init__(**kwargs)
         self.product = product
         self.fields['shipment'].queryset = product.shipments_available
-        self.fields['shipment'].initial = product.shipments_available[0]
+        if len(product.shipments_available):
+            self.fields['shipment'].initial = product.shipments_available[0]
 
     def is_valid(self):
         """Buying nothing is always invalid =)"""
-        if not self.product:
+        if not self.product or not len(self.product.shipments_available):
             return False
         return super(AddProductToCartForm, self).is_valid()
 
