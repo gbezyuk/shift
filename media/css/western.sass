@@ -371,10 +371,9 @@ label
 
   .text
     float: right
-    height: 320px
-    width: 430px
+    width: 600px
     padding-left: 10px
-    margin-bottom: 30px
+    margin-bottom: 20px
     overflow: auto
 
     h1
@@ -385,7 +384,7 @@ label
 
   .shopping
     float: right
-    width: 420px
+    width: 600px
     padding-left: 20px
 
     .stock_status
@@ -395,12 +394,12 @@ label
 
       .remainder
         em
-          display: none
+          //display: none
         strong:after
           content: 'шт. '
 
       .price_block
-        padding-top: 10px
+        //padding-top: 10px
         .label
           display: none
 
@@ -409,7 +408,7 @@ label
           font-weight: bold
 
     .add_to_cart_form
-      width: 250px
+      width: 400px
       float: right
       position: relative
 
@@ -426,13 +425,13 @@ label
 
       input
         float: left
-        width: 40px
+        //width: 40px
         padding: 5px
         text-align: center
 
       select
         float: left
-        width: 140px
+        //width: 140px
         padding: 5px
         text-align: center
 
@@ -443,12 +442,12 @@ label
 
       button
         float: right
-        width: 100px
+        width: 160px
         border: 1px solid #552A19
         border-radius: 10px
         -moz-border-radius: 10px
         -webkit-border-radius: 10px
-        padding: 10px 0
+        padding: 25px 0
         text-align: center
         background-color: #552A19
         background-image: -moz-linear-gradient(center top, #552A19, lighten(#552A19, 30%))
@@ -631,3 +630,31 @@ ul.category_tree
 // alert-messages tuning
 .alert
   margin-bottom: 0
+
+.products
+
+  li
+    width: 300px
+    height: 280px
+
+  .add_to_cart_form
+    overflow: hidden
+
+    select
+      width: 230px
+      float: left
+
+    input
+      width: 220px
+      float: left
+
+    button
+      width: 66px
+      float: right
+      padding: 20px 0
+
+
+.you_might_be_interested .thumbnail,
+.also_they_buy .thumbnail
+  width: 40px
+  height: 40px
