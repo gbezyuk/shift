@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-06 14:52+0400\n"
-"PO-Revision-Date: 2012-11-06 14:53\n"
-"Last-Translator:   <admin@example.com>\n"
+"POT-Creation-Date: 2012-11-27 03:58+0400\n"
+"PO-Revision-Date: 2012-11-27 04:00\n"
+"Last-Translator:   <admin@westernunit.ru>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,207 +47,165 @@ msgstr "Эта учётная запись отключена"
 msgid "Invalid login/password pair"
 msgstr "Некорректное сочетание имени пользователя и пароля"
 
-#: shift/catalog/admin.py:43
+#: shift/catalog/admin.py:40
 msgid "no images"
 msgstr "нет изображений"
 
-#: shift/catalog/admin.py:62
+#: shift/catalog/admin.py:57
 msgid "lot"
 msgstr "лот"
 
-#: shift/catalog/admin.py:66 shift/catalog/admin.py:111
-#: shift/catalog/models.py:61 shift/catalog/models.py:142
+#: shift/catalog/admin.py:61 shift/catalog/admin.py:102
+#: shift/catalog/models.py:52 shift/catalog/models.py:134
 msgid "description"
 msgstr "описание"
 
-#: shift/catalog/admin.py:73 shift/catalog/admin.py:94
-#: shift/catalog/admin.py:118
+#: shift/catalog/admin.py:68 shift/catalog/admin.py:85
+#: shift/catalog/admin.py:109
 msgid "not set"
 msgstr "не установлено"
 
-#: shift/catalog/admin.py:75 shift/catalog/admin.py:120
+#: shift/catalog/admin.py:70 shift/catalog/admin.py:111
 msgid "main image"
 msgstr "главное изображение"
 
-#: shift/catalog/admin.py:80 shift/catalog/admin.py:125
+#: shift/catalog/admin.py:75 shift/catalog/admin.py:116
 msgid "other images"
 msgstr "прочие изображения"
 
-#: shift/catalog/admin.py:90 shift/catalog/models.py:143
-#: shift/catalog/models.py:213 shift/checkout/models.py:93
+#: shift/catalog/admin.py:81 shift/catalog/models.py:135
+#: shift/checkout/models.py:78
 msgid "price"
 msgstr "цена"
 
-#: shift/catalog/admin.py:100
+#: shift/catalog/admin.py:91
 msgid "other prices"
 msgstr "прочие цены"
 
-#: shift/catalog/admin.py:106 shift/catalog/models.py:30
-#: shift/catalog/models.py:62 shift/catalog/models.py:144
-#: shift/catalog/models.py:284
+#: shift/catalog/admin.py:97 shift/catalog/models.py:21
+#: shift/catalog/models.py:53 shift/catalog/models.py:136
+#: shift/catalog/models.py:217
 msgid "enabled"
 msgstr "включено"
 
-#: shift/catalog/models.py:29 shift/catalog/models.py:246
-#: shift/catalog/models.py:266
+#: shift/catalog/models.py:20 shift/catalog/models.py:200
 msgid "title"
 msgstr "название"
 
-#: shift/catalog/models.py:31
+#: shift/catalog/models.py:22
 msgid "priority"
 msgstr "приоритет"
 
-#: shift/catalog/models.py:32 shift/catalog/models.py:38
+#: shift/catalog/models.py:23 shift/catalog/models.py:29
 msgid "image"
 msgstr "изображение"
 
-#: shift/catalog/models.py:39 shift/catalog/models.py:64
-#: shift/catalog/models.py:145
+#: shift/catalog/models.py:30 shift/catalog/models.py:55
+#: shift/catalog/models.py:137
 msgid "images"
 msgstr "изображения"
 
-#: shift/catalog/models.py:56 shift/catalog/models.py:165
+#: shift/catalog/models.py:47 shift/catalog/models.py:133
 msgid "category"
 msgstr "категория"
 
-#: shift/catalog/models.py:57 shift/catalog/models.py:162
+#: shift/catalog/models.py:48
 msgid "categories"
 msgstr "категории"
 
-#: shift/catalog/models.py:60 shift/catalog/models.py:141
+#: shift/catalog/models.py:51 shift/catalog/models.py:132
 msgid "name"
 msgstr "наименование"
 
-#: shift/catalog/models.py:63
+#: shift/catalog/models.py:54
 msgid "parent"
 msgstr "родитель"
 
-#: shift/catalog/models.py:65 shift/catalog/models.py:146
+#: shift/catalog/models.py:56 shift/catalog/models.py:138
 msgid "slug"
 msgstr "slug"
 
-#: shift/catalog/models.py:81 shift/catalog/models.py:156
-#: shift/catalog/models.py:290 shift/checkout/models.py:28
-#: shift/checkout/models.py:94
+#: shift/catalog/models.py:72 shift/catalog/models.py:149
+#: shift/catalog/models.py:220 shift/checkout/models.py:27
+#: shift/checkout/models.py:79
 msgid "created"
 msgstr "создано"
 
-#: shift/catalog/models.py:82 shift/catalog/models.py:157
-#: shift/catalog/models.py:291 shift/checkout/models.py:29
-#: shift/checkout/models.py:95
+#: shift/catalog/models.py:73 shift/catalog/models.py:150
+#: shift/catalog/models.py:221 shift/checkout/models.py:28
+#: shift/checkout/models.py:80
 msgid "modified"
 msgstr "изменено"
 
-#: shift/catalog/models.py:137 shift/catalog/models.py:281
-#: shift/checkout/models.py:89
+#: shift/catalog/models.py:128 shift/catalog/models.py:215
+#: shift/checkout/models.py:75
 msgid "product"
 msgstr "товар"
 
-#: shift/catalog/models.py:138
+#: shift/catalog/models.py:129
 msgid "products"
 msgstr "товары"
 
-#: shift/catalog/models.py:147
+#: shift/catalog/models.py:139
 msgid "You might be interested"
 msgstr "Также вас может заинтересовать:"
 
-#: shift/catalog/models.py:148
+#: shift/catalog/models.py:140
 msgid "Also they buy with this product"
 msgstr "С этим товаром также покупают:"
 
-#: shift/catalog/models.py:214 shift/catalog/models.py:285
-msgid "remainder"
-msgstr "остаток"
-
-#: shift/catalog/models.py:243 shift/catalog/models.py:244
-#: shift/catalog/models.py:282
-msgid "color"
-msgstr "цвет"
-
-#: shift/catalog/models.py:247
-msgid "code"
-msgstr "код"
-
-#: shift/catalog/models.py:263 shift/catalog/models.py:264
-#: shift/catalog/models.py:283
+#: shift/catalog/models.py:197 shift/catalog/models.py:198
+#: shift/catalog/models.py:216 shift/checkout/forms.py:16
 msgid "size"
 msgstr "размер"
 
-#: shift/catalog/models.py:276 shift/checkout/models.py:91
+#: shift/catalog/models.py:210 shift/checkout/models.py:76
 msgid "shipment"
 msgstr "поставка"
 
-#: shift/catalog/models.py:277
+#: shift/catalog/models.py:211
 msgid "shipments"
 msgstr "поставки"
 
-#: shift/catalog/models.py:286
-msgid "specific price"
+#: shift/catalog/models.py:218
+msgid "remainder"
+msgstr "остаток"
+
+#: shift/catalog/models.py:219
+msgid "special price"
 msgstr "особая цена"
 
-#: shift/catalog/models.py:287
-msgid "added to cart times"
-msgstr "добавлений в корзину"
-
-#: shift/catalog/models.py:288
-msgid "ordered times"
-msgstr "количество заказов"
-
-#: shift/catalog/models.py:289
-msgid "note"
-msgstr "пометка"
-
-#: shift/catalog/models.py:312
+#: shift/catalog/models.py:232
 #, python-format
-msgid "%(color)s, %(size)s - %(value)d roubles"
-msgstr "%(color)s, %(size)s - %(value)d руб."
+msgid "%(size)s - %(special_price)d roubles [in_stock: %(remainder)s]"
+msgstr "%(size)s - %(special_price)d рублей [на складе: %(remainder)s]"
 
-#: shift/catalog/models.py:314
+#: shift/catalog/models.py:235
 #, python-format
-msgid "%(color)s - %(value)d roubles"
-msgstr "%(color)s - %(value)d руб."
+msgid "%(size)s [in_stock: %(remainder)s]"
+msgstr "%(size)s [на складе: %(remainder)s]"
 
-#: shift/catalog/models.py:316
-#, python-format
-msgid "%(size)s - %(value)d roubles"
-msgstr "%(size)s - %(value)d руб."
-
-#: shift/catalog/models.py:318
-#, python-format
-msgid "%(value)d roubles"
-msgstr "%(value)d руб."
-
-#: shift/checkout/forms.py:15 shift/checkout/forms.py:46
-#: shift/checkout/models.py:92
+#: shift/checkout/forms.py:15 shift/checkout/models.py:77
 msgid "quantity"
 msgstr "количество"
 
-#: shift/checkout/forms.py:31
-#, python-format
-msgid "%d is maximum quantity we can offer for this product"
-msgstr "%d - максимальное количество, какое мы можем предложить"
-
-#: shift/checkout/forms.py:38 shift/checkout/forms.py:73
+#: shift/checkout/forms.py:43
 msgid "product was successfully added to your cart"
 msgstr "товар был успешно добавлен в корзину"
 
-#: shift/checkout/forms.py:47
-msgid "color and size"
-msgstr "цвет и размер"
-
-#: shift/checkout/forms.py:100
+#: shift/checkout/forms.py:70
 msgid "cart was successfully updated"
 msgstr "корзина успешно обновлена"
 
-#: shift/checkout/forms.py:116
+#: shift/checkout/forms.py:86
 msgid "enter your delivery address here"
 msgstr "введите свой адрес доставки здесь"
 
-#: shift/checkout/forms.py:117
+#: shift/checkout/forms.py:87
 msgid "enter your custom comment here"
 msgstr "здесь можно ввести любой дополнительный комментарий"
 
-#: shift/checkout/forms.py:150
+#: shift/checkout/forms.py:120
 msgid ""
 "Your cart is empty. You can not make an empty order, so please fill your "
 "cart first."
@@ -255,76 +213,84 @@ msgstr ""
 "Ваша корзина пуста. Прежде чем делать заказ, пожалуйста, заполните корзину "
 ";)"
 
-#: shift/checkout/forms.py:151
+#: shift/checkout/forms.py:121
 msgid "Your order is successfully made!"
 msgstr "Ваш заказ успешно отравлен!"
 
-#: shift/checkout/models.py:23 shift/checkout/models.py:88
+#: shift/checkout/models.py:22 shift/checkout/models.py:74
 msgid "order"
 msgstr "заказ"
 
-#: shift/checkout/models.py:24
+#: shift/checkout/models.py:23
 msgid "orders"
 msgstr "заказы"
 
-#: shift/checkout/models.py:27
+#: shift/checkout/models.py:26
 msgid "user"
 msgstr "пользователь"
 
-#: shift/checkout/models.py:32
+#: shift/checkout/models.py:30
+msgid "is paid"
+msgstr "оплачено"
+
+#: shift/checkout/models.py:31
+msgid "paid sum"
+msgstr "оплаченная сумма"
+
+#: shift/checkout/models.py:34
 msgid "new"
 msgstr "новый"
 
-#: shift/checkout/models.py:33
+#: shift/checkout/models.py:35
 msgid "processing"
 msgstr "обработка"
 
-#: shift/checkout/models.py:34
+#: shift/checkout/models.py:36
 msgid "awaits shipping"
 msgstr "ожидается поставка"
 
-#: shift/checkout/models.py:35
+#: shift/checkout/models.py:37
 msgid "shipped"
 msgstr "отгружен"
 
-#: shift/checkout/models.py:36
+#: shift/checkout/models.py:38
 msgid "cancelled"
 msgstr "отменён"
 
-#: shift/checkout/models.py:40
+#: shift/checkout/models.py:42
 msgid "customer name"
 msgstr "контактное лицо"
 
-#: shift/checkout/models.py:41
+#: shift/checkout/models.py:43
 msgid "customer phone"
 msgstr "контактный телефон покупателя"
 
-#: shift/checkout/models.py:42
+#: shift/checkout/models.py:44
 msgid "customer e-mail"
 msgstr "e-mail покупателя"
 
-#: shift/checkout/models.py:43
+#: shift/checkout/models.py:45
 msgid "delivery address"
 msgstr "адрес доставки"
 
-#: shift/checkout/models.py:44
+#: shift/checkout/models.py:46
 msgid "comment"
 msgstr "комментарий"
 
-#: shift/checkout/models.py:45
+#: shift/checkout/models.py:47
 msgid "IP adress"
 msgstr "IP-адрес"
 
-#: shift/checkout/models.py:48
+#: shift/checkout/models.py:50
 #, python-format
 msgid "Order #%d"
 msgstr "Заказ #%d"
 
-#: shift/checkout/models.py:84
+#: shift/checkout/models.py:70
 msgid "order item"
 msgstr "позиция заказа"
 
-#: shift/checkout/models.py:85
+#: shift/checkout/models.py:71
 msgid "order items"
 msgstr "позиции заказов"
 
@@ -460,23 +426,21 @@ msgstr "Нет доступных категорий"
 msgid "No image yet"
 msgstr "нет изображений"
 
-#: templates/doppler/shift/catalog/product.haml:43
-msgid "Colors available: "
-msgstr "Цвета в наличии:"
+#: templates/doppler/shift/catalog/product.haml:50
+#: templates/doppler/shift/checkout/snippets/cart_table.haml:11
+#: templates/doppler/shift/checkout/snippets/order_details.haml:10
+msgid "Price"
+msgstr "Цена"
 
-#: templates/doppler/shift/catalog/product.haml:53
-msgid "Sizes available: "
-msgstr "Размеры в наличии:"
+#: templates/doppler/shift/catalog/product.haml:55
+msgid "In stock"
+msgstr "На складе"
 
-#: templates/doppler/shift/catalog/product.haml:65
-msgid "Remains in stock"
-msgstr "В наличии"
+#: templates/doppler/shift/catalog/product.haml:59
+msgid "Updated at"
+msgstr "Обновлено"
 
-#: templates/doppler/shift/catalog/product.haml:69
-msgid "Last updated"
-msgstr "Последнее обновление"
-
-#: templates/doppler/shift/catalog/product.haml:72
+#: templates/doppler/shift/catalog/product.haml:62
 msgid ""
 "<a href='mailto:zakaz@westernunit.ru'>Not in stock,<br/>available on "
 "request</a>"
@@ -484,32 +448,31 @@ msgstr ""
 "<a href='mailto:zakaz@westernunit.ru'>Нет в наличии,<br/>доступно под "
 "заказ</a>"
 
-#: templates/doppler/shift/catalog/product.haml:73
+#: templates/doppler/shift/catalog/product.haml:63
 msgid "Not available now"
 msgstr "Нет в наличии"
 
-#: templates/doppler/shift/catalog/product.haml:76
+#: templates/doppler/shift/catalog/product.haml:66
 msgid "reserved"
 msgstr "зарезервировано"
 
-#: templates/doppler/shift/catalog/product.haml:80
-#: templates/doppler/shift/checkout/snippets/cart_table.haml:11
-#: templates/doppler/shift/checkout/snippets/order_details.haml:10
-msgid "Price"
-msgstr "Цена"
-
-#: templates/doppler/shift/catalog/product.haml:92
+#: templates/doppler/shift/catalog/product.haml:76
 msgid "You might be interested:"
 msgstr "Также вас может заинтересовать:"
 
-#: templates/doppler/shift/catalog/product.haml:103
+#: templates/doppler/shift/catalog/product.haml:87
 msgid "Also they buy with this product:"
 msgstr "С этим товаром также покупают:"
 
-#: templates/doppler/shift/catalog/snippets/product_list.haml:19
-#: templates/doppler/shift/catalog/snippets/product_list.haml:22
+#: templates/doppler/shift/catalog/snippets/product_list.haml:20
+#: templates/doppler/shift/catalog/snippets/product_list.haml:23
 msgid "<a href='mailto:zakaz@westernunit.ru'>On request</a>"
 msgstr "<a href='mailto:zakaz@westernunit.ru'>Под заказ</a>"
+
+#: templates/doppler/shift/catalog/snippets/product_list.haml:28
+#: templates/doppler/shift/checkout/snippets/add_to_cart_form.haml:4
+msgid "Buy"
+msgstr "Купить"
 
 #: templates/doppler/shift/checkout/cart.haml:17
 msgid "Update"
@@ -535,11 +498,14 @@ msgstr ""
 msgid "CONFIRM ORDER"
 msgstr "ПОДТВЕРДИТЬ ЗАКАЗ"
 
+#: templates/doppler/shift/checkout/order.haml:16
+msgid "Order is already paid"
+msgstr "Заказ оплачен"
+
 #: templates/doppler/shift/checkout/orders.haml:10
 msgid "My Orders"
 msgstr "Мои заказы:"
 
-#: templates/doppler/shift/checkout/snippets/add_to_cart_form.haml:7
 #: templates/doppler/shift/checkout/snippets/advanced_add_to_cart_form.haml:7
 msgid "Add to cart"
 msgstr "Добавить в корзину"
@@ -612,14 +578,18 @@ msgid "Status"
 msgstr "Статус"
 
 #: templates/doppler/shift/checkout/snippets/order_list.haml:14
+msgid "Is Paid"
+msgstr "Оплачено"
+
+#: templates/doppler/shift/checkout/snippets/order_list.haml:16
 msgid "Created"
 msgstr "Создано"
 
-#: templates/doppler/shift/checkout/snippets/order_list.haml:16
+#: templates/doppler/shift/checkout/snippets/order_list.haml:18
 msgid "Modified"
 msgstr "Изменено"
 
-#: templates/doppler/shift/checkout/snippets/order_list.haml:39
+#: templates/doppler/shift/checkout/snippets/order_list.haml:43
 msgid "You haven't ordered anything yet"
 msgstr "Вы пока ничего не заказывали"
 
@@ -634,6 +604,51 @@ msgstr "Сделать заказ"
 #: templates/doppler/shift/checkout/snippets/breadcrumbs/orders.haml:4
 msgid "Orders"
 msgstr "Заказы"
+
+#~ msgid "color"
+#~ msgstr "цвет"
+
+#~ msgid "code"
+#~ msgstr "код"
+
+#~ msgid "added to cart times"
+#~ msgstr "добавлений в корзину"
+
+#~ msgid "ordered times"
+#~ msgstr "количество заказов"
+
+#~ msgid "note"
+#~ msgstr "пометка"
+
+#~ msgid "%(color)s, %(size)s - %(value)d roubles"
+#~ msgstr "%(color)s, %(size)s - %(value)d руб."
+
+#~ msgid "%(color)s - %(value)d roubles"
+#~ msgstr "%(color)s - %(value)d руб."
+
+#~ msgid "%(size)s - %(value)d roubles"
+#~ msgstr "%(size)s - %(value)d руб."
+
+#~ msgid "%(value)d roubles"
+#~ msgstr "%(value)d руб."
+
+#~ msgid "%d is maximum quantity we can offer for this product"
+#~ msgstr "%d - максимальное количество, какое мы можем предложить"
+
+#~ msgid "color and size"
+#~ msgstr "цвет и размер"
+
+#~ msgid "Colors available: "
+#~ msgstr "Цвета в наличии:"
+
+#~ msgid "Sizes available: "
+#~ msgstr "Размеры в наличии:"
+
+#~ msgid "Remains in stock"
+#~ msgstr "В наличии"
+
+#~ msgid "Last updated"
+#~ msgstr "Последнее обновление"
 
 #~ msgid "N/A"
 #~ msgstr "Нет"

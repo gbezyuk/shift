@@ -63,6 +63,8 @@ def category_fallback(request, url):
 def render_category(request, category, template_name='doppler/shift/catalog/category.haml'):
     products = category.enabled_products
     subcategories = category.children.filter(enabled=True)
+    for product in products:
+        product.form = AddProductToCartForm( product = product )
     return render_to_response(
         template_name,
         {

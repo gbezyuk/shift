@@ -39,24 +39,24 @@
                 %h1
                     = product.name
 
-                - if product.sizes_available
-                    .sizes_available
-                        %h4 {% trans "Sizes available: " %}
-                        - for size in product.sizes_available
-                            = size
-
                 - if product.description
                     .description
                         = product.description|safe
             .shopping
                 .stock_status
+                    - if product.price
+                        .price_block
+                            .label
+                                {% trans "Price" %}:
+                            %strong.price
+                                = product.price
                     .remainder
                         - if product.remainder
-                            {% trans "Remains in stock total" %}:
+                            {% trans "In stock" %}:
                             %strong
                                 = product.remainder
                             %em
-                                {% trans "Last updated" %}
+                                {% trans "Updated at" %}
                                 = product.remainder_update_time
                         - else
                             {% trans "<a href='mailto:zakaz@westernunit.ru'>Not in stock,<br/>available on request</a>" %}
@@ -64,12 +64,6 @@
                             - if product.reserved
                                 = product.reserved
                                 {% trans "reserved" %}
-                    - if product.price
-                        .price_block
-                            .label
-                                {% trans "Price" %}:
-                            %strong.price
-                                = product.price
                 .add_to_cart_form
                     - if product.price and product.remainder
                         - include 'doppler/shift/checkout/snippets/add_to_cart_form.haml'

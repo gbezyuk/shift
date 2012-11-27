@@ -8,15 +8,24 @@
                         - include 'doppler/shift/catalog/snippets/image.haml'
                 %h3{'style': 'max-width: 292px;'}
                     = product.name
-                .pull-right
-                    - if product.price
-                        %strong
-                            = product.price
-                        - if product.remainder
-                            %em
-                                = product.remainder
+                - if not product.price and product.remainder
+                    .pull-right
+                        - if product.price
+                            %strong
+                                = product.price
+                            - if product.remainder
+                                %em
+                                    = product.remainder
+                            - else
+                                {% trans "<a href='mailto:zakaz@westernunit.ru'>On request</a>" %}
                         - else
-                            {% trans "<a href='mailto:zakaz@westernunit.ru'>On request</a>" %}
-                    - else
-                        %em
-                            {% trans "<a href='mailto:zakaz@westernunit.ru'>On request</a>" %}
+                            %em
+                                {% trans "<a href='mailto:zakaz@westernunit.ru'>On request</a>" %}
+            - if product.price and product.remainder
+                .add_to_cart_form
+                    %form.add_to_cart{'method': 'POST', 'action': '{{ product.get_absolute_url }}'}
+                        %button{'type': 'submit'}
+                            {% trans "Buy" %}
+                        - csrf_token
+                        = product.form.shipment
+                        = product.form.quantity
