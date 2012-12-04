@@ -250,4 +250,4 @@ GOOGLE_CONSUMER_SECRET = 'vuhwjp1IWmdwUYWQWQgcBeDV'
 ROBOKASSA_LOGIN = 'westernunit'
 ROBOKASSA_PASSWORD1 = 'na4RE&UcetRephapRe?uma=arathEdAcajAdreZeruFEk$Kac-u$Apuchufrutha'
 ROBOKASSA_PASSWORD2 = 'DenEpup7na4eTrebrEjew9haDuhaWes5Ef3ETUspupHuthEfadUdruYAxu#Axutr'
-ROBOKASSA_TEST_MODE = True
+ROBOKASSA_TEST_MODE = False

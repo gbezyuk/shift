@@ -3,7 +3,7 @@ def import_from_csv(filename):
     parsed = []
     for s in f:
         parsed.append(s.split(','))
-    objects = [{'category': p[0], 'name': p[1], 'slug': p[2], 'sizes': p[3:-2], 'price': int("0"+(p[-2]+p[-1]).replace('"', ''))/100} for p in parsed[3:]]
+    objects = [{'category': p[0], 'name': p[1], 'slug': p[2], 'sizes': p[4:-2], 'price': int("0"+p[3])} for p in parsed[3:]]
 
     i = 0
     sizes = []
@@ -17,6 +17,7 @@ def import_sizes(sizes):
     from doppler.shift.catalog.models import Size
     for s in sizes:
         Size(title=s[-1]).save()
+
 
 def import_products(products, mens_category, womens_category, childrens_category, quantity=100):
     from doppler.shift.catalog.models import Product, Shipment
@@ -32,7 +33,6 @@ def import_products(products, mens_category, womens_category, childrens_category
             Shipment(product=pd, size_id=s+1, remainder=quantity, enabled=True).save()
 
 """
-# %cpaste it via ipython django shell
 from import_from_csv import *
 from doppler.shift.catalog.models import *
 Product.objects.all().delete()
@@ -40,4 +40,16 @@ sizes, products = import_from_csv('catalog.csv')
 #import_sizes(sizes)
 m,f,c = Category.objects.all()
 import_products(products, m, f, c)
+
+for p in products:
+    if p['category'] == 'муж':
+        pd = Product.objects.get(slug=p['slug'])
+        pd.category_id = 1
+        pd.save()
+for p in products:
+    if p['category'] == 'жен':
+        pd = Product.objects.get(slug=p['slug'])
+        pd.category_id = 2
+        pd.save()
+
 """
