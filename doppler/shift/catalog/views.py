@@ -85,7 +85,21 @@ def render_product(request, product, template_name='doppler/shift/catalog/produc
     form = AddProductToCartForm( data = request.POST or None, product = product )
     if form.is_valid():
         form.save(request)
-        messages.success(request, AddProductToCartForm.success_message)
+        if not request.is_ajax():
+            messages.success(request, AddProductToCartForm.success_message)
+    if request.is_ajax():
+        from django.http import HttpResponse
+        from django.utils import simplejson
+        cart = getattr(request, 'cart', None)
+        data = {
+            'result': True,
+            'in_cart': cart.items_total,
+        }
+        return HttpResponse(
+            simplejson.dumps(data, sort_keys=True, indent=4),
+            mimetype='application/json'
+        )
+
     return render_to_response(
         template_name,
         {

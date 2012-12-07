@@ -23,8 +23,10 @@
                                 {% trans "<a href='mailto:zakaz@westernunit.ru'>On request</a>" %}
             - if product.price and product.remainder
                 .add_to_cart_form
-                    %form.add_to_cart{'method': 'POST', 'action': '{{ product.get_absolute_url }}'}
-                        %button{'type': 'submit'}
+                    %form.add_to_cart.product_add_form{'method': 'POST', 'action': '{{ product.get_absolute_url }}'}
+                        .ajax_loading_indicator{:style => 'display: none;'}
+                            wait a second...
+                        %button.submit{'type': 'submit'}
                             {% trans "Buy" %}
                         - csrf_token
                         = product.form.shipment

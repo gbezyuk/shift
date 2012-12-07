@@ -52,6 +52,8 @@ class ProductAdmin(TinyMCEAdmin, TranslationAdmin):
     inlines = [ImageTabularInline, get_inline(MyMetadata)]
     prepopulated_fields = {"slug": ("name",)}
 
+    list_filter = ('category', 'enabled')
+
     def lot(self, object):
         return object.id
     lot.short_description = _('lot')
