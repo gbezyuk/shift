@@ -1134,6 +1134,7 @@ $(function () {
         beforeSubmit: function (arr, $form, options) {
             $form.find('button.submit').hide();
             $form.find('.ajax_loading_indicator').show();
+            $form.find('.added_ok').hide();
         },
         success: function (response, statusText, xhr, $form) {
             $form.find('button.submit').show();
@@ -1143,6 +1144,7 @@ $(function () {
                     $('#cart-dropdown-toggler .empty').replaceWith('<div id="cart_header_widget_items_total" class="full">0</div>');
                 }
                 $('#cart_header_widget_items_total').text(response.in_cart);
+                $form.find('.added_ok').show();
             }
             else {
             }

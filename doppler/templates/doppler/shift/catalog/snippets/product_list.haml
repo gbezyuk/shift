@@ -6,26 +6,25 @@
                 .version.version300x186
                     - with image=product.main_image no_link=1 thumbnail_version="300x186"
                         - include 'doppler/shift/catalog/snippets/image.haml'
-                %h3{'style': 'max-width: 292px;'}
-                    = product.name
-                - if not product.price and product.remainder
+                - if product.price
                     .pull-right
-                        - if product.price
-                            %strong
-                                = product.price
-                            - if product.remainder
-                                %em
-                                    = product.remainder
-                            - else
-                                {% trans "<a href='mailto:zakaz@westernunit.ru'>On request</a>" %}
-                        - else
-                            %em
-                                {% trans "<a href='mailto:zakaz@westernunit.ru'>On request</a>" %}
+                        %strong
+                            = product.price
+                            {% trans "Rub" %}
+                %h3{'style': 'max-width: 240px; max-height:30px; overflow: hidden;'}
+                    = product.name
+                - if not product.price or not product.remainder
+                    .pull-right
+                        %em
+                            {% trans "<a href='mailto:zakaz@westernunit.ru'>On request</a>" %}
             - if product.price and product.remainder
                 .add_to_cart_form
                     %form.add_to_cart.product_add_form{'method': 'POST', 'action': '{{ product.get_absolute_url }}'}
+
+                        .added_ok{:style => 'display: none;'}
+                            {% trans "Product added!" %}
                         .ajax_loading_indicator{:style => 'display: none;'}
-                            wait a second...
+                            {% trans "Adding to cart..." %}
                         %button.submit{'type': 'submit'}
                             {% trans "Buy" %}
                         - csrf_token
