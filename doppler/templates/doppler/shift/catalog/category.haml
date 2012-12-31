@@ -20,17 +20,18 @@
     - include 'doppler/shift/catalog/snippets/breadcrumbs/catalog.haml'
     - include 'doppler/shift/catalog/snippets/breadcrumbs/category.haml'
 
+- block page_caption
+    = category.name
+
 -#- block doppler_content
 - block catalog_tree
     -#- ifequal category.level 0
     -#    - block picture
     -#        %img{:src => '{{ category.main_image.image.url }}', :width => '805px'}
     -#- else
-    .hero-unit
-        %h1
-            = category.name
-        - if category.description
-            = category.description|safe
+
+    - if category.description
+        = category.description|safe
     - if subcategories
         - with categories=subcategories
             - include 'doppler/shift/catalog/snippets/category_list.haml'

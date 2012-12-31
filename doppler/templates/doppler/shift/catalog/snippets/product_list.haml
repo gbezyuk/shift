@@ -7,16 +7,13 @@
                     - with image=product.main_image no_link=1 thumbnail_version="300x186"
                         - include 'doppler/shift/catalog/snippets/image.haml'
                 - if product.price
-                    .pull-right
-                        %strong
+                    .pull-right.product_price
+                        .price
                             = product.price
-                            {% trans "Rub" %}
                 %h3{'style': 'max-width: 240px; max-height:30px; overflow: hidden;'}
                     = product.name
                 - if not product.price or not product.remainder
-                    .pull-right
-                        %em
-                            {% trans "<a href='mailto:zakaz@westernunit.ru'>On request</a>" %}
+                    %a.on_demand{href:"mailto:zakaz@westernunit.ru"} На заказ
             - if product.price and product.remainder
                 .add_to_cart_form
                     %form.add_to_cart.product_add_form{'method': 'POST', 'action': '{{ product.get_absolute_url }}'}

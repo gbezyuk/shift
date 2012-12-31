@@ -167,10 +167,10 @@ body
 .main_container
   //margin-top: 126px
   min-height: 360px
-  color: #310000
-  background-color: #FFF
+  color: #BB4200
+  background-color: #FFE9C9
   overflow: hidden
-  padding: 170px 16px 44px
+  padding: 140px 16px 44px
   width: 962px
   position: relative
 
@@ -554,8 +554,9 @@ ul.category_tree
         display: block
 
 .price:after
-  font-weight: bold
+  font-weight: normal
   content: ' руб.'
+  font-size: 0.6em
 
 .order_list
   .status,
@@ -636,6 +637,19 @@ ul.category_tree
   li
     width: 300px
     height: 280px
+    background-color: #FDD1A4
+    border-color: #FFF
+    border-width: 1px
+    color: #16110B
+
+  h3
+    color: #000107
+
+  .product_price
+    color: #C14600
+    .price
+      font-size: 18px
+      font-weight: bold
 
   .add_to_cart_form
     overflow: hidden
@@ -643,18 +657,45 @@ ul.category_tree
     select
       width: 230px
       float: left
+      margin: 0 0 2px 0
+      background: #FFF
+
+      option
+        background: #FFF
 
     input
       width: 220px
       float: left
+      margin: 0 0 2px 0
 
     button
       width: 66px
       float: right
-      padding: 20px 0
+      padding: 18px 0
+      color: #FFF
+      background-color: #C14600
+      border: 1px solid #FFF
+      border-radius: 5px
+      text-decoration: underline
+
+  .on_demand
+    color: #C14600
+    display: block
+    padding-top: 5px
+
+  .version300x186
+    margin-bottom: 10px
+    background-color: #FFF
 
 
 .you_might_be_interested .thumbnail,
 .also_they_buy .thumbnail
   width: 40px
   height: 40px
+
+h1
+  padding-bottom: 0.5em
+
+.version300x186
+  width: 300px
+  height: 186px
