@@ -151,7 +151,7 @@ body {
     .main_container .breadcrumb:first-child {
       top: 0; }
   .main_container.home {
-    padding: 126px 0 0 0;
+    padding: 110px 0 0 0;
     width: 992px;
     position: relative; }
     .main_container.home .breadcrumb {
@@ -557,4 +557,5 @@ h1 {
 
 .version300x186 {
   width: 300px;
-  height: 186px; }
+  height: 186px;
+  text-align: center; }
