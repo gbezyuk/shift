@@ -135,10 +135,10 @@ body {
 
 .main_container {
   min-height: 360px;
-  color: #310000;
-  background-color: white;
+  color: #bb4200;
+  background-color: #ffe9c9;
   overflow: hidden;
-  padding: 170px 16px 44px;
+  padding: 140px 16px 44px;
   width: 962px;
   position: relative; }
   .main_container .breadcrumb {
@@ -437,8 +437,9 @@ ul.category_tree {
       display: block; }
 
 .price:after {
-  font-weight: bold;
-  content: " руб."; }
+  font-weight: normal;
+  content: " руб.";
+  font-size: 0.6em; }
 
 .order_list .status,
 .order_list tr:hover .status {
@@ -504,21 +505,56 @@ ul.category_tree {
 
 .products li {
   width: 300px;
-  height: 280px; }
+  height: 280px;
+  background-color: #fdd1a4;
+  border-color: white;
+  border-width: 1px;
+  color: #16110b; }
+.products h3 {
+  color: #000107; }
+.products .product_price {
+  color: #c14600; }
+  .products .product_price .price {
+    font-size: 18px;
+    font-weight: bold; }
 .products .add_to_cart_form {
   overflow: hidden; }
   .products .add_to_cart_form select {
     width: 230px;
-    float: left; }
+    float: left;
+    margin: 0 0 2px 0;
+    background: white; }
+    .products .add_to_cart_form select option {
+      background: white; }
   .products .add_to_cart_form input {
     width: 220px;
-    float: left; }
+    float: left;
+    margin: 0 0 2px 0; }
   .products .add_to_cart_form button {
     width: 66px;
     float: right;
-    padding: 20px 0; }
+    padding: 18px 0;
+    color: white;
+    background-color: #c14600;
+    border: 1px solid white;
+    border-radius: 5px;
+    text-decoration: underline; }
+.products .on_demand {
+  color: #c14600;
+  display: block;
+  padding-top: 5px; }
+.products .version300x186 {
+  margin-bottom: 10px;
+  background-color: white; }
 
 .you_might_be_interested .thumbnail,
 .also_they_buy .thumbnail {
   width: 40px;
   height: 40px; }
+
+h1 {
+  padding-bottom: 0.5em; }
+
+.version300x186 {
+  width: 300px;
+  height: 186px; }
