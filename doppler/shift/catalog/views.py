@@ -62,15 +62,24 @@ def category_fallback(request, url):
 @csrf_protect
 def render_category(request, category, template_name='doppler/shift/catalog/category.haml'):
     products = category.enabled_products
+    season_filter = 'all'
+    if 'season_filter' in request.GET:
+        if request.GET['season_filter'] == 'winter':
+            products = products.filter(is_winter=True)
+            season_filter = 'winter'
+        if request.GET['season_filter'] == 'summer':
+            products = products.filter(is_winter=False)
+            season_filter = 'summer'
     subcategories = category.children.filter(enabled=True)
     for product in products:
         product.form = AddProductToCartForm( product = product )
     return render_to_response(
         template_name,
         {
-        'category': category,
-        'products': products,
-        'subcategories': subcategories,
+            'season_filter': season_filter,
+            'category': category,
+            'products': products,
+            'subcategories': subcategories,
         },
         context_instance=RequestContext(request)
     )

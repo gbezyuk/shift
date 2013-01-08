@@ -4,7 +4,7 @@
 
 - block main_container_class
     -#with_sidebar
-    -#- ifequal category.level 0
+    -#- ifequal category.level 0'
     -#    promo
     -#- else
     -#    EAT THAT
@@ -22,6 +22,10 @@
 
 - block page_caption
     = category.name
+    - ifequal season_filter 'winter'
+        ({% trans "winter" %})
+    - ifequal season_filter 'summer'
+        ({% trans "summer" %})
 
 -#- block doppler_content
 - block catalog_tree
@@ -40,3 +44,17 @@
     - if not products and not subcategories
         %p.alert.alert-info
             {% trans "This category is empty" %}
+
+- block additional_fixed_ui
+    .season_filter_fixed
+        %h3 {% trans "Show" %}
+        %ul
+            %li
+                %a{:href => '?season_filter=winter', :class => '{% ifequal season_filter "winter" %}active{% endifequal %}'}
+                    {% trans "winter hats" %}
+            %li
+                %a{:href => '?season_filter=summer', :class => '{% ifequal season_filter "summer" %}active{% endifequal %}'}
+                    {% trans "summer hats" %}
+            %li
+                %a{:href => '?season_filter=all', :class => '{% ifequal season_filter "all" %}active{% endifequal %}'}
+                    {% trans "all hats" %}
