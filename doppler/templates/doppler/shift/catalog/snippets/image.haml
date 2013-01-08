@@ -1,3 +1,5 @@
+- load i18n
+
 - if image and image.image
     - with default_big_version="800x800" default_thumbnail_version="200x200"
         - if no_link
@@ -22,3 +24,10 @@
                     - else
                         - with thumbnail_version=default_thumbnail_version
                             - include 'doppler/snippets/render_image.haml'
+- else
+    %div{
+        'alt':'{% trans "no image available" %}',
+        'title': '{% trans "no image available" %}',
+        'style': 'background: url("/media/images/no_image.png") 50% 50% no-repeat; width: 300px; height: 186px;',
+        'class': 'no_image_default'
+    }

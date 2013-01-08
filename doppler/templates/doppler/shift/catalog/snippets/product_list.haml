@@ -1,29 +1,48 @@
 - load i18n
 %ul.products.thumbnails{'style': "margin-left: -22px;"}
     - for product in products
-        %li.thumbnail.position-thumbnail{'style': "margin-left: 17px; min-width: 296px; min-height: 260px"}
-            %a{'href': '{{ product.get_absolute_url }}'}
-                .version.version300x186
-                    - with image=product.main_image no_link=1 thumbnail_version="300x186"
-                        - include 'doppler/shift/catalog/snippets/image.haml'
-                - if product.price
-                    .pull-right.product_price
-                        .price
-                            = product.price
-                %h3{'style': 'max-width: 240px; max-height:30px; overflow: hidden;'}
-                    = product.name
-                - if not product.price or not product.remainder
-                    %a.on_demand{href:"mailto:zakaz@westernunit.ru"} На заказ
-            - if product.price and product.remainder
-                .add_to_cart_form
-                    %form.add_to_cart.product_add_form{'method': 'POST', 'action': '{{ product.get_absolute_url }}'}
-
+        - if product.price and product.remainder
+            %li.thumbnail.position-thumbnail{'style': "margin-left: 17px; min-width: 296px; min-height: 260px"}
+                %a{'href': '{{ product.get_absolute_url }}'}
+                    .version.version300x186
+                        .season_indicator{'class': '{% if product.is_winter %}winter{% else %}summer{% endif %}', 'alt': '{% if product.is_winter %}{% trans "winter hat" %}{% else %}{% trans "summer hat" %}{% endif %}', 'title': '{% if product.is_winter %}{% trans "winter hat" %}{% else %}{% trans "summer hat" %}{% endif %}'}
+                        - with image=product.main_image no_link=1 thumbnail_version="300x186"
+                            - include 'doppler/shift/catalog/snippets/image.haml'
+                    - if product.price
+                        .pull-right.product_price
+                            .price
+                                = product.price
+                    %h3{'style': 'max-width: 240px; max-height:30px; overflow: hidden;'}
+                        = product.name
+                    .add_to_cart_form
                         .added_ok{:style => 'display: none;'}
-                            {% trans "Product added!" %}
+                            &#x2714; {% trans "Product added!" %}
                         .ajax_loading_indicator{:style => 'display: none;'}
                             {% trans "Adding to cart..." %}
-                        %button.submit{'type': 'submit'}
-                            {% trans "Buy" %}
-                        - csrf_token
-                        = product.form.shipment
-                        = product.form.quantity
+                        %form.add_to_cart.product_add_form{'method': 'POST', 'action': '{{ product.get_absolute_url }}'}
+                            %button.submit{'type': 'submit'}
+                                {% trans "Buy" %}
+                            - csrf_token
+                            = product.form.shipment
+                            = product.form.quantity
+
+%hr.product_list_divider
+
+%ul.products.thumbnails{'style': "margin-left: -22px;"}
+
+    - for product in products
+        - if not product.price or not product.remainder
+            %li.thumbnail.position-thumbnail{'style': "margin-left: 17px; min-width: 296px; min-height: 260px"}
+                %a{'href': '{{ product.get_absolute_url }}'}
+                    .version.version300x186
+                        .season_indicator{'class': '{% if product.is_winter %}winter{% else %}summer{% endif %}', 'alt': '{% if product.is_winter %}{% trans "winter hat" %}{% else %}{% trans "summer hat" %}{% endif %}', 'title': '{% if product.is_winter %}{% trans "winter hat" %}{% else %}{% trans "summer hat" %}{% endif %}'}
+                        - with image=product.main_image no_link=1 thumbnail_version="300x186"
+                            - include 'doppler/shift/catalog/snippets/image.haml'
+                    - if product.price
+                        .pull-right.product_price
+                            .price
+                                = product.price
+                    %h3{'style': 'max-width: 240px; max-height:30px; overflow: hidden;'}
+                        = product.name
+
+                    %a.on_demand{href:"mailto:zakaz@westernunit.ru"} На заказ

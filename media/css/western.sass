@@ -654,6 +654,22 @@ ul.category_tree
   .add_to_cart_form
     overflow: hidden
 
+    .ajax_loading_indicator
+      color: red
+      width: 300px
+      height: 60px
+      text-align: center
+      line-height: 60px
+      display: block
+
+    .added_ok
+      color: green
+      width: 300px
+      height: 60px
+      text-align: center
+      line-height: 60px
+      display: block
+
     select
       width: 230px
       float: left
@@ -700,3 +716,26 @@ h1
   width: 300px
   height: 186px
   text-align: center
+  position: relative
+
+  .season_indicator
+    position: absolute
+    right: 5px
+    top: 5px
+    width: 32px
+    height: 32px
+    opacity: 0.5
+
+    &.winter
+      background: transparent url('/media/images/winter_32x32.png') 50% 50% no-repeat
+
+    &.summer
+      background: transparent url('/media/images/sun_32x32.png') 50% 50% no-repeat
+
+    &:hover
+      opacity: 1
+
+hr.product_list_divider
+  color: #C14600
+  height: 1px
+  margin: 10px 0

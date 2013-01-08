@@ -1132,19 +1132,19 @@
 $(function () {
     $('.product_add_form').ajaxForm({
         beforeSubmit: function (arr, $form, options) {
-            $form.find('button.submit').hide();
-            $form.find('.ajax_loading_indicator').show();
-            $form.find('.added_ok').hide();
+            $form.hide();
+            $form.parent().find('.ajax_loading_indicator').show();
+            $form.parent().find('.added_ok').hide();
         },
         success: function (response, statusText, xhr, $form) {
-            $form.find('button.submit').show();
-            $form.find('.ajax_loading_indicator').hide();
-            if (statusText == 'success'&& response && response.result) {
+            $form.parent().find('.ajax_loading_indicator').hide();
+            if (statusText == 'success' && response && response.result) {
                 if ($('#cart-dropdown-toggler .empty')) {
                     $('#cart-dropdown-toggler .empty').replaceWith('<div id="cart_header_widget_items_total" class="full">0</div>');
                 }
                 $('#cart_header_widget_items_total').text(response.in_cart);
-                $form.find('.added_ok').show();
+                $form.parent().find('.added_ok').show();
+                setTimeout(function () { $form.parent().find('.added_ok').hide(); $form.fadeIn() }, 2000);
             }
             else {
             }

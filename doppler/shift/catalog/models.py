@@ -139,6 +139,8 @@ class Product(models.Model):
     you_might_be_interested = models.ManyToManyField(to='self', verbose_name=_('You might be interested'), null=True, blank=True)
     also_they_buy_with_this_product = models.ManyToManyField(to='self', verbose_name=_('Also they buy with this product'), null=True, blank=True)
 
+    is_winter = models.BooleanField(default=True, verbose_name=_('is winter'))
+
     @property
     def enabled_images(self):
         return self.images.filter(enabled=True)

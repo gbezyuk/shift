@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-27 03:58+0400\n"
-"PO-Revision-Date: 2012-11-27 04:00\n"
+"POT-Creation-Date: 2013-01-08 14:58+0400\n"
+"PO-Revision-Date: 2013-01-08 14:59\n"
 "Last-Translator:   <admin@westernunit.ru>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -51,38 +51,38 @@ msgstr "Некорректное сочетание имени пользова�
 msgid "no images"
 msgstr "нет изображений"
 
-#: shift/catalog/admin.py:57
+#: shift/catalog/admin.py:59
 msgid "lot"
 msgstr "лот"
 
-#: shift/catalog/admin.py:61 shift/catalog/admin.py:102
+#: shift/catalog/admin.py:63 shift/catalog/admin.py:104
 #: shift/catalog/models.py:52 shift/catalog/models.py:134
 msgid "description"
 msgstr "описание"
 
-#: shift/catalog/admin.py:68 shift/catalog/admin.py:85
-#: shift/catalog/admin.py:109
+#: shift/catalog/admin.py:70 shift/catalog/admin.py:87
+#: shift/catalog/admin.py:111
 msgid "not set"
 msgstr "не установлено"
 
-#: shift/catalog/admin.py:70 shift/catalog/admin.py:111
+#: shift/catalog/admin.py:72 shift/catalog/admin.py:113
 msgid "main image"
 msgstr "главное изображение"
 
-#: shift/catalog/admin.py:75 shift/catalog/admin.py:116
+#: shift/catalog/admin.py:77 shift/catalog/admin.py:118
 msgid "other images"
 msgstr "прочие изображения"
 
-#: shift/catalog/admin.py:81 shift/catalog/models.py:135
+#: shift/catalog/admin.py:83 shift/catalog/models.py:135
 #: shift/checkout/models.py:78
 msgid "price"
 msgstr "цена"
 
-#: shift/catalog/admin.py:91
+#: shift/catalog/admin.py:93
 msgid "other prices"
 msgstr "прочие цены"
 
-#: shift/catalog/admin.py:97 shift/catalog/models.py:21
+#: shift/catalog/admin.py:99 shift/catalog/models.py:21
 #: shift/catalog/models.py:53 shift/catalog/models.py:136
 #: shift/catalog/models.py:217
 msgid "enabled"
@@ -414,7 +414,7 @@ msgstr "Фильтр"
 msgid "Login"
 msgstr "Войти"
 
-#: templates/doppler/shift/catalog/category.haml:41
+#: templates/doppler/shift/catalog/category.haml:42
 msgid "This category is empty"
 msgstr "Эта категория пуста"
 
@@ -464,12 +464,15 @@ msgstr "Также вас может заинтересовать:"
 msgid "Also they buy with this product:"
 msgstr "С этим товаром также покупают:"
 
-#: templates/doppler/shift/catalog/snippets/product_list.haml:20
-#: templates/doppler/shift/catalog/snippets/product_list.haml:23
-msgid "<a href='mailto:zakaz@westernunit.ru'>On request</a>"
-msgstr "<a href='mailto:zakaz@westernunit.ru'>Под заказ</a>"
+#: templates/doppler/shift/catalog/snippets/product_list.haml:18
+msgid "Product added!"
+msgstr "Товар добавлен в корзину!"
 
-#: templates/doppler/shift/catalog/snippets/product_list.haml:28
+#: templates/doppler/shift/catalog/snippets/product_list.haml:20
+msgid "Adding to cart..."
+msgstr "Добавляем товар в корзину..."
+
+#: templates/doppler/shift/catalog/snippets/product_list.haml:23
 #: templates/doppler/shift/checkout/snippets/add_to_cart_form.haml:4
 msgid "Buy"
 msgstr "Купить"
@@ -604,6 +607,9 @@ msgstr "Сделать заказ"
 #: templates/doppler/shift/checkout/snippets/breadcrumbs/orders.haml:4
 msgid "Orders"
 msgstr "Заказы"
+
+#~ msgid "<a href='mailto:zakaz@westernunit.ru'>On request</a>"
+#~ msgstr "<a href='mailto:zakaz@westernunit.ru'>Под заказ</a>"
 
 #~ msgid "color"
 #~ msgstr "цвет"
